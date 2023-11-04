@@ -1,0 +1,23 @@
+{
+  "name": "mongu",
+  "version": "1.0.0",
+  "description": "JavaScript library to use mongo-like expressions",
+  "main": "dist/mongu.js",
+  "scripts": {
+    "build": "webpack --mode production"
+  },
+  "author": "Martí Serra Molina",
+  "license": "MIT",
+  "keywords": [
+    "javascript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martiserra99/mongu"
+  },
+  "homepage": "https://github.com/martiserra99/mongu",
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
