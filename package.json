@@ -9,7 +9,13 @@
   "author": "Martí Serra Molina",
   "license": "MIT",
   "keywords": [
-    "javascript"
+    "javascript",
+    "expression",
+    "transform",
+    "project",
+    "modify",
+    "update",
+    "mongo"
   ],
   "repository": {
     "type": "git",
