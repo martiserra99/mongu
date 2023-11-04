@@ -1,6 +1,6 @@
 {
   "name": "mongu",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "JavaScript library to use mongo-like expressions",
   "main": "dist/mongu.js",
   "scripts": {
