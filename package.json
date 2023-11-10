@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.6",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -31,7 +31,8 @@
     "trailingComma": "es5"
   },
   "name": "mongu",
-  "author": "Marti Serra",
+  "description": "JavaScript library to use mongo-like expressions",
+  "author": "Marti Serra Molina",
   "module": "dist/mongu.esm.js",
   "size-limit": [
     {
@@ -43,6 +44,20 @@
       "limit": "10 KB"
     }
   ],
+  "keywords": [
+    "javascript",
+    "expression",
+    "transform",
+    "project",
+    "modify",
+    "update",
+    "mongo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martiserra99/mongu"
+  },
+  "homepage": "https://github.com/martiserra99/mongu",
   "devDependencies": {
     "@size-limit/preset-small-lib": "^10.0.2",
     "husky": "^8.0.3",
