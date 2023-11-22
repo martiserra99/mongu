@@ -15,7 +15,7 @@ To use this library you just have to import the function `mongu` and introduce a
 Here is an example:
 
 ```js
-const mongu = require('mongu');
+const { mongu } = require('mongu');
 
 const expr = {
   fullName: {

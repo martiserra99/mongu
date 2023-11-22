@@ -11,7 +11,7 @@ export type Operations = { [key: string]: Operation };
  * @param data The data to evaluate the expression.
  * @returns The evaluated expression.
  */
-export default function mongu(expr: Value, data: Object<Value>): Value {
+export function mongu(expr: Value, data: Object<Value>): Value {
   if (isArray(expr)) return monguArray(expr, data);
   if (isObject(expr)) return monguObject(expr, data);
   if (isString(expr)) return monguString(expr, data);
