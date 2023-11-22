@@ -1,8 +1,8 @@
-type Primitive = string | number | boolean | null;
-type Object<T> = { [key: string]: T };
-type Value = Value[] | { [key: string]: Value } | Primitive;
-type Operation = (args: any, data: Object<Value>) => Value;
-type Operations = { [key: string]: Operation };
+export type Primitive = string | number | boolean | null;
+export type Object<T> = { [key: string]: T };
+export type Value = Value[] | { [key: string]: Value } | Primitive;
+export type Operation = (args: any, data: Object<Value>) => Value;
+export type Operations = { [key: string]: Operation };
 
 /**
  * It evaluates the mongo-like expression with the given data.
@@ -247,6 +247,16 @@ const operations: Operations = {
     const array = mongu(args[1], data);
     assertIsArray(array);
     return array.includes(mongu(args[0], data));
+  },
+  $nin(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[1], data);
+    assertIsArray(array);
+    return !array.includes(mongu(args[0], data));
+  },
+  $push(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[0], data);
+    assertIsArray(array);
+    return [...array, mongu(args[1], data)];
   },
   // Conditional Operators
   $cond(
