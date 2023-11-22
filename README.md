@@ -55,7 +55,7 @@ There are a lot of operators that are supported in mongu:
 
 - String Operators: $concat, $toLower, \$toUpper
 
-- Array Operators: $size, $filter, $map, $reduce, \$in
+- Array Operators: $size, $filter, $map, $reduce, $in, $nin, \$push
 
 - Conditional Operators: \$cond
 
