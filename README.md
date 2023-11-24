@@ -439,3 +439,179 @@ These are some examples:
 ```json
 { "$or": [false, false] } // false
 ```
+
+## ❯ Comparison Operators
+
+### \$cmp
+
+Compares two values and returns:
+
+- `-1` if the first value is less than the second.
+- `1` if the first value is greater than the second.
+- `0` if the two values are equivalent.
+
+`$cmp` has to following syntax:
+
+```json
+{ "$cmp": ["number", "number"] }
+```
+
+These are some examples:
+
+```json
+{ "$cmp": [3, 5] } // -1
+```
+
+```json
+{ "cmp": [5, 3] } // 1
+```
+
+```json
+{ "cmp": [5, 5] } // 0
+```
+
+### \$eq
+
+Compares two values and returns:
+
+- `true` when the values are equivalent.
+- `false` when the values are not equivalent.
+
+`$eq` has to following syntax:
+
+```json
+{ "$eq": ["any", "any"] }
+```
+
+These are some examples:
+
+```json
+{ "$eq": [5, 5] } // true
+```
+
+```json
+{ "eq": ["hello", "bye"] } // false
+```
+
+### \$gt
+
+Compares two values and returns:
+
+- `true` when the first value is greater than the second value.
+- `false` when the first value is less than or equivalent to the second value.
+
+`$gt` has to following syntax:
+
+```json
+{ "$gt": ["number", "number"] }
+```
+
+These are some examples:
+
+```json
+{ "$gt": [5, 2] } // true
+```
+
+```json
+{ "$gt": [5, 7] } // false
+```
+
+### \$gte
+
+Compares two values and returns:
+
+- `true` when the first value is greater than or equivalent to the second value.
+- `false` when the first value is less than the second value.
+
+`$gte` has to following syntax:
+
+```json
+{ "$gte": ["number", "number"] }
+```
+
+These are some examples:
+
+```json
+{ "$gte": [5, 2] } // true
+```
+
+```json
+{ "$gte": [5, 5] } // true
+```
+
+```json
+{ "$gte": [5, 7] } // false
+```
+
+### \$lt
+
+Compares two values and returns:
+
+- `true` when the first value is less than the second value.
+- `false` when the first value is greater than or equivalent to the second value.
+
+`$lt` has to following syntax:
+
+```json
+{ "$lt": ["number", "number"] }
+```
+
+These are some examples:
+
+```json
+{ "$lt": [5, 7] } // true
+```
+
+```json
+{ "$lt": [5, 2] } // false
+```
+
+### \$lte
+
+Compares two values and returns:
+
+- `true` when the first value is less than or equivalent to the second value.
+- `false` when the first value is greater than the second value.
+
+`$lte` has to following syntax:
+
+```json
+{ "$lte": ["number", "number"] }
+```
+
+These are some examples:
+
+```json
+{ "$lte": [5, 7] } // true
+```
+
+```json
+{ "$lte": [5, 5] } // true
+```
+
+```json
+{ "$lte": [5, 2] } // false
+```
+
+### \$ne
+
+Compares two values and returns:
+
+- `true` when the values are not equivalent.
+- `false` when the values are equivalent.
+
+`$ne` has to following syntax:
+
+```json
+{ "$ne": ["any", "any"] }
+```
+
+These are some examples:
+
+```json
+{ "ne": ["hello", "bye"] } // true
+```
+
+```json
+{ "$ne": [5, 5] } // false
+```
