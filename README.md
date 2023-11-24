@@ -4,8 +4,8 @@ Use mongo-like expressions in JavaScript (node or browser).
 
 ## ❯ Install
 
-```bash
-\$ npm install --save prompts
+```txt
+npm install --save prompts
 ```
 
 ## ❯ Usage
@@ -53,8 +53,8 @@ Returns the absolute value of a number.
 
 `$abs` has to following syntax:
 
-```js
+```txt
 { $abs: <number> }
 ```
 
-The \<number> expression can be any valid expression as long as it resolves to a number.
+The `<number>` expression can be any valid expression as long as it resolves to a number.
