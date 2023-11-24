@@ -11,7 +11,7 @@ export type Operations = { [key: string]: Operation };
  * @param data The data to evaluate the expression.
  * @returns The evaluated expression.
  */
-export function mongu(expr: Value, data: Object<Value>): Value {
+export function mongu(expr: Value, data: Object<Value> = {}): Value {
   if (isArray(expr)) return monguArray(expr, data);
   if (isObject(expr)) return monguObject(expr, data);
   if (isString(expr)) return monguString(expr, data);
@@ -179,6 +179,172 @@ const operations: Operations = {
     assertIsNumber(number);
     return Math.trunc(number);
   },
+  // Array
+  $arrayElemAt(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[0], data);
+    assertIsArray(array);
+    const index = mongu(args[1], data);
+    assertIsNumber(index);
+    return array[index];
+  },
+  $arrayToObject(args: Value[], data: Object<Value>): Value {
+    const array = mongu(args, data);
+    assertIsArray(array);
+    return Object.fromEntries(array as any);
+  },
+  $concatArrays(args: Value[], data: Object<Value>): Value {
+    const array = args.map(expr => {
+      const array = mongu(expr, data);
+      assertIsArray(array);
+      return array;
+    });
+    return array.flat();
+  },
+  $filter(
+    args: { input: Value; as?: string; cond: Value },
+    data: Object<Value>
+  ): Value {
+    const array = mongu(args.input, data);
+    assertIsArray(array);
+    const as = args.as ? `$${args.as}` : '$this';
+    return array.filter(item => {
+      const boolean = mongu(args.cond, { ...data, ...{ [as]: item } });
+      assertIsBoolean(boolean);
+      return boolean;
+    });
+  },
+  $firstN(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[0], data);
+    assertIsArray(array);
+    const number = mongu(args[1], data);
+    assertIsNumber(number);
+    return array.slice(0, number);
+  },
+  $in(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[1], data);
+    assertIsArray(array);
+    return array.includes(mongu(args[0], data));
+  },
+  $indexOfArray(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[1], data);
+    assertIsArray(array);
+    return array.indexOf(mongu(args[0], data));
+  },
+  $isArray(args: Value, data: Object<Value>): Value {
+    const array = mongu(args, data);
+    return Array.isArray(array);
+  },
+  $lastN(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[0], data);
+    assertIsArray(array);
+    const number = mongu(args[1], data);
+    assertIsNumber(number);
+    return array.slice(-number);
+  },
+  $map(
+    args: { input: Value; as?: string; in: Value },
+    data: Object<Value>
+  ): Value {
+    const array = mongu(args.input, data);
+    assertIsArray(array);
+    const as = args.as ? `$${args.as}` : '$this';
+    return array.map(item => {
+      return mongu(args.in, { ...data, ...{ [as]: item } });
+    });
+  },
+  $maxN(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[0], data);
+    assertIsArray(array);
+    const number = mongu(args[1], data);
+    assertIsNumber(number);
+    return array
+      .sort((a, b) => {
+        assertIsNumber(a);
+        assertIsNumber(b);
+        return b - a;
+      })
+      .slice(0, number);
+  },
+  $minN(args: [Value, Value], data: Object<Value>): Value {
+    const array = mongu(args[0], data);
+    assertIsArray(array);
+    const number = mongu(args[1], data);
+    assertIsNumber(number);
+    return array
+      .sort((a, b) => {
+        assertIsNumber(a);
+        assertIsNumber(b);
+        return a - b;
+      })
+      .slice(0, number);
+  },
+  $objectToArray(args: Value, data: Object<Value>): Value {
+    const object = mongu(args, data);
+    assertIsObject(object);
+    return Object.entries(object).map(([k, v]) => ({ k, v }));
+  },
+  $range(args: [Value, Value, Value], data: Object<Value>): Value {
+    const start = mongu(args[0], data);
+    assertIsNumber(start);
+    const end = mongu(args[1], data);
+    assertIsNumber(end);
+    const step = mongu(args[2], data);
+    assertIsNumber(step);
+    const array = [];
+    for (let i = start; i < end; i += step) {
+      array.push(i);
+    }
+    return array;
+  },
+  $reduce(
+    args: { input: Value; initialValue: Value; in: Value },
+    data: Object<Value>
+  ): Value {
+    const array = mongu(args.input, data);
+    assertIsArray(array);
+    return array.reduce((acc, item) => {
+      return mongu(args.in, { ...data, ...{ $value: acc, $this: item } });
+    }, args.initialValue);
+  },
+  $reverseArray(args: Value, data: Object<Value>): Value {
+    const array = mongu(args, data);
+    assertIsArray(array);
+    return array.reverse();
+  },
+  $size(args: Value, data: Object<Value>): Value {
+    const array = mongu(args, data);
+    assertIsArray(array);
+    return array.length;
+  },
+  $slice(args: [Value, Value, Value?], data: Object<Value>): Value {
+    const array = mongu(args[0], data);
+    assertIsArray(array);
+    const start = mongu(args[1], data);
+    assertIsNumber(start);
+    if (args[2]) {
+      const end = mongu(args[2], data);
+      assertIsNumber(end);
+      return array.slice(start, end);
+    }
+    return array.slice(start);
+  },
+  $sortArray(
+    args: { input: Value; sortBy?: Value },
+    data: Object<Value>
+  ): Value {
+    const array = mongu(args.input, data);
+    assertIsArray(array);
+    return array.sort((a, b) => {
+      if (args.sortBy) {
+        const number = mongu(args.sortBy, data);
+        assertIsNumber(number);
+        return number;
+      }
+      assertIsNumber(a);
+      assertIsNumber(b);
+      return a - b;
+    });
+  },
   // Boolean Operators
   $and(args: Value[], data: Object<Value>): Value {
     return args.every(expr => {
@@ -266,57 +432,57 @@ const operations: Operations = {
     return string.toUpperCase();
   },
   // Array Operators
-  $size(args: Value, data: Object<Value>): Value {
-    const array = mongu(args, data);
-    assertIsArray(array);
-    return array.length;
-  },
-  $filter(
-    args: { input: Value; as: string; cond: Value },
-    data: Object<Value>
-  ): Value {
-    const array = mongu(args.input, data);
-    assertIsArray(array);
-    const as = args.as ? `$${args.as}` : '$this';
-    return array.filter(item => {
-      const boolean = mongu(args.cond, { ...data, ...{ [as]: item } });
-      assertIsBoolean(boolean);
-      return boolean;
-    });
-  },
-  $map(
-    args: { input: Value; as: string; in: Value },
-    data: Object<Value>
-  ): Value {
-    const array = mongu(args.input, data);
-    assertIsArray(array);
-    const as = args.as ? `$${args.as}` : '$this';
-    return array.map(item => {
-      return mongu(args.in, { ...data, ...{ [as]: item } });
-    });
-  },
-  $reduce(args: { input: Value; in: Value }, data: Object<Value>): Value {
-    const array = mongu(args.input, data);
-    assertIsArray(array);
-    return array.reduce((acc, item) => {
-      return mongu(args.in, { ...data, ...{ $value: acc, $this: item } });
-    });
-  },
-  $in(args: [Value, Value], data: Object<Value>): Value {
-    const array = mongu(args[1], data);
-    assertIsArray(array);
-    return array.includes(mongu(args[0], data));
-  },
-  $nin(args: [Value, Value], data: Object<Value>): Value {
-    const array = mongu(args[1], data);
-    assertIsArray(array);
-    return !array.includes(mongu(args[0], data));
-  },
-  $push(args: [Value, Value], data: Object<Value>): Value {
-    const array = mongu(args[0], data);
-    assertIsArray(array);
-    return [...array, mongu(args[1], data)];
-  },
+  // $size(args: Value, data: Object<Value>): Value {
+  //   const array = mongu(args, data);
+  //   assertIsArray(array);
+  //   return array.length;
+  // },
+  // $filter(
+  //   args: { input: Value; as: string; cond: Value },
+  //   data: Object<Value>
+  // ): Value {
+  //   const array = mongu(args.input, data);
+  //   assertIsArray(array);
+  //   const as = args.as ? `$${args.as}` : '$this';
+  //   return array.filter(item => {
+  //     const boolean = mongu(args.cond, { ...data, ...{ [as]: item } });
+  //     assertIsBoolean(boolean);
+  //     return boolean;
+  //   });
+  // },
+  // $map(
+  //   args: { input: Value; as: string; in: Value },
+  //   data: Object<Value>
+  // ): Value {
+  //   const array = mongu(args.input, data);
+  //   assertIsArray(array);
+  //   const as = args.as ? `$${args.as}` : '$this';
+  //   return array.map(item => {
+  //     return mongu(args.in, { ...data, ...{ [as]: item } });
+  //   });
+  // },
+  // $reduce(args: { input: Value; in: Value }, data: Object<Value>): Value {
+  //   const array = mongu(args.input, data);
+  //   assertIsArray(array);
+  //   return array.reduce((acc, item) => {
+  //     return mongu(args.in, { ...data, ...{ $value: acc, $this: item } });
+  //   });
+  // },
+  // $in(args: [Value, Value], data: Object<Value>): Value {
+  //   const array = mongu(args[1], data);
+  //   assertIsArray(array);
+  //   return array.includes(mongu(args[0], data));
+  // },
+  // $nin(args: [Value, Value], data: Object<Value>): Value {
+  //   const array = mongu(args[1], data);
+  //   assertIsArray(array);
+  //   return !array.includes(mongu(args[0], data));
+  // },
+  // $push(args: [Value, Value], data: Object<Value>): Value {
+  //   const array = mongu(args[0], data);
+  //   assertIsArray(array);
+  //   return [...array, mongu(args[1], data)];
+  // },
   // Conditional Operators
   $cond(
     args: { if: Value; then: Value; else: Value },
@@ -349,6 +515,11 @@ const operations: Operations = {
 
 function assertIsArray(a: Value): asserts a is Value[] {
   if (!Array.isArray(a)) throw new Error('Value is not an array');
+}
+
+function assertIsObject(a: Value): asserts a is Object<Value> {
+  if (typeof a !== 'object' || Array.isArray(a) || a === null)
+    throw new Error('Value is not an object');
 }
 
 function assertIsString(a: Value): asserts a is string {
