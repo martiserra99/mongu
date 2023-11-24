@@ -84,6 +84,101 @@ function evaluateStringNotVariable(expr: string): Value {
 }
 
 const operations: Operations = {
+  // Arithmetic
+  $abs(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.abs(number);
+  },
+  $add(args: Value[], data: Object<Value>): Value {
+    return args.reduce((acc: number, expr: Value) => {
+      const number = mongu(expr, data);
+      assertIsNumber(number);
+      return acc + number;
+    }, 0);
+  },
+  $ceil(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.ceil(number);
+  },
+  $divide(args: [Value, Value], data: Object<Value>): Value {
+    const number1 = mongu(args[0], data);
+    const number2 = mongu(args[1], data);
+    assertIsNumber(number1);
+    assertIsNumber(number2);
+    return number1 / number2;
+  },
+  $exp(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.exp(number);
+  },
+  $floor(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.floor(number);
+  },
+  $ln(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.log(number);
+  },
+  $log(args: [Value, Value], data: Object<Value>): Value {
+    const number1 = mongu(args[0], data);
+    const number2 = mongu(args[1], data);
+    assertIsNumber(number1);
+    assertIsNumber(number2);
+    return Math.log(number1) / Math.log(number2);
+  },
+  $log10(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.log10(number);
+  },
+  $mod(args: [Value, Value], data: Object<Value>): Value {
+    const number1 = mongu(args[0], data);
+    const number2 = mongu(args[1], data);
+    assertIsNumber(number1);
+    assertIsNumber(number2);
+    return number1 % number2;
+  },
+  $multiply(args: Value[], data: Object<Value>): Value {
+    return args.reduce((acc: number, expr: Value) => {
+      const number = mongu(expr, data);
+      assertIsNumber(number);
+      return acc * number;
+    }, 1);
+  },
+  $pow(args: [Value, Value], data: Object<Value>): Value {
+    const number1 = mongu(args[0], data);
+    const number2 = mongu(args[1], data);
+    assertIsNumber(number1);
+    assertIsNumber(number2);
+    return Math.pow(number1, number2);
+  },
+  $round(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.round(number);
+  },
+  $sqrt(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.sqrt(number);
+  },
+  $subtract(args: [Value, Value], data: Object<Value>): Value {
+    const number1 = mongu(args[0], data);
+    const number2 = mongu(args[1], data);
+    assertIsNumber(number1);
+    assertIsNumber(number2);
+    return number1 - number2;
+  },
+  $trunc(args: Value, data: Object<Value>): Value {
+    const number = mongu(args, data);
+    assertIsNumber(number);
+    return Math.trunc(number);
+  },
   // Boolean Operators
   $and(args: Value[], data: Object<Value>): Value {
     return args.every(expr => {
@@ -150,42 +245,6 @@ const operations: Operations = {
     assertIsNumber(number2);
     const result = number1 - number2;
     return result === 0 ? 0 : result / Math.abs(result);
-  },
-  // Arithmetic Operators
-  $add(args: Value[], data: Object<Value>): Value {
-    return args.reduce((acc: number, expr: Value) => {
-      const number = mongu(expr, data);
-      assertIsNumber(number);
-      return acc + number;
-    }, 0);
-  },
-  $subtract(args: [Value, Value], data: Object<Value>): Value {
-    const number1 = mongu(args[0], data);
-    const number2 = mongu(args[1], data);
-    assertIsNumber(number1);
-    assertIsNumber(number2);
-    return number1 - number2;
-  },
-  $multiply(args: Value[], data: Object<Value>): Value {
-    return args.reduce((acc: number, expr: Value) => {
-      const number = mongu(expr, data);
-      assertIsNumber(number);
-      return acc * number;
-    }, 1);
-  },
-  $divide(args: [Value, Value], data: Object<Value>): Value {
-    const number1 = mongu(args[0], data);
-    const number2 = mongu(args[1], data);
-    assertIsNumber(number1);
-    assertIsNumber(number2);
-    return number1 / number2;
-  },
-  $mod(args: [Value, Value], data: Object<Value>): Value {
-    const number1 = mongu(args[0], data);
-    const number2 = mongu(args[1], data);
-    assertIsNumber(number1);
-    assertIsNumber(number2);
-    return number1 % number2;
   },
   // String Operators
   $concat(args: Value[], data: Object<Value>): Value {
