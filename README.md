@@ -615,3 +615,153 @@ These are some examples:
 ```json
 { "$ne": [5, 5] } // false
 ```
+
+## ❯ String Operators
+
+### \$concat
+
+Concatenates strings and returns the concatenated string.
+
+`$concat` has to following syntax:
+
+```json
+{ "$concat": ["string", "string", "..."] }
+```
+
+These are some examples:
+
+```json
+{ "concat": ["marti", " ", "serra"] } // marti serra
+```
+
+### \$ltrim
+
+Removes whitespace characters from the beginning of a string.
+
+`$ltrim` has to following syntax:
+
+```json
+{ "$ltrim": "string" }
+```
+
+These are some examples:
+
+```json
+{ "ltrim": "   marti" } // marti
+```
+
+### \$rtrim
+
+Removes whitespace characters from the end of a string.
+
+`$rtrim` has to following syntax:
+
+```json
+{ "$rtrim": "string" }
+```
+
+These are some examples:
+
+```json
+{ "rtrim": "marti   " } // marti
+```
+
+### \$split
+
+Divides a string into an array of substrings based on a delimiter.
+
+`$split` has to following syntax:
+
+```json
+{ "$split": ["string", "delimiter"] }
+```
+
+These are some examples:
+
+```json
+{ "$split": ["June-15-2013", "-"] } // ["June", "15", "2013"]
+```
+
+```json
+{ "$split": ["Hello World", " "] } // ["Hello", "World"]
+```
+
+### \$strLen
+
+Returns the number of characters.
+
+`$strLen` has to following syntax:
+
+```json
+{ "$strLen": "string" }
+```
+
+These are some examples:
+
+```json
+{ "$strLen": "abcde" } // 5
+```
+
+### \$substr
+
+Returns a substring of a string, starting at a specified index position and including the specified number of characters.
+
+`$substr` has to following syntax:
+
+```json
+{ "$substr": ["string", "start", "length"] }
+```
+
+These are some examples:
+
+```json
+{ "$substr": ["hello world", 1, 3] } // ell
+```
+
+### \$toLower
+
+Converts a string to lowercase, returning the result.
+
+`$toLower` has to following syntax:
+
+```json
+{ "$toLower": "string" }
+```
+
+These are some examples:
+
+```json
+{ "$toLower": "Marti Serra" } // marti serra
+```
+
+### \$trim
+
+Removes whitespace characters from the beginning and end of a string.
+
+`$trim` has to following syntax:
+
+```json
+{ "$trim": "string" }
+```
+
+These are some examples:
+
+```json
+{ "$trim": "   marti serra   " } // marti serra
+```
+
+### \$toUpper
+
+Converts a string to uppercase, returning the result.
+
+`$toUpper` has to following syntax:
+
+```json
+{ "$toUpper": "string" }
+```
+
+These are some examples:
+
+```json
+{ "$toUpper": "Marti Serra" } // MARTI SERRA
+```

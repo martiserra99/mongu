@@ -84,8 +84,8 @@ export const comparison: Operations = {
   },
 };
 
-function assertNumber(a: Value): asserts a is number {
-  if (typeof a !== 'number') {
+function assertNumber(value: Value): asserts value is number {
+  if (typeof value !== 'number') {
     throw new Error('Expected a number.');
   }
 }
