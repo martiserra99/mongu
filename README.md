@@ -377,3 +377,65 @@ These are some examples:
 ```json
 { "$trunc": [5.43, 1] } // 5.4
 ```
+
+## ❯ Boolean Operators
+
+### \$and
+
+Evaluates one or more expressions and returns true if all of the expressions are true. Otherwise, it returns false.
+
+`$and` has to following syntax:
+
+```json
+{ "$and": ["boolean", "boolean", "..."] }
+```
+
+These are some examples:
+
+```json
+{ "$and": [true, true] } // true
+```
+
+```json
+{ "$and": [true, false, true] } // false
+```
+
+### \$not
+
+Evaluates a boolean and returns the opposite boolean value.
+
+`$not` has to following syntax:
+
+```json
+{ "$not": "boolean" }
+```
+
+These are some examples:
+
+```json
+{ "$not": true } // false
+```
+
+```json
+{ "$not": false } // true
+```
+
+### \$or
+
+Evaluates one or more expressions and returns true if any of the expressions are true. Otherwise, it returns false.
+
+`$or` has to following syntax:
+
+```json
+{ "$or": ["boolean", "boolean", "..."] }
+```
+
+These are some examples:
+
+```json
+{ "$or": [true, false] } // true
+```
+
+```json
+{ "$or": [false, false] } // false
+```

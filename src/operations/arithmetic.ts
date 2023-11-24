@@ -200,5 +200,7 @@ export const arithmetic: Operations = {
 };
 
 function assertNumber(a: Value): asserts a is number {
-  if (typeof a !== 'number') throw new Error('Value is not a number');
+  if (typeof a !== 'number') {
+    throw new Error('Expected a number.');
+  }
 }
