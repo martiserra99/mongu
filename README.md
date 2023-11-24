@@ -2,17 +2,13 @@
 
 Use mongo-like expressions in JavaScript (node or browser).
 
-## Installation
+## ❯ Install
 
 ```bash
-npm install mongu
+\$ npm install --save prompts
 ```
 
-## Quickstart
-
-To use this library you just have to import the function `mongu` and introduce an expression and some variables. The result of this function will be the result of evaluating the expression with these variables.
-
-Here is an example:
+## ❯ Usage
 
 ```js
 const { mongu } = require('mongu');
@@ -29,49 +25,36 @@ const vars = { name: 'Marti', surname: 'Serra', age: 24 };
 console.log(mongu(expr, vars));
 ```
 
-## Documentation
+## ❯ Examples
 
-The mongu library exports a function that accepts two parameters:
+### Basic Example
 
-- A mongu expression.
-
-- An object with variables that are used in the the mongu expression.
-
-The result of this function is the result of evaluating the expression with the variables.
-
-### Expression
-
-A mongu expression is an expression that with some variables evaluate to a result. This library is inspired by mongodb and it has the same way of defining operations and the operators are the same.
-
-### Operators
-
-There are a lot of operators that are supported in mongu:
-
-- Boolean Operators: $and, $or, \$not
-
-- Comparison Operators: $eq, $ne, $gt, $lt, $gte, $lte, \$cmp
-
-- Arithmetic Operators: $add, $subtract, $multiply, $divide, \$mod
-
-- String Operators: $concat, $toLower, \$toUpper
-
-- Array Operators: $size, $filter, $map, $reduce, $in, $nin, \$push
-
-- Conditional Operators: \$cond
-
-- Variable Operators: \$let
-
-### The \_ character
-
-The \_ character can be placed in front of any string or object key and it will treat the following character as it was a regular character and not a special one like \$.
-
-Here is an example:
+This is a simple example used to add different numbers.
 
 ```js
-const expr = {
-  fullName: {
-    _$concat: [{ $toLower: '_$name' }, ' ', { $toLower: '_$surname' }],
-  },
-  isAdult: { $gte: ['$age', 18] },
-};
+const { mongu } = require('mongu');
+
+const expr = { $add: '$numbers' };
+
+const vars = { numbers: [1, 2, 3] };
+
+console.log(mongu(expr, vars));
 ```
+
+## ❯ How To Use
+
+To use this library you just have to import the function `mongu` and introduce an expression and some variables. The result of this function will be the result of evaluating the expression with these variables.
+
+## ❯ Arithmetic Operators
+
+### \$abs
+
+Returns the absolute value of a number.
+
+`$abs` has to following syntax:
+
+```js
+{ $abs: <number> }
+```
+
+The \<number> expression can be any valid expression as long as it resolves to a number.
