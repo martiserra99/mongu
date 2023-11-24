@@ -34,10 +34,7 @@ This is a simple example used to add the numbers of an array.
 ```js
 const { mongu } = require('mongu');
 
-const expr = { $add: '$numbers' };
-const vars = { numbers: [1, 2, 3] };
-
-console.log(mongu(expr, vars)); // 6
+console.log(mongu({ $add: '$numbers' }, { numbers: [1, 2, 3] })); // 6
 ```
 
 ## ❯ How To Use
@@ -58,12 +55,9 @@ Returns the absolute value of a number.
 
 These are some examples:
 
-```json
-{ "$abs": 1 } // 1
-```
-
-```json
-{ "abs": -1 } // 1
+```js
+mongu({ $abs: 1 }); // 1
+mongu({ $abs: -1 }); // 1
 ```
 
 ### \$add
@@ -78,12 +72,9 @@ Adds numbers together.
 
 These are some examples:
 
-```json
-{ "$add": [1, 2, 3] } // 6
-```
-
-```json
-{ "$add": [-2, 4] } // 2
+```js
+mongu({ $add: [1, 2, 3] }); // 6
+mongu({ $add: [-2, 4] }); // 2
 ```
 
 ### \$ceil
@@ -98,16 +89,10 @@ Returns the smallest integer greater than or equal to the specified number.
 
 These are some examples:
 
-```json
-{ "$ceil": 1 } // 1
-```
-
-```json
-{ "$ceil": 7.8 } // 8
-```
-
-```json
-{ "$ceil": -2.8 } // -2
+```js
+mongu({ $ceil: 1 }); // 1
+mongu({ $ceil: 7.8 }); // 8
+mongu({ $ceil: -2.8 }); // -2
 ```
 
 ### \$divide
@@ -122,12 +107,9 @@ Divides one number by another.
 
 These are some examples:
 
-```json
-{ "$divide": [4, 2] } // 2
-```
-
-```json
-{ "$divide": [5, 2] } // 2.5
+```js
+mongu({ $divide: [4, 2] }); // 6
+mongu({ $divide: [5, 2] }); // 2.5
 ```
 
 ### \$exp
@@ -142,16 +124,10 @@ Raises Euler's number to the specified exponent.
 
 These are some examples:
 
-```json
-{ "$exp": 0 } // 1
-```
-
-```json
-{ "$exp": 2 } // 7.38905609893065
-```
-
-```json
-{ "$exp": -2 } // 0.1353352832366127
+```js
+mongu({ $exp: 0 }); // 1
+mongu({ $exp: 2 }); // 7.38905609893065
+mongu({ $exp: -2 }); // 0.1353352832366127
 ```
 
 ### \$floor
@@ -166,16 +142,10 @@ Returns the largest integer less than or equal to the specified number.
 
 These are some examples:
 
-```json
-{ "$floor": 1 } // 1
-```
-
-```json
-{ "$floor": 7.8 } // 7
-```
-
-```json
-{ "$floor": -2.8 } // -3
+```js
+mongu({ $floor: 1 }); // 1
+mongu({ $floor: 7.8 }); // 7
+mongu({ $floor: -2.8 }); // -3
 ```
 
 ### \$ln
@@ -210,8 +180,8 @@ Calculates the log of a number in the specified base.
 
 These are some examples:
 
-```json
-{ "$log": [100, 10] } // 2
+```js
+mongu({ $log: [100, 10] }); // 2
 ```
 
 ### \$log10
@@ -226,16 +196,10 @@ Calculates the log base 10 of a number.
 
 These are some examples:
 
-```json
-{ "$log10": 1 } // 0
-```
-
-```json
-{ "$log10": 10 } // 1
-```
-
-```json
-{ "$log10": 100 } // 2
+```js
+mongu({ $log10: 1 }); // 0
+mongu({ $log10: 10 }); // 1
+mongu({ $log10: 100 }); // 2
 ```
 
 ### \$mod
@@ -250,8 +214,8 @@ Divides one number by another and returns the remainder.
 
 These are some examples:
 
-```json
-{ "$mod": [5, 2] } // 1
+```js
+mongu({ $mod: [5, 2] }); // 1
 ```
 
 ### \$multiply
@@ -266,12 +230,9 @@ Multiplies numbers together.
 
 These are some examples:
 
-```json
-{ "$multiply": [2, 3] } // 6
-```
-
-```json
-{ "$multiply": [2, 2, 3] } // 12
+```js
+mongu({ $multiply: [2, 3] }); // 6
+mongu({ $multiply: [2, 2, 3] }); // 12
 ```
 
 ### \$pow
@@ -286,16 +247,10 @@ Raises a number to the specified exponent.
 
 These are some examples:
 
-```json
-{ "$pow": [5, 0] } // 1
-```
-
-```json
-{ "$pow": [5, 2] } // 25
-```
-
-```json
-{ "$pow": [5, -2] } // 0.04
+```js
+mongu({ $pow: [5, 0] }); // 1
+mongu({ $pow: [5, 2] }); // 25
+mongu({ $pow: [5, -2] }); // 0.04
 ```
 
 ### \$round
@@ -310,15 +265,12 @@ Rounds a number to a specified decimal place.
 
 These are some examples:
 
-```json
-{ "$round": [5.43, 0] } // 5
+```js
+mongu({ $round: [5.43, 0] }); // 5
+mongu({ $round: [5.43, 1] }); // 5.4
 ```
 
-```json
-{ "$round": [5.43, 1] } // 5.4
-```
-
-### \sqrt
+### \$sqrt
 
 Calculates the square root of a positive number.
 
@@ -330,12 +282,9 @@ Calculates the square root of a positive number.
 
 These are some examples:
 
-```json
-{ "$sqrt": 25 } // 5
-```
-
-```json
-{ "$sqrt": 30 } // 5.477225575051661
+```js
+mongu({ $sqrt: 25 }); // 5
+mongu({ $sqrt: 30 }); // 5.477225575051661
 ```
 
 ### \$subtract
@@ -345,17 +294,14 @@ Subtracts two numbers to return the difference.
 `$subtract` has the following syntax:
 
 ```json
-{ "$sqrt": ["number", "number"] }
+{ "$subtract": ["number", "number"] }
 ```
 
 These are some examples:
 
-```json
-{ "$sqrt": [5, 2] } // 3
-```
-
-```json
-{ "$sqrt": [-2, 4] } // -6
+```js
+mongu({ $subtract: [5, 2] }); // 3
+mongu({ $subtract: [-2, 4] }); // -6
 ```
 
 ### \$trunc
@@ -370,12 +316,9 @@ Truncates a number to a specified decimal place.
 
 These are some examples:
 
-```json
-{ "$trunc": [5.43, 0] } // 5
-```
-
-```json
-{ "$trunc": [5.43, 1] } // 5.4
+```js
+mongu({ $trunc: [5.43, 0] }); // 5
+mongu({ $trunc: [5.43, 1] }); // 5.4
 ```
 
 ## ❯ Boolean Operators
@@ -392,12 +335,9 @@ Evaluates one or more expressions and returns true if all of the expressions are
 
 These are some examples:
 
-```json
-{ "$and": [true, true] } // true
-```
-
-```json
-{ "$and": [true, false, true] } // false
+```js
+mongu({ $and: [true, true] }); // true
+mongu({ $and: [true, false, true] }); // false
 ```
 
 ### \$not
@@ -412,12 +352,9 @@ Evaluates a boolean and returns the opposite boolean value.
 
 These are some examples:
 
-```json
-{ "$not": true } // false
-```
-
-```json
-{ "$not": false } // true
+```js
+mongu({ $not: true }); // false
+mongu({ $not: false }); // true
 ```
 
 ### \$or
@@ -432,12 +369,9 @@ Evaluates one or more expressions and returns true if any of the expressions are
 
 These are some examples:
 
-```json
-{ "$or": [true, false] } // true
-```
-
-```json
-{ "$or": [false, false] } // false
+```js
+mongu({ $or: [true, false] }); // true
+mongu({ $or: [false, false] }); // false
 ```
 
 ## ❯ Comparison Operators
@@ -458,16 +392,10 @@ Compares two values and returns:
 
 These are some examples:
 
-```json
-{ "$cmp": [3, 5] } // -1
-```
-
-```json
-{ "cmp": [5, 3] } // 1
-```
-
-```json
-{ "cmp": [5, 5] } // 0
+```js
+mongu({ $cmp: [3, 5] }); // -1
+mongu({ cmp: [5, 3] }); // 1
+mongu({ $cmp: [5, 5] }); // 0
 ```
 
 ### \$eq
@@ -485,12 +413,9 @@ Compares two values and returns:
 
 These are some examples:
 
-```json
-{ "$eq": [5, 5] } // true
-```
-
-```json
-{ "eq": ["hello", "bye"] } // false
+```js
+mongu({ $eq: [5, 5] }); // true
+mongu({ $eq: ['hello', 'bye'] }); // false
 ```
 
 ### \$gt
@@ -508,12 +433,9 @@ Compares two values and returns:
 
 These are some examples:
 
-```json
-{ "$gt": [5, 2] } // true
-```
-
-```json
-{ "$gt": [5, 7] } // false
+```js
+mongu({ $gt: [5, 2] }); // true
+mongu({ $gt: [5, 7] }); // false
 ```
 
 ### \$gte
@@ -531,16 +453,10 @@ Compares two values and returns:
 
 These are some examples:
 
-```json
-{ "$gte": [5, 2] } // true
-```
-
-```json
-{ "$gte": [5, 5] } // true
-```
-
-```json
-{ "$gte": [5, 7] } // false
+```js
+mongu({ $gte: [5, 2] }); // true
+mongu({ $gte: [5, 5] }); // true
+mongu({ $gte: [5, 7] }); // false
 ```
 
 ### \$lt
@@ -558,12 +474,9 @@ Compares two values and returns:
 
 These are some examples:
 
-```json
-{ "$lt": [5, 7] } // true
-```
-
-```json
-{ "$lt": [5, 2] } // false
+```js
+mongu({ $lt: [5, 7] }); // true
+mongu({ $lt: [5, 2] }); // false
 ```
 
 ### \$lte
@@ -581,16 +494,10 @@ Compares two values and returns:
 
 These are some examples:
 
-```json
-{ "$lte": [5, 7] } // true
-```
-
-```json
-{ "$lte": [5, 5] } // true
-```
-
-```json
-{ "$lte": [5, 2] } // false
+```js
+mongu({ $lte: [5, 7] }); // true
+mongu({ $lte: [5, 5] }); // true
+mongu({ $lte: [5, 2] }); // false
 ```
 
 ### \$ne
@@ -608,12 +515,9 @@ Compares two values and returns:
 
 These are some examples:
 
-```json
-{ "ne": ["hello", "bye"] } // true
-```
-
-```json
-{ "$ne": [5, 5] } // false
+```js
+mongu({ ne: ['hello', 'bye'] }); // true
+mongu({ $ne: [5, 5] }); // false
 ```
 
 ## ❯ String Operators
@@ -630,8 +534,8 @@ Concatenates strings and returns the concatenated string.
 
 These are some examples:
 
-```json
-{ "$concat": ["marti", " ", "serra"] } // marti serra
+```js
+mongu({ $concat: ['marti', ' ', 'serra'] }); // marti serra
 ```
 
 ### \$ltrim
@@ -646,8 +550,8 @@ Removes whitespace characters from the beginning of a string.
 
 These are some examples:
 
-```json
-{ "$ltrim": "   marti" } // marti
+```js
+mongu({ $ltrim: '   marti' }); // marti
 ```
 
 ### \$rtrim
@@ -662,8 +566,8 @@ Removes whitespace characters from the end of a string.
 
 These are some examples:
 
-```json
-{ "$rtrim": "marti   " } // marti
+```js
+mongu({ $rtrim: 'marti   ' }); // marti
 ```
 
 ### \$split
@@ -678,12 +582,9 @@ Divides a string into an array of substrings based on a delimiter.
 
 These are some examples:
 
-```json
-{ "$split": ["June-15-2013", "-"] } // ["June", "15", "2013"]
-```
-
-```json
-{ "$split": ["Hello World", " "] } // ["Hello", "World"]
+```js
+mongu({ $split: ['June-15-2013', '-'] }); // ["June", "15", "2013"]
+mongu({ $split: ['Hello World', ' '] }); // ["Hello", "World"]
 ```
 
 ### \$strLen
@@ -698,8 +599,8 @@ Returns the number of characters.
 
 These are some examples:
 
-```json
-{ "$strLen": "abcde" } // 5
+```js
+mongu({ $strLen: 'abcde' }); // 5
 ```
 
 ### \$substr
@@ -714,8 +615,8 @@ Returns a substring of a string, starting at a specified index position and incl
 
 These are some examples:
 
-```json
-{ "$substr": ["hello world", 1, 3] } // ell
+```js
+mongu({ $substr: ['hello world', 1, 3] }); // ell
 ```
 
 ### \$toLower
@@ -730,8 +631,8 @@ Converts a string to lowercase, returning the result.
 
 These are some examples:
 
-```json
-{ "$toLower": "Marti Serra" } // marti serra
+```js
+mongu({ $toLower: 'Marti Serra' }); // marti serra
 ```
 
 ### \$trim
@@ -746,8 +647,8 @@ Removes whitespace characters from the beginning and end of a string.
 
 These are some examples:
 
-```json
-{ "$trim": "   marti serra   " } // marti serra
+```js
+mongu({ $trim: '   marti serra   ' }); // marti serra
 ```
 
 ### \$toUpper
@@ -762,8 +663,8 @@ Converts a string to uppercase, returning the result.
 
 These are some examples:
 
-```json
-{ "$toUpper": "Marti Serra" } // MARTI SERRA
+```js
+mongu({ $toUpper: 'Marti Serra' }); // MARTI SERRA
 ```
 
 ## ❯ Conditional Operators
@@ -780,12 +681,9 @@ Evaluates a boolean expression to return one of the two specified return express
 
 These are some examples:
 
-```json
-{ "$cond": { "if": true, "then": "hello", "else": "bye" } } // hello
-```
-
-```json
-{ "$cond": { "if": false, "then": "hello", "else": "bye" } } // bye
+```js
+mongu({ $cond: { if: true, then: 'hello', else: 'bye' } }); // hello
+mongu({ $cond: { if: false, then: 'hello', else: 'bye' } }); // bye
 ```
 
 ### \$ifNull
@@ -803,16 +701,10 @@ Evaluates input expressions for null values and returns:
 
 These are some examples:
 
-```json
-{ "$ifNull": [null, "hello", "bye"] } // hello
-```
-
-```json
-{ "$ifNull": [null, null, "bye"] } // bye
-```
-
-```json
-{ "$ifNull": [null, null, null] } // null
+```js
+mongu({ $ifNull: [null, 'hello', 'bye'] }); // hello
+mongu({ $ifNull: [null, null, 'bye'] }); // bye
+mongu({ $ifNull: [null, null, null] }); // null
 ```
 
 ### \$switch
@@ -836,26 +728,23 @@ Evaluates a series of case expressions. When it finds an expression which evalua
 
 These are some examples:
 
-```json
-{
-  "$switch": {
-    "branches": [
-      { "case": false, "then": 1 },
-      { "case": true, "then": 2 }
+```js
+mongu({
+  $switch: {
+    branches: [
+      { case: false, then: 1 },
+      { case: true, then: 2 },
     ],
-    "default": 3
-  }
-} // 2
-```
-
-```json
-{
-  "$switch": {
-    "branches": [
-      { "case": false, "then": 1 },
-      { "case": false, "then": 2 }
+    default: 3,
+  },
+}); // 2
+mongu({
+  $switch: {
+    branches: [
+      { case: false, then: 1 },
+      { case: false, then: 2 },
     ],
-    "default": 3
-  }
-} // 3
+    default: 3,
+  },
+}); // 3
 ```
