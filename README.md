@@ -83,7 +83,49 @@ console.log(mongu(expr, { age: 24 }));
 
 ## ❯ How To Use
 
-To use this library you just have to import the `mongu` function and introduce an expression and some variables. The result of this function will be the result of evaluating the expression with these variables.
+To use this library you just have to import the `mongu` function and introduce an expression and optionally some variables:
+
+```js
+const { mongu } = require('mongu');
+
+const expr = {
+  fullName: {
+    $concat: [{ $toLower: '$name' }, ' ', { $toLower: '$surname' }],
+  },
+  isAdult: { $gte: ['$age', 18] },
+};
+
+const vars = { name: 'Marti', surname: 'Serra', age: 24 };
+
+console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
+```
+
+The operators are defined creating an object with a key that starts with a dollar sign (**\$**). There are different kind of operators and each one of them defines how it should process the arguments.
+
+To access the variables we have to just have to reference them using the dollar sign (**\$**). If we had an object as the variable we could access the properties using the dot notation (.):
+
+```js
+const { mongu } = require('mongu');
+
+const expr = {
+  fullName: {
+    $concat: [{ $toLower: '$user.name' }, ' ', { $toLower: '$user.surname' }],
+  },
+  isAdult: { $gte: ['$user.age', 18] },
+};
+
+const vars = { user: { name: 'Marti', surname: 'Serra', age: 24 } };
+
+console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
+```
+
+In case that we want to treat the dollar sign (\$) as a normal character we have to include the symbol **\_** in from of it:
+
+```js
+const { mongu } = require('mongu');
+
+console.log(mongu({ _$gte: ['_$age', 18] })); // { $gte: ["$age", 18] }
+```
 
 ## ❯ Arithmetic Operators
 
