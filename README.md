@@ -22,7 +22,7 @@ const expr = {
 
 const vars = { name: 'Marti', surname: 'Serra', age: 24 };
 
-console.log(mongu(expr, vars));
+console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
 ```
 
 ## ❯ Examples
@@ -34,7 +34,51 @@ This is a simple example used to add the numbers of an array.
 ```js
 const { mongu } = require('mongu');
 
-console.log(mongu({ $add: '$numbers' }, { numbers: [1, 2, 3] })); // 6
+console.log(mongu({ $add: [1, 2, 3] })); // 6
+```
+
+### Multiple Operators
+
+This is an example in which we concatenate strings converted to lowercase:
+
+```js
+const { mongu } = require('mongu');
+
+const expr = { $concat: [{ $toLower: 'Marti' }, ' ', { $toLower: 'Serra' }] };
+
+console.log(mongu(expr)); // marti serra
+```
+
+### Variables
+
+In this example we define variables that can be used inside the expression.
+
+```js
+const { mongu } = require('mongu');
+
+const expr = {
+  $concat: [{ $toLower: '$name' }, ' ', { $toLower: '$surname' }],
+};
+
+const vars = { name: 'Marti', surname: 'Serra' };
+
+console.log(mongu(expr, vars)); // marti serra
+```
+
+### Conditions
+
+```js
+const { mongu } = require('mongu');
+
+const expr = {
+  $cond: {
+    if: { $gte: ['$age', 18] },
+    then: 'You can legally drink alcohol',
+    else: "You can't legally drink alcohol",
+  },
+};
+
+console.log(mongu(expr, { age: 24 }));
 ```
 
 ## ❯ How To Use

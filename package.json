@@ -33,7 +33,7 @@
     "trailingComma": "es5"
   },
   "name": "mongu",
-  "description": "JavaScript library to use mongo-like expressions",
+  "description": "Use use mongo-like expressions in JavaScript",
   "author": "Marti Serra Molina",
   "module": "dist/mongu.esm.js",
   "size-limit": [
