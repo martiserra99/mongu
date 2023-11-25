@@ -321,6 +321,299 @@ mongu({ $trunc: [5.43, 0] }); // 5
 mongu({ $trunc: [5.43, 1] }); // 5.4
 ```
 
+## ❯ Array Operators
+
+### \$arrayElemAt
+
+Returns the element at the specified array index.
+
+`$arrayElemAt` has to following syntax:
+
+```json
+{ "$arrayElemAt": ["array", "idx"] }
+```
+
+These are some examples:
+
+```js
+mongu({ $arrayElemAt: [[1, 2, 3], 0] }); // 1
+mongu({ $arrayElemAt: [[1, 2, 3], 1] }); // 2
+mongu({ $arrayElemAt: [[1, 2, 3], 3] }); // null
+```
+
+### \$concatArrays
+
+Concatenates arrays to return the concatenated array.
+
+`$concatArrays` has to following syntax:
+
+```json
+{ "$concatArrays": ["array", "array", "..."] }
+```
+
+These are some examples:
+
+```js
+mongu([['hello', ' '], ['world']]); // ["hello", " ", "world"]
+mongu([['hello', ' '], [['world']]]); // ["hello", " ", ["world"]]
+```
+
+### \$filter
+
+Selects a subset of an array to return based on the specified condition. Returns an array with only those elements that match the condition. The returned elements are in the original order.
+
+`$filter` has to following syntax:
+
+```json
+{ "$filter": { "input": "array", "cond": "boolean", "as": "string" } }
+```
+
+These are some examples:
+
+```js
+mongu({
+  $filter: {
+    input: [1, 2, 3, 4],
+    as: 'num',
+    cond: { $gt: ['$$num', 2] },
+  },
+}); // [3, 4]
+```
+
+### \$firstN
+
+Returns a specified number of elements from the beginning of an array.
+
+`$firstN` has to following syntax:
+
+```json
+{ "$firstN": { "n": "number", "input": "array" } }
+```
+
+These are some examples:
+
+```js
+mongu({ $firstN: { n: 2, input: [1, 2, 3] } }); // [1, 2]
+mongu({ $firstN: { n: 3, input: [1, 2] } }); // [1, 2]
+mongu({ $firstN: { n: 2, input: [1] } }); // [1]
+```
+
+### \$in
+
+Returns a boolean indicating whether a specified value is in an array.
+
+`$in` has to following syntax:
+
+```json
+{ "$in": ["any", "array"] }
+```
+
+These are some examples:
+
+```js
+mongu({ $in: [2, [1, 2, 3]] }); // true
+mongu({ $in: ['abc', ['xyc', 'abc']] }); // true
+mongu({ $in: ['xy', ['xyc', 'abc']] }); // false
+```
+
+### \$indexOfArray
+
+Searches an array for an occurrence of a specified value and returns the array index of the first occurrence. Array indexes start at zero.
+
+`$indexOfArray` has to following syntax:
+
+```json
+{ "$indexOfArray": ["array", "any"] }
+```
+
+These are some examples:
+
+```js
+mongu({ $indexOfArray: [['a', 'abc'], 'a'] }); // 0
+mongu({ $indexOfArray: [[1, 2], 5] }); // -1
+```
+
+### \$lastN
+
+Returns a specified number of elements from the end of an array.
+
+`$lastN` has to following syntax:
+
+```json
+{ "$lastN": { "n": "number", "input": "array" } }
+```
+
+These are some examples:
+
+```js
+mongu({ $lastN: { n: 2, input: [1, 2, 3] } }); // [2, 3]
+mongu({ $lastN: { n: 3, input: [1, 2] } }); // [1, 2]
+mongu({ $lastN: { n: 2, input: [1] } }); // [1]
+```
+
+### \$map
+
+Applies an expression to each item in an array and returns an array with the applied results.
+
+`$map` has to following syntax:
+
+```json
+{ "$map": { "input": "array", "as": "string", "in": "expression" } }
+```
+
+These are some examples:
+
+```js
+mongu({ $map: { input: [1, 2, 3], as: 'num', in: { $add: ['$$num', 1] } } }); // [2, 3, 4]
+mongu({ $map: { input: ['a', 'b'], as: 'str', in: { $toUpper: '$$str' } } }); // ['A', 'B']
+```
+
+### \$maxN
+
+Returns the n largest values in an array.
+
+`$maxN` has to following syntax:
+
+```json
+{ "$maxN": { "n": "number", "input": "array" } }
+```
+
+These are some examples:
+
+```js
+mongu({ $maxN: { n: 2, input: [3, 7, 2, 4] } }); // [7, 4]
+mongu({ $maxN: { n: 3, input: [3, 7, 2, 4] } }); // [7, 4, 3]
+mongu({ $maxN: { n: 5, input: [3, 7, 2, 4] } }); // [7, 4, 3, 2]
+```
+
+### \$minN
+
+Returns the n smallest values in an array.
+
+`$minN` has to following syntax:
+
+```json
+{ "$minN": { "n": "number", "input": "array" } }
+```
+
+These are some examples:
+
+```js
+mongu({ $minN: { n: 2, input: [3, 7, 2, 4] } }); // [2, 3]
+mongu({ $minN: { n: 3, input: [3, 7, 2, 4] } }); // [2, 3, 4]
+mongu({ $minN: { n: 5, input: [3, 7, 2, 4] } }); // [2, 3, 4, 7]
+```
+
+### \$reduce
+
+Applies an expression to each element in an array and combines them into a single value.
+
+`$reduce` has to following syntax:
+
+```json
+{ "$reduce": { "input": "array", "initialValue": "any", "in": "expression" } }
+```
+
+These are some examples:
+
+```js
+mongu({
+  $reduce: {
+    input: ['a', 'b', 'c'],
+    initialValue: '',
+    in: { $concat: ['$$value', '$$this'] },
+  },
+}); // abc
+mongu({
+  $reduce: {
+    input: [1, 2, 3],
+    initialValue: 0,
+    in: { $add: ['$$value', '$$this'] },
+  },
+}); // 6
+```
+
+### \$reverseArray
+
+Accepts an array expression as an argument and returns an array with the elements in reverse order.
+
+`$reverseArray` has to following syntax:
+
+```json
+{ "$reverseArray": "array" }
+```
+
+These are some examples:
+
+```js
+mongu({ $reverseArray: [4, 2, 3] }); // [3, 2, 4]
+mongu({ $reverseArray: ['a', 'c', 'b'] }); // ["b", "c", "a"]
+```
+
+### \$size
+
+Counts and returns the total number of items in an array.
+
+`$size` has to following syntax:
+
+```json
+{ "$size": "array" }
+```
+
+These are some examples:
+
+```js
+mongu({ $size: [1, 2, 3] }); // 3
+mongu({ $size: ['a', 'b', 'c', 'd'] }); // 4
+mongu({ $size: [] }); // 0
+```
+
+### \$slice
+
+Returns a subset of an array.
+
+`$slice` has to following syntax:
+
+```json
+{ "$slice": ["array", "position", "n"] }
+```
+
+These are some examples:
+
+```js
+mongu({ $slice: [[1, 2, 3], 1, 1] }); // [2]
+mongu({ $slice: [[1, 2, 3], 1, 2] }); // [2, 3]
+mongu({ $slice: [[1, 2, 3], 1, 3] }); // [2, 3]
+mongu({ $slice: [[1, 2, 3], 3, 2] }); // []
+```
+
+### \$sortArray
+
+Sorts an array based on its elements. The sort order is user specified.
+
+`$sortArray` has to following syntax:
+
+```json
+{ "$sortArray": { "input": "array", "sortBy": "expression" } }
+```
+
+These are some examples:
+
+```js
+mongu({
+  $sortArray: {
+    input: [3, 4, 2],
+    sortBy: { $cmp: ['$$first', '$$second'] },
+  },
+}); // [2, 3, 4]
+mongu({
+  $sortArray: {
+    input: [3, 4, 2],
+    sortBy: { $cmp: ['$$second', '$$first'] },
+  },
+}); // [4, 3, 2]
+```
+
 ## ❯ Boolean Operators
 
 ### \$and
@@ -747,297 +1040,4 @@ mongu({
     default: 3,
   },
 }); // 3
-```
-
-## ❯ Array Operators
-
-### \$arrayElemAt
-
-Returns the element at the specified array index.
-
-`$arrayElemAt` has to following syntax:
-
-```json
-{ "$arrayElemAt": ["array", "idx"] }
-```
-
-These are some examples:
-
-```js
-mongu({ $arrayElemAt: [[1, 2, 3], 0] }); // 1
-mongu({ $arrayElemAt: [[1, 2, 3], 1] }); // 2
-mongu({ $arrayElemAt: [[1, 2, 3], 3] }); // null
-```
-
-### \$concatArrays
-
-Concatenates arrays to return the concatenated array.
-
-`$concatArrays` has to following syntax:
-
-```json
-{ "$concatArrays": ["array", "array", "..."] }
-```
-
-These are some examples:
-
-```js
-mongu([['hello', ' '], ['world']]); // ["hello", " ", "world"]
-mongu([['hello', ' '], [['world']]]); // ["hello", " ", ["world"]]
-```
-
-### \$filter
-
-Selects a subset of an array to return based on the specified condition. Returns an array with only those elements that match the condition. The returned elements are in the original order.
-
-`$filter` has to following syntax:
-
-```json
-{ "$filter": { "input": "array", "cond": "boolean", "as": "string" } }
-```
-
-These are some examples:
-
-```js
-mongu({
-  $filter: {
-    input: [1, 2, 3, 4],
-    as: 'num',
-    cond: { $gt: ['$$num', 2] },
-  },
-}); // [3, 4]
-```
-
-### \$firstN
-
-Returns a specified number of elements from the beginning of an array.
-
-`$firstN` has to following syntax:
-
-```json
-{ "$firstN": { "n": "number", "input": "array" } }
-```
-
-These are some examples:
-
-```js
-mongu({ $firstN: { n: 2, input: [1, 2, 3] } }); // [1, 2]
-mongu({ $firstN: { n: 3, input: [1, 2] } }); // [1, 2]
-mongu({ $firstN: { n: 2, input: [1] } }); // [1]
-```
-
-### \$in
-
-Returns a boolean indicating whether a specified value is in an array.
-
-`$in` has to following syntax:
-
-```json
-{ "$in": ["any", "array"] }
-```
-
-These are some examples:
-
-```js
-mongu({ $in: [2, [1, 2, 3]] }); // true
-mongu({ $in: ['abc', ['xyc', 'abc']] }); // true
-mongu({ $in: ['xy', ['xyc', 'abc']] }); // false
-```
-
-### \$indexOfArray
-
-Searches an array for an occurrence of a specified value and returns the array index of the first occurrence. Array indexes start at zero.
-
-`$indexOfArray` has to following syntax:
-
-```json
-{ "$indexOfArray": ["array", "any"] }
-```
-
-These are some examples:
-
-```js
-mongu({ $indexOfArray: [['a', 'abc'], 'a'] }); // 0
-mongu({ $indexOfArray: [[1, 2], 5] }); // -1
-```
-
-### \$lastN
-
-Returns a specified number of elements from the end of an array.
-
-`$lastN` has to following syntax:
-
-```json
-{ "$lastN": { "n": "number", "input": "array" } }
-```
-
-These are some examples:
-
-```js
-mongu({ $lastN: { n: 2, input: [1, 2, 3] } }); // [2, 3]
-mongu({ $lastN: { n: 3, input: [1, 2] } }); // [1, 2]
-mongu({ $lastN: { n: 2, input: [1] } }); // [1]
-```
-
-### \$map
-
-Applies an expression to each item in an array and returns an array with the applied results.
-
-`$map` has to following syntax:
-
-```json
-{ "$map": { "input": "array", "as": "string", "in": "expression" } }
-```
-
-These are some examples:
-
-```js
-mongu({ $map: { input: [1, 2, 3], as: 'num', in: { $add: ['$$num', 1] } } }); // [2, 3, 4]
-mongu({ $map: { input: ['a', 'b'], as: 'str', in: { $toUpper: '$$str' } } }); // ['A', 'B']
-```
-
-### \$maxN
-
-Returns the n largest values in an array.
-
-`$maxN` has to following syntax:
-
-```json
-{ "$maxN": { "n": "number", "input": "array" } }
-```
-
-These are some examples:
-
-```js
-mongu({ $maxN: { n: 2, input: [3, 7, 2, 4] } }); // [7, 4]
-mongu({ $maxN: { n: 3, input: [3, 7, 2, 4] } }); // [7, 4, 3]
-mongu({ $maxN: { n: 5, input: [3, 7, 2, 4] } }); // [7, 4, 3, 2]
-```
-
-### \$minN
-
-Returns the n smallest values in an array.
-
-`$minN` has to following syntax:
-
-```json
-{ "$minN": { "n": "number", "input": "array" } }
-```
-
-These are some examples:
-
-```js
-mongu({ $minN: { n: 2, input: [3, 7, 2, 4] } }); // [2, 3]
-mongu({ $minN: { n: 3, input: [3, 7, 2, 4] } }); // [2, 3, 4]
-mongu({ $minN: { n: 5, input: [3, 7, 2, 4] } }); // [2, 3, 4, 7]
-```
-
-### \$reduce
-
-Applies an expression to each element in an array and combines them into a single value.
-
-`$reduce` has to following syntax:
-
-```json
-{ "$reduce": { "input": "array", "initialValue": "any", "in": "expression" } }
-```
-
-These are some examples:
-
-```js
-mongu({
-  $reduce: {
-    input: ['a', 'b', 'c'],
-    initialValue: '',
-    in: { $concat: ['$$value', '$$this'] },
-  },
-}); // abc
-mongu({
-  $reduce: {
-    input: [1, 2, 3],
-    initialValue: 0,
-    in: { $add: ['$$value', '$$this'] },
-  },
-}); // 6
-```
-
-### \$reverseArray
-
-Accepts an array expression as an argument and returns an array with the elements in reverse order.
-
-`$reverseArray` has to following syntax:
-
-```json
-{ "$reverseArray": "array" }
-```
-
-These are some examples:
-
-```js
-mongu({ $reverseArray: [4, 2, 3] }); // [3, 2, 4]
-mongu({ $reverseArray: ['a', 'c', 'b'] }); // ["b", "c", "a"]
-```
-
-### \$size
-
-Counts and returns the total number of items in an array.
-
-`$size` has to following syntax:
-
-```json
-{ "$size": "array" }
-```
-
-These are some examples:
-
-```js
-mongu({ $size: [1, 2, 3] }); // 3
-mongu({ $size: ['a', 'b', 'c', 'd'] }); // 4
-mongu({ $size: [] }); // 0
-```
-
-### \$slice
-
-Returns a subset of an array.
-
-`$slice` has to following syntax:
-
-```json
-{ "$slice": ["array", "position", "n"] }
-```
-
-These are some examples:
-
-```js
-mongu({ $slice: [[1, 2, 3], 1, 1] }); // [2]
-mongu({ $slice: [[1, 2, 3], 1, 2] }); // [2, 3]
-mongu({ $slice: [[1, 2, 3], 1, 3] }); // [2, 3]
-mongu({ $slice: [[1, 2, 3], 3, 2] }); // []
-```
-
-### \$sortArray
-
-Sorts an array based on its elements. The sort order is user specified.
-
-`$sortArray` has to following syntax:
-
-```json
-{ "$sortArray": { "input": "array", "sortBy": "expression" } }
-```
-
-These are some examples:
-
-```js
-mongu({
-  $sortArray: {
-    input: [3, 4, 2],
-    sortBy: { $cmp: ['$$first', '$$second'] },
-  },
-}); // [2, 3, 4]
-mongu({
-  $sortArray: {
-    input: [3, 4, 2],
-    sortBy: { $cmp: ['$$second', '$$first'] },
-  },
-}); // [4, 3, 2]
 ```
