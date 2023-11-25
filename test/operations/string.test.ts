@@ -1,13 +1,13 @@
 import { mongu } from '../../src/index';
 
 describe('$concat', () => {
-  it('concatenates strings and returns the concatenated string.', () => {
+  it('concatenates strings and returns the concatenated string', () => {
     expect(mongu({ $concat: ['marti', ' ', 'serra'] })).toBe('marti serra');
   });
 });
 
 describe('$ltrim', () => {
-  it('removes whitespace from the beginning of a string.', () => {
+  it('removes whitespace from the beginning of a string', () => {
     expect(mongu({ $ltrim: '   marti   ' })).toBe('marti   ');
   });
 });

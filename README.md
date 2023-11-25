@@ -1082,3 +1082,33 @@ These are some examples:
 ```js
 mongu({ $toUpper: 'Marti Serra' }); // MARTI SERRA
 ```
+
+## ❯ Variable Operators
+
+### \$let
+
+Binds variables for use in the specified expression, and returns the result of the expression.
+
+`$let` has to following syntax:
+
+```json
+{
+  "$let": {
+    "vars": { "var": "any", "var": "any", "...": "..." },
+    "in": "expression"
+  }
+}
+```
+
+These are some examples:
+
+```js
+mongu({
+  $let: {
+    vars: { age: 24 },
+    in: {
+      isAdult: { $gte: ['$$age', 18] },
+    },
+  },
+}); // { isAdult: true }
+```
