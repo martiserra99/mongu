@@ -160,12 +160,9 @@ Calculates the natural logarithm of a number.
 
 These are some examples:
 
-```json
-{ "$ln": 1 } // 0
-```
-
-```json
-{ "$ln": 10 } // 2.302585092994046
+```js
+mongu({ $ln: 1 }); // 0
+mongu({ $ln: 10 }); // 2.302585092994046
 ```
 
 ### \$log
