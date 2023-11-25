@@ -114,12 +114,12 @@ export const string: Operations = {
 
 function assertString(value: Value): asserts value is string {
   if (typeof value !== 'string') {
-    throw new Error('Expected a string.');
+    throw new TypeError('Expected a string.');
   }
 }
 
 function assertNumber(value: Value): asserts value is number {
   if (typeof value !== 'number') {
-    throw new Error('Expected a number.');
+    throw new TypeError('Expected a number.');
   }
 }

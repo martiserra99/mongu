@@ -86,6 +86,6 @@ export const comparison: Operations = {
 
 function assertNumber(value: Value): asserts value is number {
   if (typeof value !== 'number') {
-    throw new Error('Expected a number.');
+    throw new TypeError('Expected a number.');
   }
 }
