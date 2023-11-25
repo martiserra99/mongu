@@ -27,9 +27,9 @@ console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
 
 ## ❯ Examples
 
-### Basic Example
+### Single Operator
 
-This is a simple example used to add the numbers of an array.
+Adds the numbers of an array.
 
 ```js
 const { mongu } = require('mongu');
@@ -39,7 +39,7 @@ console.log(mongu({ $add: [1, 2, 3] })); // 6
 
 ### Multiple Operators
 
-This is an example in which we concatenate strings converted to lowercase:
+Converts strings to lowercase and concatenates them.
 
 ```js
 const { mongu } = require('mongu');
@@ -51,7 +51,7 @@ console.log(mongu(expr)); // marti serra
 
 ### Variables
 
-In this example we define variables that can be used inside the expression.
+Defines variables that are used inside the expression.
 
 ```js
 const { mongu } = require('mongu');
@@ -63,22 +63,6 @@ const expr = {
 const vars = { name: 'Marti', surname: 'Serra' };
 
 console.log(mongu(expr, vars)); // marti serra
-```
-
-### Conditions
-
-```js
-const { mongu } = require('mongu');
-
-const expr = {
-  $cond: {
-    if: { $gte: ['$age', 18] },
-    then: 'You can legally drink alcohol',
-    else: "You can't legally drink alcohol",
-  },
-};
-
-console.log(mongu(expr, { age: 24 }));
 ```
 
 ## ❯ How To Use
@@ -102,7 +86,7 @@ console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
 
 The operators are defined creating an object with a key that starts with a dollar sign (**\$**). There are different kind of operators and each one of them defines how it should process the arguments.
 
-To access the variables we have to just have to reference them using the dollar sign (**\$**). If we had an object as the variable we could access the properties using the dot notation (.):
+To access the variables we have to just have to reference them using the dollar sign (**\$**). If we had an object as the variable we could access the properties using the dot notation (**.**):
 
 ```js
 const { mongu } = require('mongu');
@@ -119,7 +103,7 @@ const vars = { user: { name: 'Marti', surname: 'Serra', age: 24 } };
 console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
 ```
 
-In case that we want to treat the dollar sign (\$) as a normal character we have to include the symbol **\_** in from of it:
+In case that we want to treat the dollar sign (**\$**) as a normal character we have to include the symbol **\_** in from of it:
 
 ```js
 const { mongu } = require('mongu');
