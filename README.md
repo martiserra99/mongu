@@ -810,6 +810,88 @@ mongu({ ne: ['hello', 'bye'] }); // true
 mongu({ $ne: [5, 5] }); // false
 ```
 
+## ❯ Conditional Operators
+
+### \$cond
+
+Evaluates a boolean expression to return one of the two specified return expressions.
+
+`$cond` has to following syntax:
+
+```json
+{ "$cond": { "if": "boolean", "then": "any", "else": "any" } }
+```
+
+These are some examples:
+
+```js
+mongu({ $cond: { if: true, then: 'hello', else: 'bye' } }); // hello
+mongu({ $cond: { if: false, then: 'hello', else: 'bye' } }); // bye
+```
+
+### \$ifNull
+
+Evaluates input expressions for null values and returns:
+
+- The first non-null input expression value found.
+- A replacement expression value if all input expressions evaluate to null.
+
+`$ifNull` has to following syntax:
+
+```json
+{ "$ifNull": ["any", "any", "...", "replacement"] }
+```
+
+These are some examples:
+
+```js
+mongu({ $ifNull: [null, 'hello', 'bye'] }); // hello
+mongu({ $ifNull: [null, null, 'bye'] }); // bye
+mongu({ $ifNull: [null, null, null] }); // null
+```
+
+### \$switch
+
+Evaluates a series of case expressions. When it finds an expression which evaluates to true, it executes a specified expression and breaks out of the control flow.
+
+`$switch` has to following syntax:
+
+```json
+{
+  "$switch": {
+    "branches": [
+      { "case": "boolean", "then": "any" },
+      { "case": "boolean", "then": "any" }
+      "..."
+    ],
+    "default": "any"
+  }
+}
+```
+
+These are some examples:
+
+```js
+mongu({
+  $switch: {
+    branches: [
+      { case: false, then: 1 },
+      { case: true, then: 2 },
+    ],
+    default: 3,
+  },
+}); // 2
+mongu({
+  $switch: {
+    branches: [
+      { case: false, then: 1 },
+      { case: false, then: 2 },
+    ],
+    default: 3,
+  },
+}); // 3
+```
+
 ## ❯ String Operators
 
 ### \$concat
@@ -955,86 +1037,4 @@ These are some examples:
 
 ```js
 mongu({ $toUpper: 'Marti Serra' }); // MARTI SERRA
-```
-
-## ❯ Conditional Operators
-
-### \$cond
-
-Evaluates a boolean expression to return one of the two specified return expressions.
-
-`$cond` has to following syntax:
-
-```json
-{ "$cond": { "if": "boolean", "then": "any", "else": "any" } }
-```
-
-These are some examples:
-
-```js
-mongu({ $cond: { if: true, then: 'hello', else: 'bye' } }); // hello
-mongu({ $cond: { if: false, then: 'hello', else: 'bye' } }); // bye
-```
-
-### \$ifNull
-
-Evaluates input expressions for null values and returns:
-
-- The first non-null input expression value found.
-- A replacement expression value if all input expressions evaluate to null.
-
-`$ifNull` has to following syntax:
-
-```json
-{ "$ifNull": ["any", "any", "...", "replacement"] }
-```
-
-These are some examples:
-
-```js
-mongu({ $ifNull: [null, 'hello', 'bye'] }); // hello
-mongu({ $ifNull: [null, null, 'bye'] }); // bye
-mongu({ $ifNull: [null, null, null] }); // null
-```
-
-### \$switch
-
-Evaluates a series of case expressions. When it finds an expression which evaluates to true, it executes a specified expression and breaks out of the control flow.
-
-`$switch` has to following syntax:
-
-```json
-{
-  "$switch": {
-    "branches": [
-      { "case": "boolean", "then": "any" },
-      { "case": "boolean", "then": "any" }
-      "..."
-    ],
-    "default": "any"
-  }
-}
-```
-
-These are some examples:
-
-```js
-mongu({
-  $switch: {
-    branches: [
-      { case: false, then: 1 },
-      { case: true, then: 2 },
-    ],
-    default: 3,
-  },
-}); // 2
-mongu({
-  $switch: {
-    branches: [
-      { case: false, then: 1 },
-      { case: false, then: 2 },
-    ],
-    default: 3,
-  },
-}); // 3
 ```
