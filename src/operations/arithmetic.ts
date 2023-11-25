@@ -1,5 +1,7 @@
 import { mongu, Operations, Value, Object } from '../index';
 
+import { assertNumber } from '../asserts';
+
 export const arithmetic: Operations = {
   /**
    * Returns the absolute value of a number.
@@ -198,9 +200,3 @@ export const arithmetic: Operations = {
     return Math.trunc(number * factor) / factor;
   },
 };
-
-function assertNumber(value: Value): asserts value is number {
-  if (typeof value !== 'number') {
-    throw new TypeError('Expected a number.');
-  }
-}

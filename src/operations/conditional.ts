@@ -1,5 +1,7 @@
 import { mongu, Operations, Value, Object } from '../index';
 
+import { assertBoolean } from '../asserts';
+
 export const conditional: Operations = {
   /**
    * Evaluates a boolean expression to return one of the two specified return expressions.
@@ -50,9 +52,3 @@ export const conditional: Operations = {
     return mongu(args.default, data);
   },
 };
-
-function assertBoolean(value: Value): asserts value is boolean {
-  if (typeof value !== 'boolean') {
-    throw new TypeError('Expected a boolean.');
-  }
-}

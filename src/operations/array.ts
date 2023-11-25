@@ -1,5 +1,7 @@
 import { mongu, Operations, Value, Object } from '../index';
 
+import { assertArray, assertNumber, assertString } from '../asserts';
+
 export const array: Operations = {
   $arrayElemAt(args: [Value, Value], data: Object<Value>): Value {
     const array = mongu(args[0], data);
@@ -136,21 +138,3 @@ export const array: Operations = {
     });
   },
 };
-
-function assertArray(value: Value): asserts value is Value[] {
-  if (!Array.isArray(value)) {
-    throw new TypeError('Expected an array.');
-  }
-}
-
-function assertNumber(value: Value): asserts value is number {
-  if (typeof value !== 'number') {
-    throw new TypeError('Expected a number.');
-  }
-}
-
-function assertString(value: Value): asserts value is string {
-  if (typeof value !== 'string') {
-    throw new TypeError('Expected a string.');
-  }
-}

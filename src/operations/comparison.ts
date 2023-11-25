@@ -1,5 +1,7 @@
 import { mongu, Operations, Value, Object } from '../index';
 
+import { assertNumber } from '../asserts';
+
 export const comparison: Operations = {
   /**
    * Compares two values and returns -1 if the first is less than the second, 1 if the first is greater than the second, and 0 if the two values are equal.
@@ -83,9 +85,3 @@ export const comparison: Operations = {
     return a !== b;
   },
 };
-
-function assertNumber(value: Value): asserts value is number {
-  if (typeof value !== 'number') {
-    throw new TypeError('Expected a number.');
-  }
-}

@@ -1,5 +1,7 @@
 import { mongu, Operations, Value, Object } from '../index';
 
+import { assertString, assertNumber } from '../asserts';
+
 export const string: Operations = {
   /**
    * Concatenates strings and returns the concatenated string.
@@ -111,15 +113,3 @@ export const string: Operations = {
     return string.toUpperCase();
   },
 };
-
-function assertString(value: Value): asserts value is string {
-  if (typeof value !== 'string') {
-    throw new TypeError('Expected a string.');
-  }
-}
-
-function assertNumber(value: Value): asserts value is number {
-  if (typeof value !== 'number') {
-    throw new TypeError('Expected a number.');
-  }
-}
