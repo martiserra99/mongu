@@ -84,9 +84,9 @@ const vars = { name: 'Marti', surname: 'Serra', age: 24 };
 console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
 ```
 
-The operators are defined creating an object with a key that starts with a dollar sign (**\$**). There are different kind of operators and each one of them defines how it should process the arguments.
+We can define operators creating an object with a key that starts with **\$**. There are different kind of operators and each one of them defines how it should process its arguments.
 
-To access the variables we have to just have to reference them using the dollar sign (**\$**). If we had an object as the variable we could access the properties using the dot notation (**.**):
+To access the variables we have to reference them using using **\$**. If we had an object as the variable we could access the properties using the dot notation:
 
 ```js
 const { mongu } = require('mongu');
@@ -103,7 +103,7 @@ const vars = { user: { name: 'Marti', surname: 'Serra', age: 24 } };
 console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
 ```
 
-In case that we want to treat the dollar sign (**\$**) as a normal character we have to include the symbol **\_** in from of it:
+In case that we want to treat **\$** as a normal character we have to include the symbol **\_** in from of it:
 
 ```js
 const { mongu } = require('mongu');
