@@ -103,7 +103,7 @@ const vars = { user: { name: 'Marti', surname: 'Serra', age: 24 } };
 console.log(mongu(expr, vars)); // { fullName: "marti serra", isAdult: true }
 ```
 
-In case that we want to treat **\$** as a normal character we have to include the symbol **\_** in from of it:
+In case that we want to treat **\$** as a normal character we have to include **\_** in from of it:
 
 ```js
 const { mongu } = require('mongu');
