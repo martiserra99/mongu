@@ -30,6 +30,19 @@ export const string: Operations = {
     return string.replace(/^\s+/, '');
   },
   /**
+   * Performs a regular expression and returns true if there is a match. Otherwise, it returns false.
+   * @param args A string and a regular expression.
+   * @param data The variables.
+   * @returns A boolean indicating if there is a match.
+   */
+  $regexMatch(args: [Value, Value], data: Object<Value>): Value {
+    const string = mongu(args[0], data);
+    const regex = mongu(args[1], data);
+    assertString(string);
+    assertString(regex);
+    return string.match(regex) !== null;
+  },
+  /**
    * Removes whitespace from the end of a string.
    * @param args A string.
    * @param data The variables.

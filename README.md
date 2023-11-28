@@ -996,6 +996,23 @@ These are some examples:
 mongu({ $ltrim: '   marti' }); // marti
 ```
 
+### \$regexMatch
+
+Performs a regular expression and returns true if there is a match. Otherwise, it returns false.
+
+`$regexMatch` has to following syntax:
+
+```json
+{ "$regexMatch": ["string", "regex"] }
+```
+
+These are some examples:
+
+```js
+mongu({ $regexMatch: ['hello', '/ell/'] }); // true
+mongu({ $regexMatch: ['goodbye', '/abc/'] }); // false
+```
+
 ### \$rtrim
 
 Removes whitespace characters from the end of a string.

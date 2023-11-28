@@ -12,6 +12,13 @@ describe('$ltrim', () => {
   });
 });
 
+describe('$regexMatch', () => {
+  it('performs a regular expression and returns true if there is a match', () => {
+    expect(mongu({ $regexMatch: ['hello', 'ell'] })).toBe(true);
+    expect(mongu({ $regexMatch: ['goodbye', 'abc'] })).toBe(false);
+  });
+});
+
 describe('$rtrim', () => {
   it('removes whitespace from the end of a string.', () => {
     expect(mongu({ $rtrim: '   marti   ' })).toBe('   marti');
