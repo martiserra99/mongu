@@ -7,6 +7,7 @@ export const comparison: Operations = {
    * Compares two values and returns -1 if the first is less than the second, 1 if the first is greater than the second, and 0 if the two values are equal.
    * @param args An array of two values.
    * @param data The variables.
+   * @returns The result of comparing the two values.
    */
   $cmp(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
@@ -19,6 +20,7 @@ export const comparison: Operations = {
    * Compares two values and returns true if they are equal.
    * @param args An array of two values.
    * @param data The variables.
+   * @returns The result of comparing the two values.
    */
   $eq(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
@@ -29,6 +31,7 @@ export const comparison: Operations = {
    * Compares two values and returns true if the first is greater than the second.
    * @param args An array of two values.
    * @param data The variables.
+   * @returns The result of comparing the two values.
    */
   $gt(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
@@ -41,6 +44,7 @@ export const comparison: Operations = {
    * Compares two values and returns true if the first is greater than or equal to the second.
    * @param args An array of two values.
    * @param data The variables.
+   * @returns The result of comparing the two values.
    */
   $gte(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
@@ -66,6 +70,7 @@ export const comparison: Operations = {
    * Compares two values and returns true if the first is less than or equal to the second.
    * @param args An array of two values.
    * @param data The variables.
+   * @returns The result of comparing the two values.
    */
   $lte(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
@@ -78,6 +83,7 @@ export const comparison: Operations = {
    * Compares two values and returns true if they are not equal.
    * @param args An array of two values.
    * @param data The variables.
+   * @returns The result of comparing the two values.
    */
   $ne(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);

@@ -754,7 +754,7 @@ These are some examples:
 
 ```js
 mongu({ $cmp: [3, 5] }); // -1
-mongu({ cmp: [5, 3] }); // 1
+mongu({ $cmp: [5, 3] }); // 1
 mongu({ $cmp: [5, 5] }); // 0
 ```
 
@@ -876,7 +876,7 @@ Compares two values and returns:
 These are some examples:
 
 ```js
-mongu({ ne: ['hello', 'bye'] }); // true
+mongu({ $ne: ['hello', 'bye'] }); // true
 mongu({ $ne: [5, 5] }); // false
 ```
 
