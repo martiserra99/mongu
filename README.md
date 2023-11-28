@@ -1221,7 +1221,7 @@ These are some examples:
 
 ```js
 mongu({ $toNumber: '7' }); // 7
-mongu({ $toNumber: 'hello' }); // NaN
+mongu({ $toNumber: 'hello' }); // null
 ```
 
 ### \$toString

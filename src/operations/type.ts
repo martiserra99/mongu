@@ -63,7 +63,7 @@ export const type: Operations = {
    */
   $toNumber(args: Value, data: Object<Value>): Value {
     const input = mongu(args, data);
-    return Number(input);
+    return isNaN(Number(input)) ? null : Number(input);
   },
   /**
    * Converts a value to a string.

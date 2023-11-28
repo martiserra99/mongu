@@ -44,7 +44,7 @@ describe('$toBoolean', () => {
 describe('$toNumber', () => {
   it('converts a value to a number', () => {
     expect(mongu({ $toNumber: '7' })).toBe(7);
-    expect(mongu({ $toNumber: 'hello' })).toBeNaN();
+    expect(mongu({ $toNumber: 'hello' })).toBeNull();
   });
 });
 
