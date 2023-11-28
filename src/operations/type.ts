@@ -16,6 +16,36 @@ export const type: Operations = {
     throw new Error(`Invalid type: ${to}`);
   },
   /**
+   * Returns true if the value is a boolean. Otherwise, it returns false.
+   * @param args The value.
+   * @param data The variables.
+   * @returns The result.
+   */
+  $isBoolean(args: Value, data: Object<Value>): Value {
+    const input = mongu(args, data);
+    return typeof input === 'boolean';
+  },
+  /**
+   * Returns true if the value is a number. Otherwise, it returns false.
+   * @param args The value.
+   * @param data The variables.
+   * @returns The result.
+   */
+  $isNumber(args: Value, data: Object<Value>): Value {
+    const input = mongu(args, data);
+    return typeof input === 'number';
+  },
+  /**
+   * Returns true if the value is a string. Otherwise, it returns false.
+   * @param args The value.
+   * @param data The variables.
+   * @returns The result.
+   */
+  $isString(args: Value, data: Object<Value>): Value {
+    const input = mongu(args, data);
+    return typeof input === 'string';
+  },
+  /**
    * Converts a value to a boolean.
    * @param args The value.
    * @param data The variables.

@@ -1134,6 +1134,60 @@ mongu({ $convert: { input: 3, to: 'string' } }); // '3'
 mongu({ $convert: { input: 0, to: 'boolean' } }); // false
 ```
 
+### \$isBoolean
+
+Returns true if the value is a boolean. Otherwise, it returns false.
+
+`$isBoolean` has to following syntax:
+
+```json
+{ "$isBoolean": "any" }
+```
+
+These are some examples:
+
+```js
+mongu({ $isBoolean: false }); // true
+mongu({ $isBoolean: 5 }); // false
+mongu({ $isBoolean: 'hello' }); // false
+```
+
+### \$isNumber
+
+Returns true if the value is a number. Otherwise, it returns false.
+
+`$isNumber` has to following syntax:
+
+```json
+{ "$isNumber": "any" }
+```
+
+These are some examples:
+
+```js
+mongu({ $isNumber: 5 }); // true
+mongu({ $isNumber: true }); // false
+mongu({ $isNumber: 'hello' }); // false
+```
+
+### \$isString
+
+Returns true if the value is a string. Otherwise, it returns false.
+
+`$isString` has to following syntax:
+
+```json
+{ "$isString": "any" }
+```
+
+These are some examples:
+
+```js
+mongu({ $isString: 'hello' }); // true
+mongu({ $isString: 5 }); // false
+mongu({ $isString: true }); // false
+```
+
 ### \$toBoolean
 
 Converts a value to a boolean.

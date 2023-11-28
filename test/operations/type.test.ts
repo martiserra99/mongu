@@ -8,6 +8,30 @@ describe('$type', () => {
   });
 });
 
+describe('$isBoolean', () => {
+  it('checks if a value is a boolean', () => {
+    expect(mongu({ $isBoolean: false })).toBe(true);
+    expect(mongu({ $isBoolean: 5 })).toBe(false);
+    expect(mongu({ $isBoolean: 'hello' })).toBe(false);
+  });
+});
+
+describe('$isNumber', () => {
+  it('checks if a value is a number', () => {
+    expect(mongu({ $isNumber: 5 })).toBe(true);
+    expect(mongu({ $isNumber: true })).toBe(false);
+    expect(mongu({ $isNumber: 'hello' })).toBe(false);
+  });
+});
+
+describe('$isString', () => {
+  it('checks if a value is a string', () => {
+    expect(mongu({ $isString: 'hello' })).toBe(true);
+    expect(mongu({ $isString: 5 })).toBe(false);
+    expect(mongu({ $isString: true })).toBe(false);
+  });
+});
+
 describe('$toBoolean', () => {
   it('converts a value to a boolean', () => {
     expect(mongu({ $toBoolean: 'hello' })).toBe(true);
