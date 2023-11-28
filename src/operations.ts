@@ -6,6 +6,7 @@ import { boolean } from './operations/boolean';
 import { comparison } from './operations/comparison';
 import { conditional } from './operations/conditional';
 import { string } from './operations/string';
+import { type } from './operations/type';
 import { variable } from './operations/variable';
 
 export const operations: Operations = {
@@ -15,5 +16,6 @@ export const operations: Operations = {
   ...comparison,
   ...conditional,
   ...string,
+  ...type,
   ...variable,
 };

@@ -1109,6 +1109,84 @@ These are some examples:
 mongu({ $toUpper: 'Marti Serra' }); // MARTI SERRA
 ```
 
+## ❯ Type Operators
+
+### \$convert
+
+Converts a value to a specified type.
+
+`$convert` has to following syntax:
+
+```json
+{
+  "$convert": {
+    "input": "any",
+    "to": "type"
+  }
+}
+```
+
+These are some examples:
+
+```js
+mongu({ $convert: { input: '5', to: 'number' } }); // 5
+mongu({ $convert: { input: 3, to: 'string' } }); // '3'
+mongu({ $convert: { input: 0, to: 'boolean' } }); // false
+```
+
+### \$toBoolean
+
+Converts a value to a boolean.
+
+`$toBoolean` has to following syntax:
+
+```json
+{ "$toBoolean": "any" }
+```
+
+These are some examples:
+
+```js
+mongu({ $toBoolean: 'hello' }); // true
+mongu({ $toBoolean: '' }); // false
+mongu({ $toBoolean: 5 }); // true
+mongu({ $toBoolean: 0 }); // false
+```
+
+### \$toNumber
+
+Converts a value to a number.
+
+`$toNumber` has to following syntax:
+
+```json
+{ "$toNumber": "any" }
+```
+
+These are some examples:
+
+```js
+mongu({ $toNumber: '7' }); // 7
+mongu({ $toNumber: 'hello' }); // NaN
+```
+
+### \$toString
+
+Converts a value to a string.
+
+`$toString` has to following syntax:
+
+```json
+{ "$toString": "any" }
+```
+
+These are some examples:
+
+```js
+mongu({ $toString: 7 }); // '7'
+mongu({ $toString: true }); // 'true'
+```
+
 ## ❯ Variable Operators
 
 ### \$let
