@@ -962,6 +962,83 @@ mongu({
 }); // 3
 ```
 
+## ❯ Object Operators
+
+### \$getField
+
+Gets the value of a field in an object.
+
+`$getField` has to following syntax:
+
+```json
+{
+  "$getField": {
+    "field": "value",
+    "input": "object"
+  }
+}
+```
+
+These are some examples:
+
+```js
+mongu({
+  $getField: {
+    field: 'qty',
+    input: { item: 'apple', qty: 25, price: 4.5 },
+  },
+}); // 25
+```
+
+### \$mergeObjects
+
+Merges objects into a single object.
+
+`$mergeObjects` has to following syntax:
+
+```json
+{ "$mergeObjects": ["object", "object", "..."] }
+```
+
+These are some examples:
+
+```js
+mongu({
+  $mergeObjects: [
+    { item: 'apple', qty: 5, price: 2.5 },
+    { qty: 10, price: 1.2, sale: true },
+  ],
+}); // { item: 'apple', qty: 10, price: 1.2, sale: true }
+```
+
+### \$setField
+
+Sets a field in an object to a specified value.
+
+`$setField` has to following syntax:
+
+```json
+{
+  "$setField": {
+    "field": "string",
+    "input": "object",
+    "value": "any"
+  }
+}
+```
+
+These are some examples:
+
+```js
+mongu({
+  $setField: {
+    field: 'item',
+    input: { qty: 25, price: 4.5 },
+    value: 'apple',
+  },
+}); // { item: 'apple', qty: 25, price: 4.5 }
+```
+
 ## ❯ String Operators
 
 ### \$concat

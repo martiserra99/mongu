@@ -23,3 +23,11 @@ export function assertBoolean(value: Value): asserts value is boolean {
     throw new TypeError('Expected a boolean.');
   }
 }
+
+export function assertObject(
+  value: Value
+): asserts value is Record<string, Value> {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    throw new TypeError('Expected an object.');
+  }
+}
