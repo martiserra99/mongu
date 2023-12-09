@@ -77,7 +77,7 @@ function monguStringVariable(expr: string, data: Object<Value>): Value {
     if (isObject(acc) && key in acc) return acc[key];
     throw new Error(`Variable ${key} not found`);
   }, data);
-  return mongu(value, data);
+  return value;
 }
 
 function evaluateStringNotVariable(expr: string): Value {
