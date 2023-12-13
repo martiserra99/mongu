@@ -1,6 +1,6 @@
 import { mongu, Operations, Value, Object } from '../index';
 
-import { assertString, assertNumber } from '../asserts';
+import { assert } from '../assert';
 
 export const string: Operations = {
   /**
@@ -12,9 +12,9 @@ export const string: Operations = {
   $concat(args: Value[], data: Object<Value>): Value {
     return args
       .map(arg => {
-        const value = mongu(arg, data);
-        assertString(value);
-        return value;
+        const string = mongu(arg, data);
+        assert<string>(string, ['string']);
+        return string;
       })
       .join('');
   },
@@ -26,7 +26,7 @@ export const string: Operations = {
    */
   $ltrim(args: Value, data: Object<Value>): Value {
     const string = mongu(args, data);
-    assertString(string);
+    assert<string>(string, ['string']);
     return string.replace(/^\s+/, '');
   },
   /**
@@ -38,8 +38,8 @@ export const string: Operations = {
   $regexMatch(args: [Value, Value], data: Object<Value>): Value {
     const string = mongu(args[0], data);
     const regex = mongu(args[1], data);
-    assertString(string);
-    assertString(regex);
+    assert<string>(string, ['string']);
+    assert<string>(regex, ['string']);
     return string.match(regex) !== null;
   },
   /**
@@ -50,7 +50,7 @@ export const string: Operations = {
    */
   $rtrim(args: Value, data: Object<Value>): Value {
     const string = mongu(args, data);
-    assertString(string);
+    assert<string>(string, ['string']);
     return string.replace(/\s+$/, '');
   },
   /**
@@ -62,8 +62,8 @@ export const string: Operations = {
   $split(args: [Value, Value], data: Object<Value>): Value {
     const string = mongu(args[0], data);
     const delimiter = mongu(args[1], data);
-    assertString(string);
-    assertString(delimiter);
+    assert<string>(string, ['string']);
+    assert<string>(delimiter, ['string']);
     return string.split(delimiter);
   },
   /**
@@ -74,7 +74,7 @@ export const string: Operations = {
    */
   $strLen(args: Value, data: Object<Value>): Value {
     const string = mongu(args, data);
-    assertString(string);
+    assert<string>(string, ['string']);
     return string.length;
   },
   /**
@@ -87,9 +87,9 @@ export const string: Operations = {
     const string = mongu(args[0], data);
     const start = mongu(args[1], data);
     const length = mongu(args[2], data);
-    assertString(string);
-    assertNumber(start);
-    assertNumber(length);
+    assert<string>(string, ['string']);
+    assert<number>(start, ['number']);
+    assert<number>(length, ['number']);
     return string.substr(start, length);
   },
   /**
@@ -100,7 +100,7 @@ export const string: Operations = {
    */
   $toLower(args: Value, data: Object<Value>): Value {
     const string = mongu(args, data);
-    assertString(string);
+    assert<string>(string, ['string']);
     return string.toLowerCase();
   },
   /**
@@ -111,7 +111,7 @@ export const string: Operations = {
    */
   $trim(args: Value, data: Object<Value>): Value {
     const string = mongu(args, data);
-    assertString(string);
+    assert<string>(string, ['string']);
     return string.trim();
   },
   /**
@@ -122,7 +122,7 @@ export const string: Operations = {
    */
   $toUpper(args: Value, data: Object<Value>): Value {
     const string = mongu(args, data);
-    assertString(string);
+    assert<string>(string, ['string']);
     return string.toUpperCase();
   },
 };

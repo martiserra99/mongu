@@ -1,6 +1,6 @@
 import { mongu, Operations, Value, Object } from '../index';
 
-import { assertNumber } from '../asserts';
+import { assert } from '../assert';
 
 export const arithmetic: Operations = {
   /**
@@ -11,7 +11,7 @@ export const arithmetic: Operations = {
    */
   $abs(args: Value, data: Object<Value>): Value {
     const number = mongu(args, data);
-    assertNumber(number);
+    assert<number>(number, ['number']);
     return Math.abs(number);
   },
   /**
@@ -23,7 +23,7 @@ export const arithmetic: Operations = {
   $add(args: Value[], data: Object<Value>): Value {
     return args.reduce((acc: number, expr: Value) => {
       const number = mongu(expr, data);
-      assertNumber(number);
+      assert<number>(number, ['number']);
       return acc + number;
     }, 0);
   },
@@ -35,7 +35,7 @@ export const arithmetic: Operations = {
    */
   $ceil(args: Value, data: Object<Value>): Value {
     const number = mongu(args, data);
-    assertNumber(number);
+    assert<number>(number, ['number']);
     return Math.ceil(number);
   },
   /**
@@ -47,8 +47,8 @@ export const arithmetic: Operations = {
   $divide(args: [Value, Value], data: Object<Value>): Value {
     const number1 = mongu(args[0], data);
     const number2 = mongu(args[1], data);
-    assertNumber(number1);
-    assertNumber(number2);
+    assert<number>(number1, ['number']);
+    assert<number>(number2, ['number']);
     return number1 / number2;
   },
   /**
@@ -59,7 +59,7 @@ export const arithmetic: Operations = {
    */
   $exp(args: Value, data: Object<Value>): Value {
     const number = mongu(args, data);
-    assertNumber(number);
+    assert<number>(number, ['number']);
     return Math.exp(number);
   },
   /**
@@ -70,7 +70,7 @@ export const arithmetic: Operations = {
    */
   $floor(args: Value, data: Object<Value>): Value {
     const number = mongu(args, data);
-    assertNumber(number);
+    assert<number>(number, ['number']);
     return Math.floor(number);
   },
   /**
@@ -81,7 +81,7 @@ export const arithmetic: Operations = {
    */
   $ln(args: Value, data: Object<Value>): Value {
     const number = mongu(args, data);
-    assertNumber(number);
+    assert<number>(number, ['number']);
     return Math.log(number);
   },
   /**
@@ -93,8 +93,8 @@ export const arithmetic: Operations = {
   $log(args: [Value, Value], data: Object<Value>): Value {
     const number1 = mongu(args[0], data);
     const number2 = mongu(args[1], data);
-    assertNumber(number1);
-    assertNumber(number2);
+    assert<number>(number1, ['number']);
+    assert<number>(number2, ['number']);
     return Math.log(number1) / Math.log(number2);
   },
   /**
@@ -105,7 +105,7 @@ export const arithmetic: Operations = {
    */
   $log10(args: Value, data: Object<Value>): Value {
     const number = mongu(args, data);
-    assertNumber(number);
+    assert<number>(number, ['number']);
     return Math.log10(number);
   },
   /**
@@ -117,8 +117,8 @@ export const arithmetic: Operations = {
   $mod(args: [Value, Value], data: Object<Value>): Value {
     const number1 = mongu(args[0], data);
     const number2 = mongu(args[1], data);
-    assertNumber(number1);
-    assertNumber(number2);
+    assert<number>(number1, ['number']);
+    assert<number>(number2, ['number']);
     return number1 % number2;
   },
   /**
@@ -130,7 +130,7 @@ export const arithmetic: Operations = {
   $multiply(args: Value[], data: Object<Value>): Value {
     return args.reduce((acc: number, expr: Value) => {
       const number = mongu(expr, data);
-      assertNumber(number);
+      assert<number>(number, ['number']);
       return acc * number;
     }, 1);
   },
@@ -143,8 +143,8 @@ export const arithmetic: Operations = {
   $pow(args: [Value, Value], data: Object<Value>): Value {
     const number1 = mongu(args[0], data);
     const number2 = mongu(args[1], data);
-    assertNumber(number1);
-    assertNumber(number2);
+    assert<number>(number1, ['number']);
+    assert<number>(number2, ['number']);
     return Math.pow(number1, number2);
   },
   /**
@@ -156,8 +156,8 @@ export const arithmetic: Operations = {
   $round(args: [Value, Value], data: Object<Value>): Value {
     const number = mongu(args[0], data);
     const places = mongu(args[1], data);
-    assertNumber(number);
-    assertNumber(places);
+    assert<number>(number, ['number']);
+    assert<number>(places, ['number']);
     const factor = Math.pow(10, places);
     return Math.round(number * factor) / factor;
   },
@@ -169,7 +169,7 @@ export const arithmetic: Operations = {
    */
   $sqrt(args: Value, data: Object<Value>): Value {
     const number = mongu(args, data);
-    assertNumber(number);
+    assert<number>(number, ['number']);
     return Math.sqrt(number);
   },
   /**
@@ -181,8 +181,8 @@ export const arithmetic: Operations = {
   $subtract(args: [Value, Value], data: Object<Value>): Value {
     const number1 = mongu(args[0], data);
     const number2 = mongu(args[1], data);
-    assertNumber(number1);
-    assertNumber(number2);
+    assert<number>(number1, ['number']);
+    assert<number>(number2, ['number']);
     return number1 - number2;
   },
   /**
@@ -194,8 +194,8 @@ export const arithmetic: Operations = {
   $trunc(args: [Value, Value], data: Object<Value>): Value {
     const number = mongu(args[0], data);
     const places = mongu(args[1], data);
-    assertNumber(number);
-    assertNumber(places);
+    assert<number>(number, ['number']);
+    assert<number>(places, ['number']);
     const factor = Math.pow(10, places);
     return Math.trunc(number * factor) / factor;
   },

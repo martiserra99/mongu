@@ -1,6 +1,6 @@
 import { mongu, Operations, Value, Object } from '../index';
 
-import { assertArray, assertNumber, assertString } from '../asserts';
+import { assert } from '../assert';
 
 export const array: Operations = {
   /**
@@ -11,9 +11,9 @@ export const array: Operations = {
    */
   $arrayElemAt(args: [Value, Value], data: Object<Value>): Value {
     const array = mongu(args[0], data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const index = mongu(args[1], data);
-    assertNumber(index);
+    assert<number>(index, ['number']);
     return array[index] ?? null;
   },
   /**
@@ -25,7 +25,7 @@ export const array: Operations = {
   $concatArrays(args: Value[], data: Object<Value>): Value {
     return args.reduce((acc: Value[], expr: Value) => {
       const array = mongu(expr, data);
-      assertArray(array);
+      assert<Value[]>(array, ['array']);
       return acc.concat(array);
     }, []);
   },
@@ -40,9 +40,9 @@ export const array: Operations = {
     data: Object<Value>
   ): Value {
     const array = mongu(args.input, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const as = mongu(args.as, data);
-    assertString(as);
+    assert<string>(as, ['string']);
     return array.filter(value => {
       return mongu(args.cond, { ...data, [`$${as}`]: value });
     });
@@ -55,9 +55,9 @@ export const array: Operations = {
    */
   $firstN(args: { input: Value; n: Value }, data: Object<Value>): Value {
     const array = mongu(args.input, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const n = mongu(args.n, data);
-    assertNumber(n);
+    assert<number>(n, ['number']);
     return array.slice(0, n);
   },
   /**
@@ -69,7 +69,7 @@ export const array: Operations = {
   $in(args: [Value, Value], data: Object<Value>): Value {
     const value = mongu(args[0], data);
     const array = mongu(args[1], data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     return array.includes(value);
   },
   /**
@@ -80,7 +80,7 @@ export const array: Operations = {
    */
   $indexOfArray(args: [Value, Value], data: Object<Value>): Value {
     const array = mongu(args[0], data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const value = mongu(args[1], data);
     return array.indexOf(value);
   },
@@ -92,9 +92,9 @@ export const array: Operations = {
    */
   $lastN(args: { input: Value; n: Value }, data: Object<Value>): Value {
     const array = mongu(args.input, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const n = mongu(args.n, data);
-    assertNumber(n);
+    assert<number>(n, ['number']);
     return array.slice(-n);
   },
   /**
@@ -108,9 +108,9 @@ export const array: Operations = {
     data: Object<Value>
   ): Value {
     const array = mongu(args.input, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const as = mongu(args.as, data);
-    assertString(as);
+    assert<string>(as, ['string']);
     return array.map(value => {
       return mongu(args.in, { ...data, [`$${as}`]: value });
     });
@@ -123,13 +123,13 @@ export const array: Operations = {
    */
   $maxN(args: { input: Value; n: Value }, data: Object<Value>): Value {
     const array = mongu(args.input, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const n = mongu(args.n, data);
-    assertNumber(n);
+    assert<number>(n, ['number']);
     return array
       .sort((a, b) => {
-        assertNumber(a);
-        assertNumber(b);
+        assert<number>(a, ['number']);
+        assert<number>(b, ['number']);
         return b - a;
       })
       .slice(0, n);
@@ -142,13 +142,13 @@ export const array: Operations = {
    */
   $minN(args: { input: Value; n: Value }, data: Object<Value>): Value {
     const array = mongu(args.input, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const n = mongu(args.n, data);
-    assertNumber(n);
+    assert<number>(n, ['number']);
     return array
       .sort((a, b) => {
-        assertNumber(a);
-        assertNumber(b);
+        assert<number>(a, ['number']);
+        assert<number>(b, ['number']);
         return a - b;
       })
       .slice(0, n);
@@ -164,7 +164,7 @@ export const array: Operations = {
     data: Object<Value>
   ): Value {
     const array = mongu(args.input, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const initialValue = mongu(args.initialValue, data);
     return array.reduce((acc, value) => {
       return mongu(args.in, { ...data, $value: acc, $this: value });
@@ -178,7 +178,7 @@ export const array: Operations = {
    */
   $reverseArray(args: Value, data: Object<Value>): Value {
     const array = mongu(args, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     return array.reverse();
   },
   /**
@@ -189,7 +189,7 @@ export const array: Operations = {
    */
   $size(args: Value, data: Object<Value>): Value {
     const array = mongu(args, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     return array.length;
   },
   /**
@@ -200,11 +200,11 @@ export const array: Operations = {
    */
   $slice(args: [Value, Value, Value], data: Object<Value>): Value {
     const array = mongu(args[0], data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     const position = mongu(args[1], data);
-    assertNumber(position);
+    assert<number>(position, ['number']);
     const n = mongu(args[2], data);
-    assertNumber(n);
+    assert<number>(n, ['number']);
     return array.slice(position, position + n);
   },
   /**
@@ -218,12 +218,12 @@ export const array: Operations = {
     data: Object<Value>
   ): Value {
     const array = mongu(args.input, data);
-    assertArray(array);
+    assert<Value[]>(array, ['array']);
     return array.sort((a, b) => {
-      assertNumber(a);
-      assertNumber(b);
+      assert<number>(a, ['number']);
+      assert<number>(b, ['number']);
       const c = mongu(args.sortBy, { ...data, $first: a, $second: b });
-      assertNumber(c);
+      assert<number>(c, ['number']);
       return c;
     });
   },

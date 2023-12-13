@@ -1,6 +1,6 @@
 import { mongu, Operations, Value, Object } from '../index';
 
-import { assertBoolean } from '../asserts';
+import { assert } from '../assert';
 
 export const boolean: Operations = {
   /**
@@ -11,9 +11,9 @@ export const boolean: Operations = {
    */
   $and(args: Value[], data: Object<Value>): Value {
     return args.every(expr => {
-      const bool = mongu(expr, data);
-      assertBoolean(bool);
-      return bool;
+      const boolean = mongu(expr, data);
+      assert<boolean>(boolean, ['boolean']);
+      return boolean;
     });
   },
   /**
@@ -23,9 +23,9 @@ export const boolean: Operations = {
    * @returns The opposite boolean value.
    */
   $not(args: Value, data: Object<Value>): Value {
-    const bool = mongu(args, data);
-    assertBoolean(bool);
-    return !bool;
+    const boolean = mongu(args, data);
+    assert<boolean>(boolean, ['boolean']);
+    return !boolean;
   },
   /**
    * Evaluates one or more expressions and returns true if any of the expressions are true. Otherwise, it returns false.
@@ -35,9 +35,9 @@ export const boolean: Operations = {
    */
   $or(args: Value[], data: Object<Value>): Value {
     return args.some(expr => {
-      const bool = mongu(expr, data);
-      assertBoolean(bool);
-      return bool;
+      const boolean = mongu(expr, data);
+      assert<boolean>(boolean, ['boolean']);
+      return boolean;
     });
   },
 };

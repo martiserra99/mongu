@@ -1,6 +1,6 @@
 import { mongu, Operations, Value, Object } from '../index';
 
-import { assertObject, assertString } from '../asserts';
+import { assert } from '../assert';
 
 export const object: Operations = {
   /**
@@ -12,8 +12,8 @@ export const object: Operations = {
   $getField(args: { field: Value; input: Value }, data: Object<Value>): Value {
     const field = mongu(args.field, data);
     const input = mongu(args.input, data);
-    assertString(field);
-    assertObject(input);
+    assert<string>(field, ['string']);
+    assert<Object<Value>>(input, ['object']);
     return input[field] || null;
   },
   /**
@@ -25,7 +25,7 @@ export const object: Operations = {
   $mergeObjects(args: Value[], data: Object<Value>): Value {
     return args.reduce((acc: Object<Value>, arg) => {
       const object = mongu(arg, data);
-      assertObject(object);
+      assert<Object<Value>>(object, ['object']);
       return { ...acc, ...object };
     }, {});
   },
@@ -42,8 +42,8 @@ export const object: Operations = {
     const field = mongu(args.field, data);
     const input = mongu(args.input, data);
     const value = mongu(args.value, data);
-    assertString(field);
-    assertObject(input);
+    assert<string>(field, ['string']);
+    assert<Object<Value>>(input, ['object']);
     return { ...input, [field]: value };
   },
 };

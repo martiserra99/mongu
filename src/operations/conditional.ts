@@ -1,6 +1,6 @@
 import { mongu, Operations, Value, Object } from '../index';
 
-import { assertBoolean } from '../asserts';
+import { assert } from '../assert';
 
 export const conditional: Operations = {
   /**
@@ -13,9 +13,9 @@ export const conditional: Operations = {
     args: { if: Value; then: Value; else: Value },
     data: Object<Value>
   ): Value {
-    const bool = mongu(args.if, data);
-    assertBoolean(bool);
-    return bool ? mongu(args.then, data) : mongu(args.else, data);
+    const boolean = mongu(args.if, data);
+    assert<boolean>(boolean, ['boolean']);
+    return boolean ? mongu(args.then, data) : mongu(args.else, data);
   },
   /**
    * Evaluates input expressions for null values and returns the first non-null expression's value.
@@ -43,9 +43,9 @@ export const conditional: Operations = {
     data: Object<Value>
   ): Value {
     for (const branch of args.branches) {
-      const bool = mongu(branch.case, data);
-      assertBoolean(bool);
-      if (bool) {
+      const boolean = mongu(branch.case, data);
+      assert<boolean>(boolean, ['boolean']);
+      if (boolean) {
         return mongu(branch.then, data);
       }
     }

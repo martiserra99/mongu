@@ -1,6 +1,6 @@
 import { mongu, Operations, Value, Object } from '../index';
 
-import { assertNumber } from '../asserts';
+import { assert } from '../assert';
 
 export const comparison: Operations = {
   /**
@@ -12,8 +12,8 @@ export const comparison: Operations = {
   $cmp(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
     const b = mongu(args[1], data);
-    assertNumber(a);
-    assertNumber(b);
+    assert<number>(a, ['number']);
+    assert<number>(b, ['number']);
     return a < b ? -1 : a > b ? 1 : 0;
   },
   /**
@@ -36,8 +36,8 @@ export const comparison: Operations = {
   $gt(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
     const b = mongu(args[1], data);
-    assertNumber(a);
-    assertNumber(b);
+    assert<number>(a, ['number']);
+    assert<number>(b, ['number']);
     return a > b;
   },
   /**
@@ -49,8 +49,8 @@ export const comparison: Operations = {
   $gte(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
     const b = mongu(args[1], data);
-    assertNumber(a);
-    assertNumber(b);
+    assert<number>(a, ['number']);
+    assert<number>(b, ['number']);
     return a >= b;
   },
   /**
@@ -62,8 +62,8 @@ export const comparison: Operations = {
   $lt(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
     const b = mongu(args[1], data);
-    assertNumber(a);
-    assertNumber(b);
+    assert<number>(a, ['number']);
+    assert<number>(b, ['number']);
     return a < b;
   },
   /**
@@ -75,8 +75,8 @@ export const comparison: Operations = {
   $lte(args: [Value, Value], data: Object<Value>): Value {
     const a = mongu(args[0], data);
     const b = mongu(args[1], data);
-    assertNumber(a);
-    assertNumber(b);
+    assert<number>(a, ['number']);
+    assert<number>(b, ['number']);
     return a <= b;
   },
   /**
