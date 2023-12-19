@@ -74,10 +74,19 @@ function isStringVariable(expr: Value): boolean {
 function monguStringVariable(expr: string, data: Object<Value>): Value {
   const parts = expr.slice(1).split('.');
   const value = parts.reduce((acc: Value, key: string): Value => {
-    if (isObject(acc) && key in acc) return acc[key];
+    if (isObject(acc) && inObject(acc, key)) return acc[key];
+    if (isArray(acc) && inArray(acc, key)) return acc[Number(key)];
     throw new Error(`Variable ${key} not found`);
   }, data);
   return value;
+}
+
+function inObject(object: Object<Value>, key: string) {
+  return key in object;
+}
+
+function inArray(array: Value[], key: string) {
+  return !isNaN(Number(key)) && key in array;
 }
 
 function evaluateStringNotVariable(expr: string): Value {

@@ -28,6 +28,20 @@ it('evaulates expression with object variable', () => {
   });
 });
 
+it('evaulates expression with array variable', () => {
+  const expr = {
+    fullName: {
+      $concat: [{ $toLower: '$user.0' }, ' ', { $toLower: '$user.1' }],
+    },
+    isAdult: { $gte: ['$user.2', 18] },
+  };
+  const vars = { user: ['Marti', 'Serra', 24] };
+  expect(mongu(expr, vars)).toEqual({
+    fullName: 'marti serra',
+    isAdult: true,
+  });
+});
+
 it('ignores $ when using _', () => {
   expect(mongu({ _$gte: ['_$age', 18] })).toEqual({ $gte: ['$age', 18] });
 });
