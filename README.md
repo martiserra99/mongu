@@ -18,7 +18,7 @@ npm install mongu
 
 ## Documentation
 
-Check out the documentation [here](https://mongu-docs.vercel.app).
+Check out the documentation [here](https://www.martiserra.me/mongu).
 
 ## License
 
