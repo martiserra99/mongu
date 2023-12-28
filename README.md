@@ -18,7 +18,7 @@ npm install mongu
 
 ## Documentation
 
-Check out the documentation [here](https://www.martiserra.me/mongu).
+Check out the documentation [here](https://martiserra.me/mongu).
 
 ## License
 

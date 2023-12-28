@@ -1,5 +1,5 @@
 {
-  "version": "2.4.5",
+  "version": "2.4.6",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -59,7 +59,7 @@
     "type": "git",
     "url": "https://github.com/martiserra99/mongu"
   },
-  "homepage": "https://www.martiserra.me/mongu",
+  "homepage": "https://martiserra.me/mongu",
   "devDependencies": {
     "@size-limit/preset-small-lib": "^10.0.2",
     "husky": "^8.0.3",
