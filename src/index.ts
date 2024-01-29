@@ -1,22 +1,33 @@
 import { operations } from './operations';
 
 export type Primitive = string | number | boolean | null;
-export type Object<T> = { [key: string]: T };
-export type Value = Value[] | { [key: string]: Value } | Primitive;
-export type Operation = (args: any, data: Object<Value>) => Value;
+
+export type Value = { [key: string]: Value } | Value[] | Primitive;
+
+export type Operation = (args: any, vars: { [key: string]: Value }) => Value;
+
 export type Operations = { [key: string]: Operation };
 
 /**
- * It evaluates the mongo-like expression with the given data.
+ * It evaluates the mongo-like expression with the given variables.
  *
  * @param expr The mongo-like expression.
- * @param data The data to evaluate the expression.
- * @returns The evaluated expression.
+ * @param vars The variables to evaluate the expression with.
+ * @returns The result of the expression.
  */
-export function mongu(expr: Value, data: Object<Value> = {}): Value {
-  if (isArray(expr)) return monguArray(expr, data);
-  if (isObject(expr)) return monguObject(expr, data);
-  if (isString(expr)) return monguString(expr, data);
+export function mongu(expr: Value, vars: { [key: string]: Value } = {}): Value {
+  if (isArray(expr)) {
+    return evaluateArray(expr, vars);
+  }
+
+  if (isObject(expr)) {
+    return evaluateObject(expr, vars);
+  }
+
+  if (isString(expr)) {
+    return evaluateString(expr, vars);
+  }
+
   return expr;
 }
 
@@ -24,36 +35,42 @@ function isArray(expr: Value): expr is Value[] {
   return Array.isArray(expr);
 }
 
-function monguArray(expr: Value[], data: Object<Value>): Value {
-  return expr.map(expr => mongu(expr, data));
+function evaluateArray(expr: Value[], vars: { [key: string]: Value }): Value {
+  return expr.map(expression => mongu(expression, vars));
 }
 
-function isObject(expr: Value): expr is Object<Value> {
+function isObject(expr: Value): expr is { [key: string]: Value } {
   return typeof expr === 'object' && !Array.isArray(expr) && expr !== null;
 }
 
-function monguObject(expr: Object<Value>, data: Object<Value>): Value {
-  if (isObjectOperation(expr)) return monguObjectOperation(expr, data);
-  return monguObjectNotOperation(expr, data);
+function evaluateObject(
+  expr: { [key: string]: Value },
+  vars: { [key: string]: Value }
+): Value {
+  if (isOperation(expr)) return evaluateOperation(expr, vars);
+  return evaluateNormalObject(expr, vars);
 }
 
-function isObjectOperation(expr: Object<Value>): boolean {
+function isOperation(expr: { [key: string]: Value }): boolean {
   return Object.keys(expr).length === 1 && Object.keys(expr)[0].startsWith('$');
 }
 
-function monguObjectOperation(expr: Object<Value>, data: Object<Value>): Value {
+function evaluateOperation(
+  expr: { [key: string]: Value },
+  vars: { [key: string]: Value }
+): Value {
   const operator = Object.keys(expr)[0];
-  const operation = operations[operator];
-  return operation(expr[operator], data);
+  const operation: Operation = operations[operator];
+  return operation(expr[operator], vars);
 }
 
-function monguObjectNotOperation(
-  expr: Object<Value>,
-  data: Object<Value>
+function evaluateNormalObject(
+  expr: { [key: string]: Value },
+  vars: { [key: string]: Value }
 ): Value {
   return Object.fromEntries(
     Object.entries(expr).map(([key, expr]) => {
-      return [evaluateStringNotVariable(key), mongu(expr, data)];
+      return [evaluateNormalString(key), mongu(expr, vars)];
     })
   );
 }
@@ -62,34 +79,40 @@ function isString(expr: Value): expr is string {
   return typeof expr === 'string';
 }
 
-function monguString(expr: string, data: Object<Value>): Value {
-  if (isStringVariable(expr)) return monguStringVariable(expr, data);
-  return evaluateStringNotVariable(expr);
+function evaluateString(expr: string, vars: { [key: string]: Value }): Value {
+  if (isVariable(expr)) return evaluateVariable(expr, vars);
+  return evaluateNormalString(expr);
 }
 
-function isStringVariable(expr: Value): boolean {
+function isVariable(expr: Value): boolean {
   return typeof expr === 'string' && expr.startsWith('$');
 }
 
-function monguStringVariable(expr: string, data: Object<Value>): Value {
+function evaluateVariable(expr: string, vars: { [key: string]: Value }): Value {
   const parts = expr.slice(1).split('.');
   const value = parts.reduce((acc: Value, key: string): Value => {
-    if (isObject(acc) && inObject(acc, key)) return acc[key];
-    if (isArray(acc) && inArray(acc, key)) return acc[Number(key)];
-    throw new Error(`Variable ${key} not found`);
-  }, data);
-  return value;
-}
+    if (isArray(acc) && inArray(acc, key)) {
+      return acc[Number(key)];
+    }
 
-function inObject(object: Object<Value>, key: string) {
-  return key in object;
+    if (isObject(acc) && inObject(acc, key)) {
+      return acc[key];
+    }
+
+    throw new Error(`Variable ${key} not found`);
+  }, vars);
+  return value;
 }
 
 function inArray(array: Value[], key: string) {
   return !isNaN(Number(key)) && key in array;
 }
 
-function evaluateStringNotVariable(expr: string): Value {
+function inObject(object: { [key: string]: Value }, key: string) {
+  return key in object;
+}
+
+function evaluateNormalString(expr: string): Value {
   if (expr.startsWith('_')) return expr.slice(1);
   return expr;
 }

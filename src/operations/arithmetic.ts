@@ -1,4 +1,4 @@
-import { mongu, Operations, Value, Object } from '../index';
+import { mongu, Operations, Value } from '../index';
 
 import { assert } from '../assert';
 
@@ -6,23 +6,23 @@ export const arithmetic: Operations = {
   /**
    * Returns the absolute value of a number.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The absolute value of the number.
    */
-  $abs(args: Value, data: Object<Value>): Value {
-    const number = mongu(args, data);
+  $abs(args: Value, vars: { [key: string]: Value }): Value {
+    const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.abs(number);
   },
   /**
    * Adds numbers together.
    * @param args An array of numbers.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The sum of the numbers.
    */
-  $add(args: Value[], data: Object<Value>): Value {
+  $add(args: Value[], vars: { [key: string]: Value }): Value {
     return args.reduce((acc: number, expr: Value) => {
-      const number = mongu(expr, data);
+      const number = mongu(expr, vars);
       assert<number>(number, ['number']);
       return acc + number;
     }, 0);
@@ -30,23 +30,23 @@ export const arithmetic: Operations = {
   /**
    * Returns the smallest integer greater than or equal to the specified number.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The smallest integer greater than or equal to the number.
    */
-  $ceil(args: Value, data: Object<Value>): Value {
-    const number = mongu(args, data);
+  $ceil(args: Value, vars: { [key: string]: Value }): Value {
+    const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.ceil(number);
   },
   /**
    * Divides one number by another.
    * @param args An array of numbers.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The result of dividing the first number by the second.
    */
-  $divide(args: [Value, Value], data: Object<Value>): Value {
-    const number1 = mongu(args[0], data);
-    const number2 = mongu(args[1], data);
+  $divide(args: [Value, Value], vars: { [key: string]: Value }): Value {
+    const number1 = mongu(args[0], vars);
+    const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
     assert<number>(number2, ['number']);
     return number1 / number2;
@@ -54,45 +54,45 @@ export const arithmetic: Operations = {
   /**
    * Raises Euler's number to the specified exponent.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The Euler's number raised to the specified power.
    */
-  $exp(args: Value, data: Object<Value>): Value {
-    const number = mongu(args, data);
+  $exp(args: Value, vars: { [key: string]: Value }): Value {
+    const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.exp(number);
   },
   /**
    * Returns the largest integer less than or equal to the specified number.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The largest integer less than or equal to the number.
    */
-  $floor(args: Value, data: Object<Value>): Value {
-    const number = mongu(args, data);
+  $floor(args: Value, vars: { [key: string]: Value }): Value {
+    const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.floor(number);
   },
   /**
    * Calculates the natural logarithm of a number.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The natural logarithm of the number.
    */
-  $ln(args: Value, data: Object<Value>): Value {
-    const number = mongu(args, data);
+  $ln(args: Value, vars: { [key: string]: Value }): Value {
+    const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.log(number);
   },
   /**
    * Calculates the log of a number in the specified base.
    * @param args An array of numbers.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The log of the first number to the base specified by the second number.
    */
-  $log(args: [Value, Value], data: Object<Value>): Value {
-    const number1 = mongu(args[0], data);
-    const number2 = mongu(args[1], data);
+  $log(args: [Value, Value], vars: { [key: string]: Value }): Value {
+    const number1 = mongu(args[0], vars);
+    const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
     assert<number>(number2, ['number']);
     return Math.log(number1) / Math.log(number2);
@@ -100,23 +100,23 @@ export const arithmetic: Operations = {
   /**
    * Calculates the log base 10 of a number.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The base 10 logarithm of the number.
    */
-  $log10(args: Value, data: Object<Value>): Value {
-    const number = mongu(args, data);
+  $log10(args: Value, vars: { [key: string]: Value }): Value {
+    const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.log10(number);
   },
   /**
    * Divides one number by another and returns the remainder.
    * @param args An array of numbers.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The remainder of the first number divided by the second.
    */
-  $mod(args: [Value, Value], data: Object<Value>): Value {
-    const number1 = mongu(args[0], data);
-    const number2 = mongu(args[1], data);
+  $mod(args: [Value, Value], vars: { [key: string]: Value }): Value {
+    const number1 = mongu(args[0], vars);
+    const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
     assert<number>(number2, ['number']);
     return number1 % number2;
@@ -124,12 +124,12 @@ export const arithmetic: Operations = {
   /**
    * Multiplies numbers together.
    * @param args An array of numbers.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The product of the numbers.
    */
-  $multiply(args: Value[], data: Object<Value>): Value {
+  $multiply(args: Value[], vars: { [key: string]: Value }): Value {
     return args.reduce((acc: number, expr: Value) => {
-      const number = mongu(expr, data);
+      const number = mongu(expr, vars);
       assert<number>(number, ['number']);
       return acc * number;
     }, 1);
@@ -137,12 +137,12 @@ export const arithmetic: Operations = {
   /**
    * Raises a number to the specified exponent.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The value of the number raised to the specified exponent.
    */
-  $pow(args: [Value, Value], data: Object<Value>): Value {
-    const number1 = mongu(args[0], data);
-    const number2 = mongu(args[1], data);
+  $pow(args: [Value, Value], vars: { [key: string]: Value }): Value {
+    const number1 = mongu(args[0], vars);
+    const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
     assert<number>(number2, ['number']);
     return Math.pow(number1, number2);
@@ -150,12 +150,12 @@ export const arithmetic: Operations = {
   /**
    * Rounds a number to a specified decimal place.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The rounded number.
    */
-  $round(args: [Value, Value], data: Object<Value>): Value {
-    const number = mongu(args[0], data);
-    const places = mongu(args[1], data);
+  $round(args: [Value, Value], vars: { [key: string]: Value }): Value {
+    const number = mongu(args[0], vars);
+    const places = mongu(args[1], vars);
     assert<number>(number, ['number']);
     assert<number>(places, ['number']);
     const factor = Math.pow(10, places);
@@ -164,23 +164,23 @@ export const arithmetic: Operations = {
   /**
    * Calculates the square root of a positive number.
    * @param args A number.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The square root of the number.
    */
-  $sqrt(args: Value, data: Object<Value>): Value {
-    const number = mongu(args, data);
+  $sqrt(args: Value, vars: { [key: string]: Value }): Value {
+    const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.sqrt(number);
   },
   /**
    * Subtracts two numbers to return the difference.
    * @param args An array of numbers.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The difference of the numbers.
    */
-  $subtract(args: [Value, Value], data: Object<Value>): Value {
-    const number1 = mongu(args[0], data);
-    const number2 = mongu(args[1], data);
+  $subtract(args: [Value, Value], vars: { [key: string]: Value }): Value {
+    const number1 = mongu(args[0], vars);
+    const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
     assert<number>(number2, ['number']);
     return number1 - number2;
@@ -188,12 +188,12 @@ export const arithmetic: Operations = {
   /**
    * Truncates a number to a specified decimal place.
    * @param args An array of numbers.
-   * @param data The variables.
+   * @param vars The variables.
    * @returns The truncated number.
    */
-  $trunc(args: [Value, Value], data: Object<Value>): Value {
-    const number = mongu(args[0], data);
-    const places = mongu(args[1], data);
+  $trunc(args: [Value, Value], vars: { [key: string]: Value }): Value {
+    const number = mongu(args[0], vars);
+    const places = mongu(args[1], vars);
     assert<number>(number, ['number']);
     assert<number>(places, ['number']);
     const factor = Math.pow(10, places);
