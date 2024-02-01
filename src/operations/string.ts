@@ -90,7 +90,7 @@ export const string: Operations = {
     assert<string>(string, ['string']);
     assert<number>(start, ['number']);
     assert<number>(length, ['number']);
-    return string.substr(start, length);
+    return string.substring(start, start + length);
   },
   /**
    * Converts a string to lowercase.

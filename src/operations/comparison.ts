@@ -12,8 +12,8 @@ export const comparison: Operations = {
   $cmp(args: [Value, Value], vars: { [key: string]: Value }): Value {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
-    assert<number>(a, ['number']);
-    assert<number>(b, ['number']);
+    assert<number | string>(a, ['number', 'string']);
+    assert<number | string>(b, ['number', 'string']);
     return a < b ? -1 : a > b ? 1 : 0;
   },
   /**
@@ -36,8 +36,8 @@ export const comparison: Operations = {
   $gt(args: [Value, Value], vars: { [key: string]: Value }): Value {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
-    assert<number>(a, ['number']);
-    assert<number>(b, ['number']);
+    assert<number | string>(a, ['number', 'string']);
+    assert<number | string>(b, ['number', 'string']);
     return a > b;
   },
   /**
@@ -49,8 +49,8 @@ export const comparison: Operations = {
   $gte(args: [Value, Value], vars: { [key: string]: Value }): Value {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
-    assert<number>(a, ['number']);
-    assert<number>(b, ['number']);
+    assert<number | string>(a, ['number', 'string']);
+    assert<number | string>(b, ['number', 'string']);
     return a >= b;
   },
   /**
@@ -62,8 +62,8 @@ export const comparison: Operations = {
   $lt(args: [Value, Value], vars: { [key: string]: Value }): Value {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
-    assert<number>(a, ['number']);
-    assert<number>(b, ['number']);
+    assert<number | string>(a, ['number', 'string']);
+    assert<number | string>(b, ['number', 'string']);
     return a < b;
   },
   /**
@@ -75,8 +75,8 @@ export const comparison: Operations = {
   $lte(args: [Value, Value], vars: { [key: string]: Value }): Value {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
-    assert<number>(a, ['number']);
-    assert<number>(b, ['number']);
+    assert<number | string>(a, ['number', 'string']);
+    assert<number | string>(b, ['number', 'string']);
     return a <= b;
   },
   /**

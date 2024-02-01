@@ -232,8 +232,6 @@ export const array: Operations = {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
     return array.sort((a, b) => {
-      assert<number>(a, ['number']);
-      assert<number>(b, ['number']);
       const c = mongu(args.sortBy, { ...vars, $first: a, $second: b });
       assert<number>(c, ['number']);
       return c;
