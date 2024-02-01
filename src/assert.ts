@@ -2,6 +2,12 @@ import { Value } from './index';
 
 type Type = keyof typeof callbacks;
 
+/**
+ * It asserts that the value is one of the given types.
+ *
+ * @param value The value.
+ * @param types The types.
+ */
 export function assert<T extends Value>(
   value: Value,
   types: Type[]
