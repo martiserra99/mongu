@@ -9,7 +9,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns The concatenated string.
    */
-  $concat(args: Value[], vars: { [key: string]: Value }): Value {
+  $concat(args: Value[], vars: { [key: string]: Value }): string {
     return args
       .map(arg => {
         const string = mongu(arg, vars);
@@ -24,7 +24,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns The string with whitespace removed from the beginning.
    */
-  $ltrim(args: Value, vars: { [key: string]: Value }): Value {
+  $ltrim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.replace(/^\s+/, '');
@@ -35,7 +35,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns A boolean indicating if there is a match.
    */
-  $regexMatch(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $regexMatch(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const string = mongu(args[0], vars);
     const regex = mongu(args[1], vars);
     assert<string>(string, ['string']);
@@ -48,7 +48,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns The string with whitespace removed from the end.
    */
-  $rtrim(args: Value, vars: { [key: string]: Value }): Value {
+  $rtrim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.replace(/\s+$/, '');
@@ -59,7 +59,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns An array of substrings.
    */
-  $split(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $split(args: [Value, Value], vars: { [key: string]: Value }): string[] {
     const string = mongu(args[0], vars);
     const delimiter = mongu(args[1], vars);
     assert<string>(string, ['string']);
@@ -72,7 +72,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns The number of characters in the string.
    */
-  $strLen(args: Value, vars: { [key: string]: Value }): Value {
+  $strLen(args: Value, vars: { [key: string]: Value }): number {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.length;
@@ -83,7 +83,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns The substring of the string.
    */
-  $substr(args: [Value, Value, Value], vars: { [key: string]: Value }): Value {
+  $substr(args: [Value, Value, Value], vars: { [key: string]: Value }): string {
     const string = mongu(args[0], vars);
     const start = mongu(args[1], vars);
     const length = mongu(args[2], vars);
@@ -98,7 +98,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns The string converted to lowercase.
    */
-  $toLower(args: Value, vars: { [key: string]: Value }): Value {
+  $toLower(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.toLowerCase();
@@ -109,7 +109,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns The string with whitespace removed from the beginning and end.
    */
-  $trim(args: Value, vars: { [key: string]: Value }): Value {
+  $trim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.trim();
@@ -120,7 +120,7 @@ export const string: Operations = {
    * @param vars The variables.
    * @returns The string converted to uppercase.
    */
-  $toUpper(args: Value, vars: { [key: string]: Value }): Value {
+  $toUpper(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.toUpperCase();

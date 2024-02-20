@@ -9,7 +9,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The absolute value of the number.
    */
-  $abs(args: Value, vars: { [key: string]: Value }): Value {
+  $abs(args: Value, vars: { [key: string]: Value }): number {
     const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.abs(number);
@@ -20,7 +20,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The sum of the numbers.
    */
-  $add(args: Value[], vars: { [key: string]: Value }): Value {
+  $add(args: Value[], vars: { [key: string]: Value }): number {
     return args.reduce((acc: number, expr: Value) => {
       const number = mongu(expr, vars);
       assert<number>(number, ['number']);
@@ -33,7 +33,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The smallest integer greater than or equal to the number.
    */
-  $ceil(args: Value, vars: { [key: string]: Value }): Value {
+  $ceil(args: Value, vars: { [key: string]: Value }): number {
     const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.ceil(number);
@@ -44,7 +44,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The result of dividing the first number by the second.
    */
-  $divide(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $divide(args: [Value, Value], vars: { [key: string]: Value }): number {
     const number1 = mongu(args[0], vars);
     const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
@@ -57,7 +57,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The Euler's number raised to the specified power.
    */
-  $exp(args: Value, vars: { [key: string]: Value }): Value {
+  $exp(args: Value, vars: { [key: string]: Value }): number {
     const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.exp(number);
@@ -68,7 +68,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The largest integer less than or equal to the number.
    */
-  $floor(args: Value, vars: { [key: string]: Value }): Value {
+  $floor(args: Value, vars: { [key: string]: Value }): number {
     const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.floor(number);
@@ -79,7 +79,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The natural logarithm of the number.
    */
-  $ln(args: Value, vars: { [key: string]: Value }): Value {
+  $ln(args: Value, vars: { [key: string]: Value }): number {
     const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.log(number);
@@ -90,7 +90,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The log of the first number to the base specified by the second number.
    */
-  $log(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $log(args: [Value, Value], vars: { [key: string]: Value }): number {
     const number1 = mongu(args[0], vars);
     const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
@@ -103,7 +103,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The base 10 logarithm of the number.
    */
-  $log10(args: Value, vars: { [key: string]: Value }): Value {
+  $log10(args: Value, vars: { [key: string]: Value }): number {
     const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.log10(number);
@@ -114,7 +114,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The remainder of the first number divided by the second.
    */
-  $mod(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $mod(args: [Value, Value], vars: { [key: string]: Value }): number {
     const number1 = mongu(args[0], vars);
     const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
@@ -127,7 +127,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The product of the numbers.
    */
-  $multiply(args: Value[], vars: { [key: string]: Value }): Value {
+  $multiply(args: Value[], vars: { [key: string]: Value }): number {
     return args.reduce((acc: number, expr: Value) => {
       const number = mongu(expr, vars);
       assert<number>(number, ['number']);
@@ -140,7 +140,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The value of the number raised to the specified exponent.
    */
-  $pow(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $pow(args: [Value, Value], vars: { [key: string]: Value }): number {
     const number1 = mongu(args[0], vars);
     const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
@@ -153,7 +153,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The rounded number.
    */
-  $round(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $round(args: [Value, Value], vars: { [key: string]: Value }): number {
     const number = mongu(args[0], vars);
     const places = mongu(args[1], vars);
     assert<number>(number, ['number']);
@@ -167,7 +167,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The square root of the number.
    */
-  $sqrt(args: Value, vars: { [key: string]: Value }): Value {
+  $sqrt(args: Value, vars: { [key: string]: Value }): number {
     const number = mongu(args, vars);
     assert<number>(number, ['number']);
     return Math.sqrt(number);
@@ -178,7 +178,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The difference of the numbers.
    */
-  $subtract(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $subtract(args: [Value, Value], vars: { [key: string]: Value }): number {
     const number1 = mongu(args[0], vars);
     const number2 = mongu(args[1], vars);
     assert<number>(number1, ['number']);
@@ -191,7 +191,7 @@ export const arithmetic: Operations = {
    * @param vars The variables.
    * @returns The truncated number.
    */
-  $trunc(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $trunc(args: [Value, Value], vars: { [key: string]: Value }): number {
     const number = mongu(args[0], vars);
     const places = mongu(args[1], vars);
     assert<number>(number, ['number']);

@@ -25,7 +25,10 @@ export const object: Operations = {
    * @param vars The variables.
    * @returns The merged object.
    */
-  $mergeObjects(args: Value[], vars: { [key: string]: Value }): Value {
+  $mergeObjects(
+    args: Value[],
+    vars: { [key: string]: Value }
+  ): { [key: string]: Value } {
     return args.reduce((acc: { [key: string]: Value }, arg) => {
       const object = mongu(arg, vars);
       assert<{ [key: string]: Value }>(object, ['object']);
@@ -41,7 +44,7 @@ export const object: Operations = {
   $setField(
     args: { field: Value; input: Value; value: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): { [key: string]: Value } {
     const field = mongu(args.field, vars);
     const input = mongu(args.input, vars);
     const value = mongu(args.value, vars);

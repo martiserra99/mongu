@@ -9,7 +9,7 @@ export const comparison: Operations = {
    * @param vars The variables.
    * @returns The result of comparing the two values.
    */
-  $cmp(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $cmp(args: [Value, Value], vars: { [key: string]: Value }): number {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
     assert<number | string>(a, ['number', 'string']);
@@ -22,7 +22,7 @@ export const comparison: Operations = {
    * @param vars The variables.
    * @returns The result of comparing the two values.
    */
-  $eq(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $eq(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
     return a === b;
@@ -33,7 +33,7 @@ export const comparison: Operations = {
    * @param vars The variables.
    * @returns The result of comparing the two values.
    */
-  $gt(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $gt(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
     assert<number | string>(a, ['number', 'string']);
@@ -46,7 +46,7 @@ export const comparison: Operations = {
    * @param vars The variables.
    * @returns The result of comparing the two values.
    */
-  $gte(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $gte(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
     assert<number | string>(a, ['number', 'string']);
@@ -59,7 +59,7 @@ export const comparison: Operations = {
    * @param vars The variables.
    * @returns The result of comparing the two values.
    */
-  $lt(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $lt(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
     assert<number | string>(a, ['number', 'string']);
@@ -72,7 +72,7 @@ export const comparison: Operations = {
    * @param vars The variables.
    * @returns The result of comparing the two values.
    */
-  $lte(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $lte(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
     assert<number | string>(a, ['number', 'string']);
@@ -85,7 +85,7 @@ export const comparison: Operations = {
    * @param vars The variables.
    * @returns The result of comparing the two values.
    */
-  $ne(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $ne(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const a = mongu(args[0], vars);
     const b = mongu(args[1], vars);
     return a !== b;

@@ -22,7 +22,7 @@ export const array: Operations = {
    * @param vars The variables.
    * @returns The concatenated array.
    */
-  $concatArrays(args: Value[], vars: { [key: string]: Value }): Value {
+  $concatArrays(args: Value[], vars: { [key: string]: Value }): Value[] {
     return args.reduce((acc: Value[], expr: Value) => {
       const array = mongu(expr, vars);
       assert<Value[]>(array, ['array']);
@@ -38,7 +38,7 @@ export const array: Operations = {
   $filter(
     args: { input: Value; cond: Value; as: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
     const as = mongu(args.as, vars);
@@ -56,7 +56,7 @@ export const array: Operations = {
   $firstN(
     args: { input: Value; n: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
     const n = mongu(args.n, vars);
@@ -69,7 +69,7 @@ export const array: Operations = {
    * @param vars The variables.
    * @returns A boolean indicating whether a specified value is in an array.
    */
-  $in(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $in(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const value = mongu(args[0], vars);
     const array = mongu(args[1], vars);
     assert<Value[]>(array, ['array']);
@@ -81,7 +81,7 @@ export const array: Operations = {
    * @param vars The variables.
    * @returns The array index of the first occurrence of the specified value.
    */
-  $indexOfArray(args: [Value, Value], vars: { [key: string]: Value }): Value {
+  $indexOfArray(args: [Value, Value], vars: { [key: string]: Value }): number {
     const array = mongu(args[0], vars);
     assert<Value[]>(array, ['array']);
     const value = mongu(args[1], vars);
@@ -96,7 +96,7 @@ export const array: Operations = {
   $lastN(
     args: { input: Value; n: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
     const n = mongu(args.n, vars);
@@ -112,7 +112,7 @@ export const array: Operations = {
   $map(
     args: { input: Value; as: Value; in: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
     const as = mongu(args.as, vars);
@@ -130,7 +130,7 @@ export const array: Operations = {
   $maxN(
     args: { input: Value; n: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
     const n = mongu(args.n, vars);
@@ -152,7 +152,7 @@ export const array: Operations = {
   $minN(
     args: { input: Value; n: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
     const n = mongu(args.n, vars);
@@ -188,7 +188,7 @@ export const array: Operations = {
    * @param vars The variables.
    * @returns The array with the elements in reverse order.
    */
-  $reverseArray(args: Value, vars: { [key: string]: Value }): Value {
+  $reverseArray(args: Value, vars: { [key: string]: Value }): Value[] {
     const array = mongu(args, vars);
     assert<Value[]>(array, ['array']);
     return array.reverse();
@@ -199,7 +199,7 @@ export const array: Operations = {
    * @param vars The variables.
    * @returns The total number of items in the array.
    */
-  $size(args: Value, vars: { [key: string]: Value }): Value {
+  $size(args: Value, vars: { [key: string]: Value }): number {
     const array = mongu(args, vars);
     assert<Value[]>(array, ['array']);
     return array.length;
@@ -210,7 +210,7 @@ export const array: Operations = {
    * @param vars The variables.
    * @returns The subset of the array.
    */
-  $slice(args: [Value, Value, Value], vars: { [key: string]: Value }): Value {
+  $slice(args: [Value, Value, Value], vars: { [key: string]: Value }): Value[] {
     const array = mongu(args[0], vars);
     assert<Value[]>(array, ['array']);
     const position = mongu(args[1], vars);
@@ -228,7 +228,7 @@ export const array: Operations = {
   $sortArray(
     args: { input: Value; sortBy: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
     return array.sort((a, b) => {

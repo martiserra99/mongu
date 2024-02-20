@@ -10,7 +10,7 @@ export const type: Operations = {
   $convert(
     args: { input: Value; to: Value },
     vars: { [key: string]: Value }
-  ): Value {
+  ): boolean | number | string {
     const input = mongu(args.input, vars);
     const to = mongu(args.to, vars);
     if (to === 'bool') return Boolean(input);
@@ -24,7 +24,7 @@ export const type: Operations = {
    * @param vars The variables.
    * @returns The result.
    */
-  $isBoolean(args: Value, vars: { [key: string]: Value }): Value {
+  $isBoolean(args: Value, vars: { [key: string]: Value }): boolean {
     const input = mongu(args, vars);
     return typeof input === 'boolean';
   },
@@ -34,7 +34,7 @@ export const type: Operations = {
    * @param vars The variables.
    * @returns The result.
    */
-  $isNumber(args: Value, vars: { [key: string]: Value }): Value {
+  $isNumber(args: Value, vars: { [key: string]: Value }): boolean {
     const input = mongu(args, vars);
     return typeof input === 'number';
   },
@@ -44,7 +44,7 @@ export const type: Operations = {
    * @param vars The variables.
    * @returns The result.
    */
-  $isString(args: Value, vars: { [key: string]: Value }): Value {
+  $isString(args: Value, vars: { [key: string]: Value }): boolean {
     const input = mongu(args, vars);
     return typeof input === 'string';
   },
@@ -54,7 +54,7 @@ export const type: Operations = {
    * @param vars The variables.
    * @returns The converted value.
    */
-  $toBoolean(args: Value, vars: { [key: string]: Value }): Value {
+  $toBoolean(args: Value, vars: { [key: string]: Value }): boolean {
     const input = mongu(args, vars);
     return Boolean(input);
   },
@@ -64,7 +64,7 @@ export const type: Operations = {
    * @param vars The variables.
    * @returns The converted value.
    */
-  $toNumber(args: Value, vars: { [key: string]: Value }): Value {
+  $toNumber(args: Value, vars: { [key: string]: Value }): number | null {
     const input = mongu(args, vars);
     return isNaN(Number(input)) ? null : Number(input);
   },
@@ -74,7 +74,7 @@ export const type: Operations = {
    * @param vars The variables.
    * @returns The converted value.
    */
-  $toString(args: Value, vars: { [key: string]: Value }): Value {
+  $toString(args: Value, vars: { [key: string]: Value }): string {
     const input = mongu(args, vars);
     return String(input);
   },

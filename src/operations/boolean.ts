@@ -9,7 +9,7 @@ export const boolean: Operations = {
    * @param vars The variables.
    * @returns True if all of the expressions are true. Otherwise, false.
    */
-  $and(args: Value[], vars: { [key: string]: Value }): Value {
+  $and(args: Value[], vars: { [key: string]: Value }): boolean {
     return args.every(expr => {
       const boolean = mongu(expr, vars);
       assert<boolean>(boolean, ['boolean']);
@@ -22,7 +22,7 @@ export const boolean: Operations = {
    * @param vars The variables.
    * @returns The opposite boolean value.
    */
-  $not(args: Value, vars: { [key: string]: Value }): Value {
+  $not(args: Value, vars: { [key: string]: Value }): boolean {
     const boolean = mongu(args, vars);
     assert<boolean>(boolean, ['boolean']);
     return !boolean;
@@ -33,7 +33,7 @@ export const boolean: Operations = {
    * @param vars The variables.
    * @returns True if any of the expressions are true. Otherwise, false.
    */
-  $or(args: Value[], vars: { [key: string]: Value }): Value {
+  $or(args: Value[], vars: { [key: string]: Value }): boolean {
     return args.some(expr => {
       const boolean = mongu(expr, vars);
       assert<boolean>(boolean, ['boolean']);
