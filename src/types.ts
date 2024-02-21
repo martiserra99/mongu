@@ -2,11 +2,9 @@ export type Primitive = string | number | boolean | null;
 
 export type Value = { [key: string]: Value } | Value[] | Primitive;
 
-export type Variables = { [key: string]: Value };
-
 export type Operation<T extends Value, U extends Value> = (
   args: T,
-  vars: Variables
+  vars: { [key: string]: Value }
 ) => U;
 
 export type Operations = ArithmeticOperations &

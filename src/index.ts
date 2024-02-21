@@ -2,7 +2,7 @@ import { operations } from './operations';
 
 import { isString, isObject, isArray, inObject, inArray } from './utils';
 
-import { Operations, Operation, Value, Variables } from './types';
+import { Operations, Operation, Value } from './types';
 
 /**
  * It evaluates the expression with the given variables.
@@ -10,7 +10,7 @@ import { Operations, Operation, Value, Variables } from './types';
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
  */
-export function mongu(expr: Value, vars: Variables = {}): Value {
+export function mongu(expr: Value, vars: { [key: string]: Value } = {}): Value {
   if (isString(expr)) return evaluateString(expr, vars);
   if (isObject(expr)) return evaluateObject(expr, vars);
   if (isArray(expr)) return evaluateArray(expr, vars);
@@ -23,7 +23,7 @@ export function mongu(expr: Value, vars: Variables = {}): Value {
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
  */
-function evaluateString(expr: string, vars: Variables): Value {
+function evaluateString(expr: string, vars: { [key: string]: Value }): Value {
   if (isVariable(expr)) return evaluateVariable(expr, vars);
   return evaluateNormalString(expr);
 }
@@ -43,7 +43,7 @@ function isVariable(expr: string): boolean {
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
  */
-function evaluateVariable(expr: string, vars: Variables): Value {
+function evaluateVariable(expr: string, vars: { [key: string]: Value }): Value {
   const parts = expr.slice(1).split('.');
   const value = parts.reduce((acc: Value, key: string, i: number): Value => {
     if (isObject(acc) && inObject(acc, key)) return acc[key];
@@ -95,7 +95,7 @@ function isOperation(expr: { [key: string]: Value }): boolean {
  */
 function evaluateOperation(
   expr: { [key: string]: Value },
-  vars: Variables
+  vars: { [key: string]: Value }
 ): Value {
   const key = Object.keys(expr)[0];
   if (key in operations) {
