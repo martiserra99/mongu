@@ -1,12 +1,27 @@
+/**
+ * It represents a primitive value that can be a string, number, boolean, or null.
+ */
 export type Primitive = string | number | boolean | null;
 
+/**
+ * It represents a value that can be a primitive, an object, or an array.
+ */
 export type Value = { [key: string]: Value } | Value[] | Primitive;
 
+/**
+ * It represents an operation that takes some arguments and variables and returns a value.
+ *
+ * @param T The type of the arguments.
+ * @param U The type of the value.
+ */
 export type Operation<T extends Value, U extends Value> = (
   args: T,
   vars: { [key: string]: Value }
 ) => U;
 
+/**
+ * It represents all the operations that can be used in an expression.
+ */
 export type Operations = ArithmeticOperations &
   ArrayOperations &
   BooleanOperations &
@@ -17,6 +32,9 @@ export type Operations = ArithmeticOperations &
   TypeOperations &
   VariableOperations;
 
+/**
+ * It represents all the arithmetic operations that can be used in an expression.
+ */
 export type ArithmeticOperations = {
   $abs: Operation<Value, number>;
   $add: Operation<Value[], number>;
@@ -36,6 +54,9 @@ export type ArithmeticOperations = {
   $trunc: Operation<[Value, Value], number>;
 };
 
+/**
+ * It represents all the array operations that can be used in an expression.
+ */
 export type ArrayOperations = {
   $arrayElemAt: Operation<[Value, Value], Value>;
   $concatArrays: Operation<Value[], Value[]>;
@@ -54,12 +75,18 @@ export type ArrayOperations = {
   $sortArray: Operation<{ input: Value; sortBy: Value }, Value[]>;
 };
 
+/**
+ * It represents all the boolean operations that can be used in an expression.
+ */
 export type BooleanOperations = {
   $and: Operation<Value[], boolean>;
   $not: Operation<Value, boolean>;
   $or: Operation<Value[], boolean>;
 };
 
+/**
+ * It represents all the comparison operations that can be used in an expression.
+ */
 export type ComparisonOperations = {
   $cmp: Operation<[Value, Value], number>;
   $eq: Operation<[Value, Value], boolean>;
@@ -70,6 +97,9 @@ export type ComparisonOperations = {
   $ne: Operation<[Value, Value], boolean>;
 };
 
+/**
+ * It represents all the conditional operations that can be used in an expression.
+ */
 export type ConditionalOperations = {
   $cond: Operation<{ if: Value; then: Value; else: Value }, Value>;
   $ifNull: Operation<Value[], Value>;
@@ -79,6 +109,9 @@ export type ConditionalOperations = {
   >;
 };
 
+/**
+ * It represents all the object operations that can be used in an expression.
+ */
 export type ObjectOperations = {
   $getField: Operation<{ field: Value; input: Value }, Value>;
   $mergeObjects: Operation<Value[], { [key: string]: Value }>;
@@ -88,6 +121,9 @@ export type ObjectOperations = {
   >;
 };
 
+/**
+ * It represents all the string operations that can be used in an expression.
+ */
 export type StringOperations = {
   $concat: Operation<Value[], string>;
   $ltrim: Operation<Value, string>;
@@ -101,6 +137,9 @@ export type StringOperations = {
   $toUpper: Operation<Value, string>;
 };
 
+/**
+ * It represents all the type operations that can be used in an expression.
+ */
 export type TypeOperations = {
   $convert: Operation<{ input: Value; to: Value }, boolean | number | string>;
   $isBoolean: Operation<Value, boolean>;
@@ -111,6 +150,9 @@ export type TypeOperations = {
   $toString: Operation<Value, string>;
 };
 
+/**
+ * It represents all the variable operations that can be used in an expression.
+ */
 export type VariableOperations = {
   $let: Operation<{ vars: { [key: string]: Value }; in: Value }, Value>;
 };
