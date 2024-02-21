@@ -590,5 +590,9 @@ export type TypeOperations = {
  * It represents all the variable operations that can be used in an expression.
  */
 export type VariableOperations = {
+  /**
+   * Binds variables for use in the specified expression, and returns the result of the expression.
+   * @param {{ vars: { [key: string]: Value }; in: Value }} args The variables and the expression (expressions evaluating to any types).
+   */
   $let: Operation<{ vars: { [key: string]: Value }; in: Value }, Value>;
 };
