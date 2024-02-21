@@ -657,6 +657,9 @@ export type TypeOperations = {
    * @param {{ input: Value; to: Value }} args The value and the type (expressions evaluating to any type and a string that has to be 'bool', 'number', or 'string').
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean | number | string} The converted value.
+   * @example $convert({ input: '5', to: 'number' }) // 5
+   * @example $convert({ input: 5, to: 'string' }) // '5'
+   * @example $convert({ input: 5, to: 'bool' }) // true
    */
   $convert: Operation<{ input: Value; to: Value }, boolean | number | string>;
 
@@ -665,6 +668,9 @@ export type TypeOperations = {
    * @param {Value} args The value (expression evaluating to any type).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the value is a boolean. Otherwise, false.
+   * @example $isBoolean(false) // true
+   * @example $isBoolean(5) // false
+   * @example $isBoolean('hello') // false
    */
   $isBoolean: Operation<Value, boolean>;
 
@@ -673,6 +679,9 @@ export type TypeOperations = {
    * @param {Value} args The value (expression evaluating to any type).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the value is a number. Otherwise, false.
+   * @example $isNumber(5) // true
+   * @example $isNumber(true) // false
+   * @example $isNumber('hello') // false
    */
   $isNumber: Operation<Value, boolean>;
 
@@ -681,6 +690,9 @@ export type TypeOperations = {
    * @param {Value} args The value (expression evaluating to any type).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the value is a string. Otherwise, false.
+   * @example $isString('hello') // true
+   * @example $isString(5) // false
+   * @example $isString(true) // false
    */
   $isString: Operation<Value, boolean>;
 
@@ -689,6 +701,10 @@ export type TypeOperations = {
    * @param {Value} args The value (expression evaluating to any type).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} The converted value.
+   * @example $toBoolean('hello') // true
+   * @example $toBoolean('') // false
+   * @example $toBoolean(5) // true
+   * @example $toBoolean(0) // false
    */
   $toBoolean: Operation<Value, boolean>;
 
@@ -697,6 +713,8 @@ export type TypeOperations = {
    * @param {Value} args The value (expression evaluating to any type).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number | null} The converted value.
+   * @example $toNumber('5') // 5
+   * @example $toNumber('hello') // null
    */
   $toNumber: Operation<Value, number | null>;
 
@@ -705,6 +723,8 @@ export type TypeOperations = {
    * @param {Value} args The value (expression evaluating to any type).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string} The converted value.
+   * @example $toString(5) // '5'
+   * @example $toString(true) // 'true'
    */
   $toString: Operation<Value, string>;
 };
