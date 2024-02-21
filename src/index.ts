@@ -1,20 +1,16 @@
 import { operations } from './operations';
 
-export type Primitive = string | number | boolean | null;
-export type Value = { [key: string]: Value } | Value[] | Primitive;
-export type Operation = (args: any, vars: { [key: string]: Value }) => Value;
-export type Operations = { [key: string]: Operation };
-
 import { isString, isObject, isArray, inObject, inArray } from './utils';
+
+import { Operation, Operations, Value, Variables } from './types';
 
 /**
  * It evaluates the expression with the given variables.
- *
  * @param expr The expression.
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
  */
-export function mongu(expr: Value, vars: { [key: string]: Value } = {}): Value {
+export function mongu(expr: Value, vars: Variables = {}): Value {
   if (isString(expr)) return evaluateString(expr, vars);
   if (isObject(expr)) return evaluateObject(expr, vars);
   if (isArray(expr)) return evaluateArray(expr, vars);
@@ -23,19 +19,17 @@ export function mongu(expr: Value, vars: { [key: string]: Value } = {}): Value {
 
 /**
  * It evaluates the string expression with the given variables.
- *
  * @param expr The string expression.
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
  */
-function evaluateString(expr: string, vars: { [key: string]: Value }): Value {
+function evaluateString(expr: string, vars: Variables): Value {
   if (isVariable(expr)) return evaluateVariable(expr, vars);
   return evaluateNormalString(expr);
 }
 
 /**
  * It returns a boolean indicating whether the string expression is a variable.
- *
  * @param expr The string expression.
  * @returns A boolean indicating whether the string expression is a variable.
  */
@@ -45,12 +39,11 @@ function isVariable(expr: string): boolean {
 
 /**
  * It evaluates the variable expression with the given variables.
- *
  * @param expr The variable expression.
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
  */
-function evaluateVariable(expr: string, vars: { [key: string]: Value }): Value {
+function evaluateVariable(expr: string, vars: Variables): Value {
   const parts = expr.slice(1).split('.');
   const value = parts.reduce((acc: Value, key: string, i: number): Value => {
     if (isObject(acc) && inObject(acc, key)) return acc[key];
@@ -105,14 +98,15 @@ function isOperation(expr: { [key: string]: Value }): boolean {
  */
 function evaluateOperation(
   expr: { [key: string]: Value },
-  vars: { [key: string]: Value }
+  vars: Variables
 ): Value {
-  const operator = Object.keys(expr)[0];
-  if (operator in operations) {
-    const operation = operations[operator];
-    return operation(expr[operator], vars);
+  const key = Object.keys(expr)[0];
+  if (key in operations) {
+    const operator = key as keyof Operations;
+    const operation = operations[operator] as Operation<Value, Value>;
+    return operation(expr[key], vars);
   }
-  throw new Error(`Operator ${operator} not found`);
+  throw new Error(`Operator ${key} not found`);
 }
 
 /**

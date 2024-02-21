@@ -1,6 +1,8 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
 
-export const variable: Operations = {
+import { VariableOperations, Value } from '../types';
+
+export const variable: VariableOperations = {
   /**
    * Binds variables for use in the specified expression, and returns the result of the expression.
    * @param args The variables and the expression.

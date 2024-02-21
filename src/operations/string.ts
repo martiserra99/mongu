@@ -1,8 +1,10 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
+
+import { StringOperations, Value } from '../types';
 
 import { assert } from '../assert';
 
-export const string: Operations = {
+export const string: StringOperations = {
   /**
    * Concatenates strings and returns the concatenated string.
    * @param args An array of strings.

@@ -1,8 +1,10 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
+
+import { BooleanOperations, Value } from '../types';
 
 import { assert } from '../assert';
 
-export const boolean: Operations = {
+export const boolean: BooleanOperations = {
   /**
    * Evaluates one or more expressions and returns true if all of the expressions are true. Otherwise, it returns false.
    * @param args An array of booleans.

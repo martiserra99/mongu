@@ -1,8 +1,10 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
+
+import { ComparisonOperations, Value } from '../types';
 
 import { assert } from '../assert';
 
-export const comparison: Operations = {
+export const comparison: ComparisonOperations = {
   /**
    * Compares two values and returns -1 if the first is less than the second, 1 if the first is greater than the second, and 0 if the two values are equal.
    * @param args An array of two values.

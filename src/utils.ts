@@ -1,4 +1,4 @@
-import { Value } from './index';
+import { Value } from './types';
 
 /**
  * It returns a boolean indicating whether the expression is a string.

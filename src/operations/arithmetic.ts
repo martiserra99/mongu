@@ -1,8 +1,10 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
+
+import { ArithmeticOperations, Value } from '../types';
 
 import { assert } from '../assert';
 
-export const arithmetic: Operations = {
+export const arithmetic: ArithmeticOperations = {
   /**
    * Returns the absolute value of a number.
    * @param args A number.

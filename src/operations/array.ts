@@ -1,8 +1,10 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
+
+import { ArrayOperations, Value } from '../types';
 
 import { assert } from '../assert';
 
-export const array: Operations = {
+export const array: ArrayOperations = {
   /**
    * Returns the element at the specified array index.
    * @param args The array and the index.

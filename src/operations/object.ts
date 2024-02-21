@@ -1,8 +1,10 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
+
+import { ObjectOperations, Value } from '../types';
 
 import { assert } from '../assert';
 
-export const object: Operations = {
+export const object: ObjectOperations = {
   /**
    * Gets the value of a field in an object.
    * @param args The field and the input object.

@@ -1,8 +1,10 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
+
+import { ConditionalOperations, Value } from '../types';
 
 import { assert } from '../assert';
 
-export const conditional: Operations = {
+export const conditional: ConditionalOperations = {
   /**
    * Evaluates a boolean expression to return one of the two specified return expressions.
    * @param args The condition, the value if true, and the value if false.

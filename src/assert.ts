@@ -1,4 +1,4 @@
-import { Value } from './index';
+import { Value } from './types';
 
 type Type = keyof typeof callbacks;
 

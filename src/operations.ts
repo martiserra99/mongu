@@ -1,4 +1,4 @@
-import { Operations } from './index';
+import { Operations } from './types';
 
 import { arithmetic } from './operations/arithmetic';
 import { array } from './operations/array';

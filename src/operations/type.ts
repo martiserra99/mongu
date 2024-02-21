@@ -1,6 +1,8 @@
-import { mongu, Operations, Value } from '../index';
+import { mongu } from '../index';
 
-export const type: Operations = {
+import { TypeOperations, Value } from '../types';
+
+export const type: TypeOperations = {
   /**
    * Converts a value to a specified type.
    * @param args The value and the type.
