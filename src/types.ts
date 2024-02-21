@@ -9,10 +9,12 @@ export type Primitive = string | number | boolean | null;
 export type Value = { [key: string]: Value } | Value[] | Primitive;
 
 /**
- * It represents an operation that takes some arguments and variables and returns a value.
- *
- * @param T The type of the arguments.
- * @param U The type of the value.
+ * Represents an operation that takes input arguments and variables, and returns a result.
+ * @template T - The type of input arguments.
+ * @template U - The type of the result.
+ * @param {T} args - The input arguments for the operation.
+ * @param {Object.<string, Value>} vars - An object representing variables used by the operation.
+ * @returns {U} - The result of the operation.
  */
 export type Operation<T extends Value, U extends Value> = (
   args: T,
@@ -36,21 +38,132 @@ export type Operations = ArithmeticOperations &
  * It represents all the arithmetic operations that can be used in an expression.
  */
 export type ArithmeticOperations = {
+  /**
+   * Returns the absolute value of a number.
+   * @param {Value} args The input value (expression evaluating to a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The absolute value of the input value.
+   */
   $abs: Operation<Value, number>;
+
+  /**
+   * Adds numbers together.
+   * @param {Value[]} args The input values (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The sum of the input values.
+   */
   $add: Operation<Value[], number>;
+
+  /**
+   * Returns the smallest integer greater than or equal to the specified number.
+   * @param {Value} args The input value (expression evaluating to a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The smallest integer greater than or equal to the input value.
+   */
   $ceil: Operation<Value, number>;
+
+  /**
+   * Divides one number by another.
+   * @param {[Value, Value]} args The dividend and divisor (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The result of dividing the dividend by the divisor.
+   */
   $divide: Operation<[Value, Value], number>;
+
+  /**
+   * Raises Euler's number to the specified exponent.
+   * @param {Value} args The input value (expression evaluating to a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} Euler's number raised to the specified power.
+   */
   $exp: Operation<Value, number>;
+
+  /**
+   * Returns the largest integer less than or equal to the specified number.
+   * @param {Value} args The input value (expression evaluating to a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The largest integer less than or equal to the input value.
+   */
   $floor: Operation<Value, number>;
+
+  /**
+   * Returns the natural logarithm of a number.
+   * @param {Value} args The input value (expression evaluating to a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The natural logarithm of the input value.
+   */
   $ln: Operation<Value, number>;
+
+  /**
+   * Returns the logarithm of a number in a specified base.
+   * @param {[Value, Value]} args The number and base (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The logarithm of the number in the specified base.
+   */
   $log: Operation<[Value, Value], number>;
+
+  /**
+   * Returns the base 10 logarithm of a number.
+   * @param {Value} args The input value (expression evaluating to a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The base 10 logarithm of the input value.
+   */
   $log10: Operation<Value, number>;
+
+  /**
+   * Returns the remainder of dividing one number by another.
+   * @param {[Value, Value]} args The dividend and divisor (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The remainder of dividing the dividend by the divisor.
+   */
   $mod: Operation<[Value, Value], number>;
+
+  /**
+   * Multiplies numbers together.
+   * @param {Value[]} args The input values (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The product of the input values.
+   */
   $multiply: Operation<Value[], number>;
+
+  /**
+   * Raises a number to the specified exponent.
+   * @param {[Value, Value]} args The base and exponent (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The base raised to the specified power.
+   */
   $pow: Operation<[Value, Value], number>;
+
+  /**
+   * Rounds a number to the nearest integer.
+   * @param {[Value, Value]} args The input value and the number of decimal places (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The input value rounded to the nearest value with the specified number of decimal places.
+   */
   $round: Operation<[Value, Value], number>;
+
+  /**
+   * Returns the square root of a number.
+   * @param {Value} args The input value (expression evaluating to a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The square root of the input value.
+   */
   $sqrt: Operation<Value, number>;
+
+  /**
+   * Subtracts one number from another.
+   * @param {[Value, Value]} args The minuend and subtrahend (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The result of subtracting the subtrahend from the minuend.
+   */
   $subtract: Operation<[Value, Value], number>;
+
+  /**
+   * Truncates a number to the specified number of decimal places.
+   * @param {[Value, Value]} args The input value and the number of decimal places (expressions evaluating to numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The input value truncated to the specified number of decimal places.
+   */
   $trunc: Operation<[Value, Value], number>;
 };
 
