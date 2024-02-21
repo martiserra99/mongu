@@ -529,12 +529,60 @@ export type StringOperations = {
  * It represents all the type operations that can be used in an expression.
  */
 export type TypeOperations = {
+  /**
+   * Converts a value to a specified type.
+   * @param {{ input: Value; to: Value }} args The value and the type (expressions evaluating to any type and a string that has to be 'bool', 'number', or 'string').
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean | number | string} The converted value.
+   */
   $convert: Operation<{ input: Value; to: Value }, boolean | number | string>;
+
+  /**
+   * Returns true if the value is a boolean. Otherwise, it returns false.
+   * @param {Value} args The value (expression evaluating to any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the value is a boolean. Otherwise, false.
+   */
   $isBoolean: Operation<Value, boolean>;
+
+  /**
+   * Returns true if the value is a number. Otherwise, it returns false.
+   * @param {Value} args The value (expression evaluating to any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the value is a number. Otherwise, false.
+   */
   $isNumber: Operation<Value, boolean>;
+
+  /**
+   * Returns true if the value is a string. Otherwise, it returns false.
+   * @param {Value} args The value (expression evaluating to any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the value is a string. Otherwise, false.
+   */
   $isString: Operation<Value, boolean>;
+
+  /**
+   * Converts a value to a boolean.
+   * @param {Value} args The value (expression evaluating to any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} The converted value.
+   */
   $toBoolean: Operation<Value, boolean>;
+
+  /**
+   * Converts a value to a number. If the value cannot be converted, it returns null.
+   * @param {Value} args The value (expression evaluating to any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number | null} The converted value.
+   */
   $toNumber: Operation<Value, number | null>;
+
+  /**
+   * Converts a value to a string.
+   * @param {Value} args The value (expression evaluating to any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The converted value.
+   */
   $toString: Operation<Value, string>;
 };
 
