@@ -736,6 +736,9 @@ export type VariableOperations = {
   /**
    * Binds variables for use in the specified expression, and returns the result of the expression.
    * @param {{ vars: { [key: string]: Value }; in: Value }} args The variables and the expression (expressions evaluating to any types).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The result of the expression.
+   * @example $let({ vars: { age: 24 }, in: { isAdult: { $gte: ['$$age', 18] } } }) // { isAdult: true }
    */
   $let: Operation<{ vars: { [key: string]: Value }; in: Value }, Value>;
 };
