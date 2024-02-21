@@ -412,8 +412,28 @@ export type ConditionalOperations = {
  * It represents all the object operations that can be used in an expression.
  */
 export type ObjectOperations = {
+  /**
+   * Gets the value of a field in an object. If the field does not exist, it returns null.
+   * @param {{ field: Value; input: Value }} args The field and the input object (expressions evaluating to a string and an object).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The value of the field.
+   */
   $getField: Operation<{ field: Value; input: Value }, Value>;
+
+  /**
+   * Merges objects into a single object.
+   * @param {Value[]} args The objects (expressions evaluating to objects).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {{ [key: string]: Value }} The merged object.
+   */
   $mergeObjects: Operation<Value[], { [key: string]: Value }>;
+
+  /**
+   * Sets a field in an object to a specified value.
+   * @param {{ field: Value; input: Value; value: Value }} args The field, the input object, and the value (expressions evaluating to a string, an object, and any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {{ [key: string]: Value }} The object with the field set to the value.
+   */
   $setField: Operation<
     { field: Value; input: Value; value: Value },
     { [key: string]: Value }
