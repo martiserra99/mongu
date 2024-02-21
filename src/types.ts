@@ -406,6 +406,9 @@ export type ComparisonOperations = {
    * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The result of comparing the two values.
+   * @example $cmp([3, 5]) // -1
+   * @example $cmp([5, 3]) // 1
+   * @example $cmp([3, 3]) // 0
    */
   $cmp: Operation<[Value, Value], number>;
 
@@ -414,6 +417,8 @@ export type ComparisonOperations = {
    * @param {[Value, Value]} args An array of two values (expressions evaluating to any types).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the two values are equal. Otherwise, false.
+   * @example $eq([3, 3]) // true
+   * @example $eq(["hello", "bye"]) // false
    */
   $eq: Operation<[Value, Value], boolean>;
 
@@ -422,6 +427,9 @@ export type ComparisonOperations = {
    * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the first value is greater than the second. Otherwise, false.
+   * @example $gt([5, 3]) // true
+   * @example $gt([3, 5]) // false
+   * @example $gt([3, 3]) // false
    */
   $gt: Operation<[Value, Value], boolean>;
 
@@ -430,6 +438,9 @@ export type ComparisonOperations = {
    * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the first value is greater than or equal to the second. Otherwise, false.
+   * @example $gte([5, 3]) // true
+   * @example $gte([3, 5]) // false
+   * @example $gte([3, 3]) // true
    */
   $gte: Operation<[Value, Value], boolean>;
 
@@ -438,6 +449,9 @@ export type ComparisonOperations = {
    * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the first value is less than the second. Otherwise, false.
+   * @example $lt([3, 5]) // true
+   * @example $lt([5, 3]) // false
+   * @example $lt([3, 3]) // false
    */
   $lt: Operation<[Value, Value], boolean>;
 
@@ -446,6 +460,9 @@ export type ComparisonOperations = {
    * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the first value is less than or equal to the second. Otherwise, false.
+   * @example $lte([3, 5]) // true
+   * @example $lte([5, 3]) // false
+   * @example $lte([3, 3]) // true
    */
   $lte: Operation<[Value, Value], boolean>;
 
@@ -454,6 +471,8 @@ export type ComparisonOperations = {
    * @param {[Value, Value]} args An array of two values (expressions evaluating to any types).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the two values are not equal. Otherwise, false.
+   * @example $ne([3, 3]) // false
+   * @example $ne(["hello", "bye"]) // true
    */
   $ne: Operation<[Value, Value], boolean>;
 };
