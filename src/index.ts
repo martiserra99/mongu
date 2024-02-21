@@ -2,7 +2,7 @@ import { operations } from './operations';
 
 import { isString, isObject, isArray, inObject, inArray } from './utils';
 
-import { Operation, Operations, Value, Variables } from './types';
+import { Operations, Operation, Value, Variables } from './types';
 
 /**
  * It evaluates the expression with the given variables.
@@ -55,7 +55,6 @@ function evaluateVariable(expr: string, vars: Variables): Value {
 
 /**
  * It evaluates the normal string expression.
- *
  * @param expr The string expression.
  * @returns The result of the expression.
  */
@@ -66,7 +65,6 @@ function evaluateNormalString(expr: string): Value {
 
 /**
  * It evaluates the object expression with the given variables.
- *
  * @param expr The object expression.
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
@@ -91,7 +89,6 @@ function isOperation(expr: { [key: string]: Value }): boolean {
 
 /**
  * It evaluates the operation expression with the given variables.
- *
  * @param expr The operation expression.
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
@@ -111,7 +108,6 @@ function evaluateOperation(
 
 /**
  * It evaluates the normal object expression with the given variables.
- *
  * @param expr The normal object expression.
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
@@ -129,7 +125,6 @@ function evaluateNormalObject(
 
 /**
  * It evaluates the array expression with the given variables.
- *
  * @param expr The array expression.
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.

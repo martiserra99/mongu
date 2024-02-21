@@ -1,15 +1,15 @@
-type Primitive = string | number | boolean | null;
+export type Primitive = string | number | boolean | null;
 
-type Value = { [key: string]: Value } | Value[] | Primitive;
+export type Value = { [key: string]: Value } | Value[] | Primitive;
 
-type Variables = { [key: string]: Value };
+export type Variables = { [key: string]: Value };
 
-type Operation<T extends Value, U extends Value> = (
+export type Operation<T extends Value, U extends Value> = (
   args: T,
   vars: Variables
 ) => U;
 
-type Operations = ArithmeticOperations &
+export type Operations = ArithmeticOperations &
   ArrayOperations &
   BooleanOperations &
   ComparisonOperations &
@@ -19,7 +19,7 @@ type Operations = ArithmeticOperations &
   TypeOperations &
   VariableOperations;
 
-type ArithmeticOperations = {
+export type ArithmeticOperations = {
   $abs: Operation<Value, number>;
   $add: Operation<Value[], number>;
   $ceil: Operation<Value, number>;
@@ -38,7 +38,7 @@ type ArithmeticOperations = {
   $trunc: Operation<[Value, Value], number>;
 };
 
-type ArrayOperations = {
+export type ArrayOperations = {
   $arrayElemAt: Operation<[Value, Value], Value>;
   $concatArrays: Operation<Value[], Value[]>;
   $filter: Operation<{ input: Value; cond: Value; as: Value }, Value[]>;
@@ -56,13 +56,13 @@ type ArrayOperations = {
   $sortArray: Operation<{ input: Value; sortBy: Value }, Value[]>;
 };
 
-type BooleanOperations = {
+export type BooleanOperations = {
   $and: Operation<Value[], boolean>;
   $not: Operation<Value, boolean>;
   $or: Operation<Value[], boolean>;
 };
 
-type ComparisonOperations = {
+export type ComparisonOperations = {
   $cmp: Operation<[Value, Value], number>;
   $eq: Operation<[Value, Value], boolean>;
   $gt: Operation<[Value, Value], boolean>;
@@ -72,7 +72,7 @@ type ComparisonOperations = {
   $ne: Operation<[Value, Value], boolean>;
 };
 
-type ConditionalOperations = {
+export type ConditionalOperations = {
   $cond: Operation<{ if: Value; then: Value; else: Value }, Value>;
   $ifNull: Operation<Value[], Value>;
   $switch: Operation<
@@ -81,7 +81,7 @@ type ConditionalOperations = {
   >;
 };
 
-type ObjectOperations = {
+export type ObjectOperations = {
   $getField: Operation<{ field: Value; input: Value }, Value>;
   $mergeObjects: Operation<Value[], { [key: string]: Value }>;
   $setField: Operation<
@@ -90,7 +90,7 @@ type ObjectOperations = {
   >;
 };
 
-type StringOperations = {
+export type StringOperations = {
   $concat: Operation<Value[], string>;
   $ltrim: Operation<Value, string>;
   $regexMatch: Operation<[Value, Value], boolean>;
@@ -103,7 +103,7 @@ type StringOperations = {
   $toUpper: Operation<Value, string>;
 };
 
-type TypeOperations = {
+export type TypeOperations = {
   $convert: Operation<{ input: Value; to: Value }, boolean | number | string>;
   $isBoolean: Operation<Value, boolean>;
   $isNumber: Operation<Value, boolean>;
@@ -113,23 +113,6 @@ type TypeOperations = {
   $toString: Operation<Value, string>;
 };
 
-type VariableOperations = {
+export type VariableOperations = {
   $let: Operation<{ vars: { [key: string]: Value }; in: Value }, Value>;
-};
-
-export {
-  Primitive,
-  Value,
-  Variables,
-  Operation,
-  Operations,
-  ArithmeticOperations,
-  ArrayOperations,
-  BooleanOperations,
-  ComparisonOperations,
-  ConditionalOperations,
-  ObjectOperations,
-  StringOperations,
-  TypeOperations,
-  VariableOperations,
 };
