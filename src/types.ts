@@ -444,15 +444,84 @@ export type ObjectOperations = {
  * It represents all the string operations that can be used in an expression.
  */
 export type StringOperations = {
+  /**
+   * Concatenates strings together.
+   * @param {Value[]} args The input strings (expressions evaluating to strings).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The result of concatenating the input strings.
+   */
   $concat: Operation<Value[], string>;
+
+  /**
+   * Removes whitespace from the beginning of a string.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The string with the whitespace removed from the beginning.
+   */
   $ltrim: Operation<Value, string>;
+
+  /**
+   * Performs a regular expression and returns true if there is a match. Otherwise, it returns false.
+   * @param {[Value, Value]} args A string and a regular expression (expressions evaluating to strings).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} A boolean indicating if there is a match.
+   */
   $regexMatch: Operation<[Value, Value], boolean>;
+
+  /**
+   * Removes whitespace from the end of a string.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The string with the whitespace removed from the end.
+   */
   $rtrim: Operation<Value, string>;
+
+  /**
+   * Divides a string into an array of substrings based on a delimiter.
+   * @param {[Value, Value]} args A string and a delimiter (expressions evaluating to strings).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string[]} The array of substrings.
+   */
   $split: Operation<[Value, Value], string[]>;
+
+  /**
+   * Returns the length of a string.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The length of the input string.
+   */
   $strLen: Operation<Value, number>;
+
+  /**
+   * Returns a substring of a string.
+   * @param {[Value, Value, Value]} args The input string, the starting index, and the number of characters (expressions evaluating to a string, a number, and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The substring of the input string.
+   */
   $substr: Operation<[Value, Value, Value], string>;
+
+  /**
+   * Returns the string converted to lowercase.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The input string converted to lowercase.
+   */
   $toLower: Operation<Value, string>;
+
+  /**
+   * Removes whitespace from the beginning and end of a string.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The string with the whitespace removed from the beginning and end.
+   */
   $trim: Operation<Value, string>;
+
+  /**
+   * Returns the string converted to uppercase.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The input string converted to uppercase.
+   */
   $toUpper: Operation<Value, string>;
 };
 
