@@ -331,7 +331,7 @@ export type ComparisonOperations = {
 
   /**
    * Compares two values and returns true if they are equal. Otherwise, it returns false.
-   * @param {[Value, Value]} args An array of two values (expressions evaluating to any type).
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to any types).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the two values are equal. Otherwise, false.
    */
@@ -371,7 +371,7 @@ export type ComparisonOperations = {
 
   /**
    * Compares two values and returns true if they are not equal. Otherwise, it returns false.
-   * @param {[Value, Value]} args An array of two values (expressions evaluating to any type).
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to any types).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the two values are not equal. Otherwise, false.
    */
@@ -382,8 +382,26 @@ export type ComparisonOperations = {
  * It represents all the conditional operations that can be used in an expression.
  */
 export type ConditionalOperations = {
+  /**
+   * Evaluates a boolean expression to return one of the two specified return expressions.
+   * @param {{ if: Value; then: Value; else: Value }} args The condition, the value if true, and the value if false (expressions evaluating to a boolean, any type, and any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The 'then' value if the condition is true. Otherwise, the 'else' value.
+   */
   $cond: Operation<{ if: Value; then: Value; else: Value }, Value>;
+
+  /**
+   * Evaluates input expressions for null values and returns the first non-null expression's value. Otherwise, it returns the last expression's value.
+   * @param {Value[]} args The expressions (expressions evaluating to any types).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The first non-null expression's value. Otherwise, the last expression's value.
+   */
   $ifNull: Operation<Value[], Value>;
+
+  /**
+   * Evaluates a series of case expressions. When it finds an expression which evaluates to true, it executes a specified expression and breaks out of the control flow. Otherwise, it returns the default value.
+   * @param {{ branches: { case: Value; then: Value }[]; default: Value }} args The branches and the default value (expressions evaluating to booleans and any types).
+   */
   $switch: Operation<
     { branches: { case: Value; then: Value }[]; default: Value },
     Value
