@@ -486,6 +486,8 @@ export type ConditionalOperations = {
    * @param {{ if: Value; then: Value; else: Value }} args The condition, the value if true, and the value if false (expressions evaluating to a boolean, any type, and any type).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {Value} The 'then' value if the condition is true. Otherwise, the 'else' value.
+   * @example $cond({ if: true, then: "yes", else: "no" }) // "yes"
+   * @example $cond({ if: false, then: "yes", else: "no" }) // "no"
    */
   $cond: Operation<{ if: Value; then: Value; else: Value }, Value>;
 
@@ -494,12 +496,19 @@ export type ConditionalOperations = {
    * @param {Value[]} args The expressions (expressions evaluating to any types).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {Value} The first non-null expression's value. Otherwise, the last expression's value.
+   * @example $ifNull([null, 'hello', 'bye']) // "hello"
+   * @example $ifNull([null, null, 'bye']) // "bye"
+   * @example $ifNull([null, null, null]) // null
    */
   $ifNull: Operation<Value[], Value>;
 
   /**
-   * Evaluates a series of case expressions. When it finds an expression which evaluates to true, it executes a specified expression and breaks out of the control flow. Otherwise, it returns the default value.
+   * Evaluates a series of case expressions. When it finds an expression which evaluates to true, it returns the value of the corresponding expression. If no expression is true, it returns the value of the default expression.
    * @param {{ branches: { case: Value; then: Value }[]; default: Value }} args The branches and the default value (expressions evaluating to booleans and any types).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The value of the first true expression. Otherwise, the default value.
+   * @example $switch({ branches: [{ case: false, then: 1 }, { case: true, then: 2 }], default: 3 } }) // 2
+   * @example $switch({ branches: [{ case: false, then: 1 }, { case: false, then: 2 }], default: 3 } }) // 3
    */
   $switch: Operation<
     { branches: { case: Value; then: Value }[]; default: Value },
