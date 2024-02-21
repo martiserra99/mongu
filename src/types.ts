@@ -219,8 +219,8 @@ export type ArrayOperations = {
    * @param {Object.<string, Value>} vars The variables.
    * @returns {Value[]} The concatenation of the input arrays.
    * @example $concatArrays([1, 2], [3, 4]) // [1, 2, 3, 4]
-   * @example $concatArrays(["hello", " "], ["world"]) // ["hello", " ", "world"]
-   * @example $concatArrays(["hello", " "], [["world"]]) // ["hello", " ", ["world"]]
+   * @example $concatArrays(['hello', ' '], ['world']) // ['hello', ' ', 'world']
+   * @example $concatArrays(['hello', ' '], [['world']]) // ['hello', ' ', ['world']]
    */
   $concatArrays: Operation<Value[], Value[]>;
 
@@ -251,7 +251,7 @@ export type ArrayOperations = {
    * @returns {boolean} A boolean indicating whether the value is in the array.
    * @example $in({ $in: [2, [1, 2, 3]] }) // true
    * @example $in({ $in: [4, [1, 2, 3]] }) // false
-   * @example $in({ $in: ["world", ["hello", "world"]] }) // true
+   * @example $in({ $in: ['world', ['hello', 'world']] }) // true
    */
   $in: Operation<[Value, Value], boolean>;
 
@@ -418,7 +418,7 @@ export type ComparisonOperations = {
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the two values are equal. Otherwise, false.
    * @example $eq([3, 3]) // true
-   * @example $eq(["hello", "bye"]) // false
+   * @example $eq(['hello', 'bye']) // false
    */
   $eq: Operation<[Value, Value], boolean>;
 
@@ -472,7 +472,7 @@ export type ComparisonOperations = {
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if the two values are not equal. Otherwise, false.
    * @example $ne([3, 3]) // false
-   * @example $ne(["hello", "bye"]) // true
+   * @example $ne(['hello', 'bye']) // true
    */
   $ne: Operation<[Value, Value], boolean>;
 };
@@ -486,8 +486,8 @@ export type ConditionalOperations = {
    * @param {{ if: Value; then: Value; else: Value }} args The condition, the value if true, and the value if false (expressions evaluating to a boolean, any type, and any type).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {Value} The 'then' value if the condition is true. Otherwise, the 'else' value.
-   * @example $cond({ if: true, then: "yes", else: "no" }) // "yes"
-   * @example $cond({ if: false, then: "yes", else: "no" }) // "no"
+   * @example $cond({ if: true, then: 'yes', else: 'no' }) // 'yes'
+   * @example $cond({ if: false, then: 'yes', else: 'no' }) // 'no'
    */
   $cond: Operation<{ if: Value; then: Value; else: Value }, Value>;
 
@@ -496,8 +496,8 @@ export type ConditionalOperations = {
    * @param {Value[]} args The expressions (expressions evaluating to any types).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {Value} The first non-null expression's value. Otherwise, the last expression's value.
-   * @example $ifNull([null, 'hello', 'bye']) // "hello"
-   * @example $ifNull([null, null, 'bye']) // "bye"
+   * @example $ifNull([null, 'hello', 'bye']) // 'hello'
+   * @example $ifNull([null, null, 'bye']) // 'bye'
    * @example $ifNull([null, null, null]) // null
    */
   $ifNull: Operation<Value[], Value>;
@@ -560,6 +560,7 @@ export type StringOperations = {
    * @param {Value[]} args The input strings (expressions evaluating to strings).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string} The result of concatenating the input strings.
+   * @example $concat(['hello', ' ', 'world']) // 'hello world'
    */
   $concat: Operation<Value[], string>;
 
@@ -568,6 +569,7 @@ export type StringOperations = {
    * @param {Value} args The input string (expression evaluating to a string).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string} The string with the whitespace removed from the beginning.
+   * @example $ltrim('  hello') // 'hello'
    */
   $ltrim: Operation<Value, string>;
 
@@ -576,6 +578,8 @@ export type StringOperations = {
    * @param {[Value, Value]} args A string and a regular expression (expressions evaluating to strings).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} A boolean indicating if there is a match.
+   * @example $regexMatch(['hello', '/ell/']) // true
+   * @example $regexMatch(['hello', '/bye/']) // false
    */
   $regexMatch: Operation<[Value, Value], boolean>;
 
@@ -584,6 +588,7 @@ export type StringOperations = {
    * @param {Value} args The input string (expression evaluating to a string).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string} The string with the whitespace removed from the end.
+   * @example $rtrim('hello  ') // 'hello'
    */
   $rtrim: Operation<Value, string>;
 
@@ -592,6 +597,8 @@ export type StringOperations = {
    * @param {[Value, Value]} args A string and a delimiter (expressions evaluating to strings).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string[]} The array of substrings.
+   * @example $split(['June-15-2013', '-']) // ['June', '15', '2013']
+   * @example $split(['hello world', ' ']) // ['hello', 'world']
    */
   $split: Operation<[Value, Value], string[]>;
 
@@ -600,6 +607,7 @@ export type StringOperations = {
    * @param {Value} args The input string (expression evaluating to a string).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The length of the input string.
+   * @example $strLen('hello') // 5
    */
   $strLen: Operation<Value, number>;
 
@@ -608,6 +616,7 @@ export type StringOperations = {
    * @param {[Value, Value, Value]} args The input string, the starting index, and the number of characters (expressions evaluating to a string, a number, and a number).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string} The substring of the input string.
+   * @example $substr(['hello', 0, 2]) // 'he'
    */
   $substr: Operation<[Value, Value, Value], string>;
 
@@ -616,6 +625,7 @@ export type StringOperations = {
    * @param {Value} args The input string (expression evaluating to a string).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string} The input string converted to lowercase.
+   * @example $toLower('Marti Serra') // 'marti serra'
    */
   $toLower: Operation<Value, string>;
 
@@ -624,6 +634,7 @@ export type StringOperations = {
    * @param {Value} args The input string (expression evaluating to a string).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string} The string with the whitespace removed from the beginning and end.
+   * @example $trim('  hello  ') // 'hello'
    */
   $trim: Operation<Value, string>;
 
@@ -632,6 +643,7 @@ export type StringOperations = {
    * @param {Value} args The input string (expression evaluating to a string).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {string} The input string converted to uppercase.
+   * @example $toUpper('Marti Serra') // 'MARTI SERRA'
    */
   $toUpper: Operation<Value, string>;
 };
