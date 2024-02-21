@@ -292,8 +292,28 @@ export type ArrayOperations = {
  * It represents all the boolean operations that can be used in an expression.
  */
 export type BooleanOperations = {
+  /**
+   * Evaluates one or more expressions and returns true if all of the expressions are true. Otherwise, it returns false.
+   * @param {Value[]} args An array of booleans (expressions evaluating to booleans).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if all of the expressions are true. Otherwise, false.
+   */
   $and: Operation<Value[], boolean>;
+
+  /**
+   * Evaluates a boolean and returns the opposite boolean value.
+   * @param {Value} args A boolean (expression evaluating to a boolean).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} The opposite boolean value.
+   */
   $not: Operation<Value, boolean>;
+
+  /**
+   * Evaluates one or more expressions and returns true if any of the expressions are true. Otherwise, it returns false.
+   * @param {Value[]} args An array of booleans (expressions evaluating to booleans).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if any of the expressions are true. Otherwise, false.
+   */
   $or: Operation<Value[], boolean>;
 };
 
