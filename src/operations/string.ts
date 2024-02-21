@@ -22,7 +22,7 @@ export const string: Operations = {
    * Removes whitespace from the beginning of a string.
    * @param args A string.
    * @param vars The variables.
-   * @returns The string with whitespace removed from the beginning.
+   * @returns The string with the whitespace removed from the beginning.
    */
   $ltrim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
@@ -46,7 +46,7 @@ export const string: Operations = {
    * Removes whitespace from the end of a string.
    * @param args A string.
    * @param vars The variables.
-   * @returns The string with whitespace removed from the end.
+   * @returns The string with the whitespace removed from the end.
    */
   $rtrim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
@@ -107,7 +107,7 @@ export const string: Operations = {
    * Removes whitespace from the beginning and end of a string.
    * @param args A string.
    * @param vars The variables.
-   * @returns The string with whitespace removed from the beginning and end.
+   * @returns The string with the whitespace removed from the beginning and end.
    */
   $trim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
