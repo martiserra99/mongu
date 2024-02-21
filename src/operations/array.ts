@@ -6,10 +6,13 @@ import { assert } from '../assert';
 
 export const array: ArrayOperations = {
   /**
-   * Returns the element at the specified array index.
-   * @param args The array and the index.
-   * @param vars The variables.
-   * @returns The element at the specified array index.
+   * Returns the element at the specified index in an array.
+   * @param {[Value, Value]} args The array and the index (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The element at the specified index in the array.
+   * @example $arrayElemAt([1, 2, 3], 0) // 1
+   * @example $arrayElemAt([1, 2, 3], 1) // 2
+   * @example $arrayElemAt([1, 2, 3], 3) // null
    */
   $arrayElemAt(args: [Value, Value], vars: { [key: string]: Value }): Value {
     const array = mongu(args[0], vars);
@@ -18,11 +21,15 @@ export const array: ArrayOperations = {
     assert<number>(index, ['number']);
     return array[index] ?? null;
   },
+
   /**
-   * Concatenates arrays to return the concatenated array.
-   * @param args The arrays.
-   * @param vars The variables.
-   * @returns The concatenated array.
+   * Returns the concatenation of arrays.
+   * @param {Value[]} args The input arrays (expressions evaluating to arrays).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The concatenation of the input arrays.
+   * @example $concatArrays([1, 2], [3, 4]) // [1, 2, 3, 4]
+   * @example $concatArrays(['hello', ' '], ['world']) // ['hello', ' ', 'world']
+   * @example $concatArrays(['hello', ' '], [['world']]) // ['hello', ' ', ['world']]
    */
   $concatArrays(args: Value[], vars: { [key: string]: Value }): Value[] {
     return args.reduce((acc: Value[], expr: Value) => {
@@ -31,11 +38,13 @@ export const array: ArrayOperations = {
       return acc.concat(array);
     }, []);
   },
+
   /**
-   * Selects a subset of an array to return based on the specified condition.
-   * @param args The array, the condition, and the variable name.
-   * @param vars The variables.
-   * @returns The subset of the array.
+   * Returns a subset of an array based on the specified condition.
+   * @param {{ input: Value; cond: Value; as: Value }} args The array, the condition, and the variable name (expressions evaluating to an array, a boolean, and a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The subset of the array.
+   * @example $filter({ input: [1, 2, 3, 4], as: 'num', cond: { $gt: ['$$num', 2] } }) // [3, 4]
    */
   $filter(
     args: { input: Value; cond: Value; as: Value },
@@ -49,11 +58,15 @@ export const array: ArrayOperations = {
       return mongu(args.cond, { ...vars, [`$${as}`]: value });
     });
   },
+
   /**
    * Returns a specified number of elements from the beginning of an array.
-   * @param args The array and the number of elements.
-   * @param vars The variables.
-   * @returns The specified number of elements from the beginning of the array.
+   * @param {{ input: Value; n: Value }} args The array and the number of elements (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The specified number of elements from the beginning of the array.
+   * @example $firstN({ n: 2, input: [1, 2, 3] }) // [1, 2]
+   * @example $firstN({ n: 3, input: [1, 2] } }) // [1, 2]
+   * @example $firstN({ n: 2, input: [1] } }) // [1]
    */
   $firstN(
     args: { input: Value; n: Value },
@@ -65,11 +78,15 @@ export const array: ArrayOperations = {
     assert<number>(n, ['number']);
     return array.slice(0, n);
   },
+
   /**
-   * Returns a boolean indicating whether a specified value is in an array.
-   * @param args The value and the array.
-   * @param vars The variables.
-   * @returns A boolean indicating whether a specified value is in an array.
+   * Returns a boolean indicating whether a value is in an array.
+   * @param {[Value, Value]} args The value and the array (expressions evaluating to any type and an array).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} A boolean indicating whether the value is in the array.
+   * @example $in({ $in: [2, [1, 2, 3]] }) // true
+   * @example $in({ $in: [4, [1, 2, 3]] }) // false
+   * @example $in({ $in: ['world', ['hello', 'world']] }) // true
    */
   $in(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const value = mongu(args[0], vars);
@@ -77,11 +94,14 @@ export const array: ArrayOperations = {
     assert<Value[]>(array, ['array']);
     return array.includes(value);
   },
+
   /**
-   * Searches an array for an occurrence of a specified value and returns the array index of the first occurrence.
-   * @param args The value and the array.
-   * @param vars The variables.
-   * @returns The array index of the first occurrence of the specified value.
+   * Returns the index of the first occurrence of a value in an array. If the value is not in the array, it returns -1.
+   * @param {[Value, Value]} args The value and the array (expressions evaluating to any type and an array).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The index of the first occurrence of the value in the array.
+   * @example $indexOfArray([['a', 'abc'], 'a']) // 0
+   * @example $indexOfArray([[1, 2], 5]) // -1
    */
   $indexOfArray(args: [Value, Value], vars: { [key: string]: Value }): number {
     const array = mongu(args[0], vars);
@@ -89,11 +109,15 @@ export const array: ArrayOperations = {
     const value = mongu(args[1], vars);
     return array.indexOf(value);
   },
+
   /**
    * Returns a specified number of elements from the end of an array.
-   * @param args The array and the number of elements.
-   * @param vars The variables.
-   * @returns The specified number of elements from the end of the array.
+   * @param {{ input: Value; n: Value }} args The array and the number of elements (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The specified number of elements from the end of the array.
+   * @example $lastN({ n: 2, input: [1, 2, 3] }) // [2, 3]
+   * @example $lastN({ n: 3, input: [1, 2] } }) // [1, 2]
+   * @example $lastN({ n: 2, input: [1] } }) // [1]
    */
   $lastN(
     args: { input: Value; n: Value },
@@ -105,11 +129,14 @@ export const array: ArrayOperations = {
     assert<number>(n, ['number']);
     return array.slice(-n);
   },
+
   /**
-   * Applies an expression to each item in an array and returns an array with the applied results.
-   * @param args The array, the variable name, and the expression.
-   * @param vars The variables.
-   * @returns The array with the applied results.
+   * Applies a specified expression to each element of an array and returns the result.
+   * @param {{ input: Value; as: Value; in: Value }} args The array, the variable name, and the expression (expressions evaluating to an array, a string, and any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The result of applying the expression to each element of the array.
+   * @example $map({ input: [1, 2, 3], as: 'num', in: { $add: ['$$num', 1] } }) // [2, 3, 4]
+   * @example $map({ input: ['a', 'b'], as: 'str', in: { $toUpper: '$$str' } } }) // ['A', 'B']
    */
   $map(
     args: { input: Value; as: Value; in: Value },
@@ -123,11 +150,15 @@ export const array: ArrayOperations = {
       return mongu(args.in, { ...vars, [`$${as}`]: value });
     });
   },
+
   /**
-   * Returns the n largest values in an array.
-   * @param args The array and the number of values.
-   * @param vars The variables.
-   * @returns The n largest values in the array.
+   * Returns the largest values in an array.
+   * @param {{ input: Value; n: Value }} args The array and the number of values (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The largest values in the array.
+   * @example $maxN({ n: 2, input: [3, 7, 2, 4] } }) // [7, 4]
+   * @example $maxN({ n: 3, input: [3, 7, 2, 4] } }) // [7, 4, 3]
+   * @example $maxN({ n: 5, input: [3, 7, 2, 4] } }) // [7, 4, 3, 2]
    */
   $maxN(
     args: { input: Value; n: Value },
@@ -145,11 +176,15 @@ export const array: ArrayOperations = {
       })
       .slice(0, n);
   },
+
   /**
-   * Returns the n smallest values in an array.
-   * @param args The array and the number of values.
-   * @param vars The variables.
-   * @returns The n smallest values in the array.
+   * Returns the smallest values in an array.
+   * @param {{ input: Value; n: Value }} args The array and the number of values (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The smallest values in the array.
+   * @example $minN({ n: 2, input: [3, 7, 2, 4] } }) // [2, 3]
+   * @example $minN({ n: 3, input: [3, 7, 2, 4] } }) // [2, 3, 4]
+   * @example $minN({ n: 5, input: [3, 7, 2, 4] } }) // [2, 3, 4, 7]
    */
   $minN(
     args: { input: Value; n: Value },
@@ -167,11 +202,14 @@ export const array: ArrayOperations = {
       })
       .slice(0, n);
   },
+
   /**
-   * Applies an expression to each element in an array and combines them into a single value.
-   * @param args The array, the initial value, and the expression.
-   * @param vars The variables.
-   * @returns The combined value.
+   * Accumulates the elements of an array using an expression and returns the result.
+   * @param {{ input: Value; initialValue: Value; in: Value }} args The array, the initial value, and the expression (expressions evaluating to an array, any type, and any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The result of accumulating the elements of the array.
+   * @example $reduce({ input: ['a', 'b', 'c'], initialValue: '', in: { $concat: ['$$value', '$$this'] } }) // 'abc'
+   * @example $reduce({ input: [1, 2, 3], initialValue: 0, in: { $add: ['$$value', '$$this'] } } }) // 6
    */
   $reduce(
     args: { input: Value; initialValue: Value; in: Value },
@@ -184,33 +222,45 @@ export const array: ArrayOperations = {
       return mongu(args.in, { ...vars, $value: acc, $this: value });
     }, initialValue);
   },
+
   /**
-   * Accepts an array expression as an argument and returns an array with the elements in reverse order.
-   * @param args The array.
-   * @param vars The variables.
-   * @returns The array with the elements in reverse order.
+   * Reverses the elements of an array.
+   * @param {Value} args The input array (expression evaluating to an array).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The reversed array.
+   * @example $reverseArray([4, 2, 3]) // [3, 2, 4]
+   * @example $reverseArray(['a', 'c', 'b']) // ['b', 'c', 'a']
    */
   $reverseArray(args: Value, vars: { [key: string]: Value }): Value[] {
     const array = mongu(args, vars);
     assert<Value[]>(array, ['array']);
     return array.reverse();
   },
+
   /**
-   * Counts and returns the total number of items in an array.
-   * @param args The array.
-   * @param vars The variables.
-   * @returns The total number of items in the array.
+   * Returns the number of elements in an array.
+   * @param {Value} args The input array (expression evaluating to an array).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The number of elements in the array.
+   * @example $size([1, 2, 3]) // 3
+   * @example $size(['a', 'b', 'c', 'd']) // 4
+   * @example $size([]) // 0
    */
   $size(args: Value, vars: { [key: string]: Value }): number {
     const array = mongu(args, vars);
     assert<Value[]>(array, ['array']);
     return array.length;
   },
+
   /**
    * Returns a subset of an array.
-   * @param args The array, the position, and the number of elements.
-   * @param vars The variables.
-   * @returns The subset of the array.
+   * @param {[Value, Value, Value]} args The array, the starting index, and the number of elements (expressions evaluating to an array, a number, and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The subset of the array.
+   * @example $slice([[1, 2, 3], 1, 1]) // [2]
+   * @example $slice([[1, 2, 3], 1, 2]) // [2, 3]
+   * @example $slice([[1, 2, 3], 1, 3]) // [2, 3]
+   * @example $slice([[1, 2, 3], 3, 2]) // []
    */
   $slice(args: [Value, Value, Value], vars: { [key: string]: Value }): Value[] {
     const array = mongu(args[0], vars);
@@ -221,11 +271,14 @@ export const array: ArrayOperations = {
     assert<number>(n, ['number']);
     return array.slice(position, position + n);
   },
+
   /**
-   * Sorts an array based on its elements. The sort order is user specified.
-   * @param args The array and the sort order.
-   * @param vars The variables.
-   * @returns The sorted array.
+   * Sorts the elements of an array.
+   * @param {{ input: Value; sortBy: Value }} args The array and the expression to sort by (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The sorted array.
+   * @example $sortArray({ input: [3, 4, 2], sortBy: { $cmp: ['$$first', '$$second'] } }) // [2, 3, 4]
+   * @example $sortArray({ input: [3, 4, 2], sortBy: { $cmp: ['$$second', '$$first'] } }) // [4, 3, 2]
    */
   $sortArray(
     args: { input: Value; sortBy: Value },

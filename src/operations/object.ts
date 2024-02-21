@@ -6,10 +6,11 @@ import { assert } from '../assert';
 
 export const object: ObjectOperations = {
   /**
-   * Gets the value of a field in an object.
-   * @param args The field and the input object.
-   * @param vars The variables.
-   * @returns The value of the field.
+   * Gets the value of a field in an object. If the field does not exist, it returns null.
+   * @param {{ field: Value; input: Value }} args The field and the input object (expressions evaluating to a string and an object).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The value of the field.
+   * @example $getField({ field: 'qty', input: { item: 'apple', qty: 25, price: 4.5 } }) // 25
    */
   $getField(
     args: { field: Value; input: Value },
@@ -22,11 +23,13 @@ export const object: ObjectOperations = {
     if (field in input) return mongu(input[field], vars);
     return null;
   },
+
   /**
    * Merges objects into a single object.
-   * @param args The objects.
-   * @param vars The variables.
-   * @returns The merged object.
+   * @param {Value[]} args The objects (expressions evaluating to objects).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {{ [key: string]: Value }} The merged object.
+   * @example $mergeObjects([{ item: 'apple', qty: 5, price: 2.5 }, { qty: 10, price: 1.2, sale: true }]) // { item: 'apple', qty: 10, price: 1.2, sale: true }
    */
   $mergeObjects(
     args: Value[],
@@ -38,11 +41,13 @@ export const object: ObjectOperations = {
       return { ...acc, ...object };
     }, {});
   },
+
   /**
    * Sets a field in an object to a specified value.
-   * @param args The field, the input object, and the value.
-   * @param vars The variables.
-   * @returns The object with the field set to the value.
+   * @param {{ field: Value; input: Value; value: Value }} args The field, the input object, and the value (expressions evaluating to a string, an object, and any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {{ [key: string]: Value }} The object with the field set to the value.
+   * @example $setField({ field: 'item', input: { qty: 25, price: 4.5 }, value: 'apple' }) // { item: 'apple', qty: 25, price: 4.5 }
    */
   $setField(
     args: { field: Value; input: Value; value: Value },

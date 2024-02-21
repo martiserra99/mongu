@@ -6,10 +6,11 @@ import { assert } from '../assert';
 
 export const string: StringOperations = {
   /**
-   * Concatenates strings and returns the concatenated string.
-   * @param args An array of strings.
-   * @param vars The variables.
-   * @returns The concatenated string.
+   * Concatenates strings together.
+   * @param {Value[]} args The input strings (expressions evaluating to strings).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The result of concatenating the input strings.
+   * @example $concat(['hello', ' ', 'world']) // 'hello world'
    */
   $concat(args: Value[], vars: { [key: string]: Value }): string {
     return args
@@ -20,22 +21,27 @@ export const string: StringOperations = {
       })
       .join('');
   },
+
   /**
    * Removes whitespace from the beginning of a string.
-   * @param args A string.
-   * @param vars The variables.
-   * @returns The string with the whitespace removed from the beginning.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The string with the whitespace removed from the beginning.
+   * @example $ltrim('  hello') // 'hello'
    */
   $ltrim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.replace(/^\s+/, '');
   },
+
   /**
    * Performs a regular expression and returns true if there is a match. Otherwise, it returns false.
-   * @param args A string and a regular expression.
-   * @param vars The variables.
-   * @returns A boolean indicating if there is a match.
+   * @param {[Value, Value]} args A string and a regular expression (expressions evaluating to strings).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} A boolean indicating if there is a match.
+   * @example $regexMatch(['hello', '/ell/']) // true
+   * @example $regexMatch(['hello', '/bye/']) // false
    */
   $regexMatch(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const string = mongu(args[0], vars);
@@ -44,22 +50,27 @@ export const string: StringOperations = {
     assert<string>(regex, ['string']);
     return string.match(regex) !== null;
   },
+
   /**
    * Removes whitespace from the end of a string.
-   * @param args A string.
-   * @param vars The variables.
-   * @returns The string with the whitespace removed from the end.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The string with the whitespace removed from the end.
+   * @example $rtrim('hello  ') // 'hello'
    */
   $rtrim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.replace(/\s+$/, '');
   },
+
   /**
    * Divides a string into an array of substrings based on a delimiter.
-   * @param args An array of a string and a delimiter.
-   * @param vars The variables.
-   * @returns An array of substrings.
+   * @param {[Value, Value]} args A string and a delimiter (expressions evaluating to strings).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string[]} The array of substrings.
+   * @example $split(['June-15-2013', '-']) // ['June', '15', '2013']
+   * @example $split(['hello world', ' ']) // ['hello', 'world']
    */
   $split(args: [Value, Value], vars: { [key: string]: Value }): string[] {
     const string = mongu(args[0], vars);
@@ -68,22 +79,26 @@ export const string: StringOperations = {
     assert<string>(delimiter, ['string']);
     return string.split(delimiter);
   },
+
   /**
-   * Returns the number of characters in a string.
-   * @param args A string.
-   * @param vars The variables.
-   * @returns The number of characters in the string.
+   * Returns the length of a string.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The length of the input string.
+   * @example $strLen('hello') // 5
    */
   $strLen(args: Value, vars: { [key: string]: Value }): number {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.length;
   },
+
   /**
-   * Returns the substring of a string.
-   * @param args An array of a string, a starting index, and a length.
-   * @param vars The variables.
-   * @returns The substring of the string.
+   * Returns a substring of a string.
+   * @param {[Value, Value, Value]} args The input string, the starting index, and the number of characters (expressions evaluating to a string, a number, and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The substring of the input string.
+   * @example $substr(['hello', 0, 2]) // 'he'
    */
   $substr(args: [Value, Value, Value], vars: { [key: string]: Value }): string {
     const string = mongu(args[0], vars);
@@ -94,33 +109,39 @@ export const string: StringOperations = {
     assert<number>(length, ['number']);
     return string.substring(start, start + length);
   },
+
   /**
-   * Converts a string to lowercase.
-   * @param args A string.
-   * @param vars The variables.
-   * @returns The string converted to lowercase.
+   * Returns the string converted to lowercase.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The input string converted to lowercase.
+   * @example $toLower('Marti Serra') // 'marti serra'
    */
   $toLower(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.toLowerCase();
   },
+
   /**
    * Removes whitespace from the beginning and end of a string.
-   * @param args A string.
-   * @param vars The variables.
-   * @returns The string with the whitespace removed from the beginning and end.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The string with the whitespace removed from the beginning and end.
+   * @example $trim('  hello  ') // 'hello'
    */
   $trim(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
     assert<string>(string, ['string']);
     return string.trim();
   },
+
   /**
-   * Converts a string to uppercase.
-   * @param args A string.
-   * @param vars The variables.
-   * @returns The string converted to uppercase.
+   * Returns the string converted to uppercase.
+   * @param {Value} args The input string (expression evaluating to a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {string} The input string converted to uppercase.
+   * @example $toUpper('Marti Serra') // 'MARTI SERRA'
    */
   $toUpper(args: Value, vars: { [key: string]: Value }): string {
     const string = mongu(args, vars);
