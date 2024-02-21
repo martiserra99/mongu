@@ -321,12 +321,60 @@ export type BooleanOperations = {
  * It represents all the comparison operations that can be used in an expression.
  */
 export type ComparisonOperations = {
+  /**
+   * Compares two values and returns -1 if the first is less than the second, 1 if the first is greater than the second, and 0 if the two values are equal.
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The result of comparing the two values.
+   */
   $cmp: Operation<[Value, Value], number>;
+
+  /**
+   * Compares two values and returns true if they are equal. Otherwise, it returns false.
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the two values are equal. Otherwise, false.
+   */
   $eq: Operation<[Value, Value], boolean>;
+
+  /**
+   * Compares two values and returns true if the first is greater than the second. Otherwise, it returns false.
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the first value is greater than the second. Otherwise, false.
+   */
   $gt: Operation<[Value, Value], boolean>;
+
+  /**
+   * Compares two values and returns true if the first is greater than or equal to the second. Otherwise, it returns false.
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the first value is greater than or equal to the second. Otherwise, false.
+   */
   $gte: Operation<[Value, Value], boolean>;
+
+  /**
+   * Compares two values and returns true if the first is less than the second. Otherwise, it returns false.
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the first value is less than the second. Otherwise, false.
+   */
   $lt: Operation<[Value, Value], boolean>;
+
+  /**
+   * Compares two values and returns true if the first is less than or equal to the second. Otherwise, it returns false.
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to strings or numbers).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the first value is less than or equal to the second. Otherwise, false.
+   */
   $lte: Operation<[Value, Value], boolean>;
+
+  /**
+   * Compares two values and returns true if they are not equal. Otherwise, it returns false.
+   * @param {[Value, Value]} args An array of two values (expressions evaluating to any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} True if the two values are not equal. Otherwise, false.
+   */
   $ne: Operation<[Value, Value], boolean>;
 };
 
