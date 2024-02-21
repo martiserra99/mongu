@@ -371,6 +371,8 @@ export type BooleanOperations = {
    * @param {Value[]} args An array of booleans (expressions evaluating to booleans).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if all of the expressions are true. Otherwise, false.
+   * @example $and([true, true, true]) // true
+   * @example $and([true, false, true]) // false
    */
   $and: Operation<Value[], boolean>;
 
@@ -379,6 +381,8 @@ export type BooleanOperations = {
    * @param {Value} args A boolean (expression evaluating to a boolean).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} The opposite boolean value.
+   * @example $not(true) // false
+   * @example $not(false) // true
    */
   $not: Operation<Value, boolean>;
 
@@ -387,6 +391,8 @@ export type BooleanOperations = {
    * @param {Value[]} args An array of booleans (expressions evaluating to booleans).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} True if any of the expressions are true. Otherwise, false.
+   * @example $or([true, false, true]) // true
+   * @example $or([false, false, false]) // false
    */
   $or: Operation<Value[], boolean>;
 };
