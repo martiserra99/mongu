@@ -17,7 +17,8 @@ export const object: Operations = {
     const input = mongu(args.input, vars);
     assert<string>(field, ['string']);
     assert<{ [key: string]: Value }>(input, ['object']);
-    return input[field] || null;
+    if (field in input) return mongu(input[field], vars);
+    return null;
   },
   /**
    * Merges objects into a single object.
