@@ -43,6 +43,8 @@ export type ArithmeticOperations = {
    * @param {Value} args The input value (expression evaluating to a number).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The absolute value of the input value.
+   * @example $abs(-5) // 5
+   * @example $abs(5) // 5
    */
   $abs: Operation<Value, number>;
 
@@ -51,6 +53,8 @@ export type ArithmeticOperations = {
    * @param {Value[]} args The input values (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The sum of the input values.
+   * @example $add([1, 2, 3]) // 6
+   * @example $add([1, 2, 3, 4]) // 10
    */
   $add: Operation<Value[], number>;
 
@@ -59,6 +63,8 @@ export type ArithmeticOperations = {
    * @param {Value} args The input value (expression evaluating to a number).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The smallest integer greater than or equal to the input value.
+   * @example $ceil(5.5) // 6
+   * @example $ceil(5.1) // 6
    */
   $ceil: Operation<Value, number>;
 
@@ -67,6 +73,8 @@ export type ArithmeticOperations = {
    * @param {[Value, Value]} args The dividend and divisor (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The result of dividing the dividend by the divisor.
+   * @example $divide([10, 2]) // 5
+   * @example $divide([10, 3]) // 3.3333333333333335
    */
   $divide: Operation<[Value, Value], number>;
 
@@ -75,6 +83,8 @@ export type ArithmeticOperations = {
    * @param {Value} args The input value (expression evaluating to a number).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} Euler's number raised to the specified power.
+   * @example $exp(1) // 2.718281828459045
+   * @example $exp(2) // 7.3890560989306495
    */
   $exp: Operation<Value, number>;
 
@@ -83,6 +93,8 @@ export type ArithmeticOperations = {
    * @param {Value} args The input value (expression evaluating to a number).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The largest integer less than or equal to the input value.
+   * @example $floor(5.5) // 5
+   * @example $floor(5.1) // 5
    */
   $floor: Operation<Value, number>;
 
@@ -91,6 +103,8 @@ export type ArithmeticOperations = {
    * @param {Value} args The input value (expression evaluating to a number).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The natural logarithm of the input value.
+   * @example $ln(1) // 0
+   * @example $ln(2.718281828459045) // 1
    */
   $ln: Operation<Value, number>;
 
@@ -99,6 +113,8 @@ export type ArithmeticOperations = {
    * @param {[Value, Value]} args The number and base (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The logarithm of the number in the specified base.
+   * @example $log([10, 10]) // 1
+   * @example $log([100, 10]) // 2
    */
   $log: Operation<[Value, Value], number>;
 
@@ -107,6 +123,8 @@ export type ArithmeticOperations = {
    * @param {Value} args The input value (expression evaluating to a number).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The base 10 logarithm of the input value.
+   * @example $log10(1) // 0
+   * @example $log10(10) // 1
    */
   $log10: Operation<Value, number>;
 
@@ -115,6 +133,8 @@ export type ArithmeticOperations = {
    * @param {[Value, Value]} args The dividend and divisor (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The remainder of dividing the dividend by the divisor.
+   * @example $mod([10, 3]) // 1
+   * @example $mod([10, 2]) // 0
    */
   $mod: Operation<[Value, Value], number>;
 
@@ -123,6 +143,7 @@ export type ArithmeticOperations = {
    * @param {Value[]} args The input values (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The product of the input values.
+   * @example $multiply([1, 2, 3]) // 6
    */
   $multiply: Operation<Value[], number>;
 
@@ -131,6 +152,8 @@ export type ArithmeticOperations = {
    * @param {[Value, Value]} args The base and exponent (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The base raised to the specified power.
+   * @example $pow([2, 3]) // 8
+   * @example $pow([3, 2]) // 9
    */
   $pow: Operation<[Value, Value], number>;
 
@@ -139,6 +162,8 @@ export type ArithmeticOperations = {
    * @param {[Value, Value]} args The input value and the number of decimal places (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The input value rounded to the nearest value with the specified number of decimal places.
+   * @example $round([5.5, 0]) // 6
+   * @example $round([5.5, 1]) // 5.5
    */
   $round: Operation<[Value, Value], number>;
 
@@ -147,6 +172,8 @@ export type ArithmeticOperations = {
    * @param {Value} args The input value (expression evaluating to a number).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The square root of the input value.
+   * @example $sqrt(4) // 2
+   * @example $sqrt(9) // 3
    */
   $sqrt: Operation<Value, number>;
 
@@ -155,6 +182,8 @@ export type ArithmeticOperations = {
    * @param {[Value, Value]} args The minuend and subtrahend (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The result of subtracting the subtrahend from the minuend.
+   * @example $subtract([5, 3]) // 2
+   * @example $subtract([3, 5]) // -2
    */
   $subtract: Operation<[Value, Value], number>;
 
@@ -163,6 +192,8 @@ export type ArithmeticOperations = {
    * @param {[Value, Value]} args The input value and the number of decimal places (expressions evaluating to numbers).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {number} The input value truncated to the specified number of decimal places.
+   * @example $trunc(5.5) // 5
+   * @example $trunc(5.5, 1) // 5.5
    */
   $trunc: Operation<[Value, Value], number>;
 };
