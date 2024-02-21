@@ -171,20 +171,120 @@ export type ArithmeticOperations = {
  * It represents all the array operations that can be used in an expression.
  */
 export type ArrayOperations = {
+  /**
+   * Returns the element at the specified index in an array.
+   * @param {[Value, Value]} args The array and the index (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The element at the specified index in the array.
+   */
   $arrayElemAt: Operation<[Value, Value], Value>;
+
+  /**
+   * Returns the concatenation of arrays.
+   * @param {Value[]} args The input arrays (expressions evaluating to arrays).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The concatenation of the input arrays.
+   */
   $concatArrays: Operation<Value[], Value[]>;
+
+  /**
+   * Returns a subset of an array based on the specified condition.
+   * @param {{ input: Value; cond: Value; as: Value }} args The array, the condition, and the variable name (expressions evaluating to an array, a boolean, and a string).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The subset of the array.
+   */
   $filter: Operation<{ input: Value; cond: Value; as: Value }, Value[]>;
+
+  /**
+   * Returns a specified number of elements from the beginning of an array.
+   * @param {{ input: Value; n: Value }} args The array and the number of elements (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The specified number of elements from the beginning of the array.
+   */
   $firstN: Operation<{ input: Value; n: Value }, Value[]>;
+
+  /**
+   * Returns a boolean indicating whether a value is in an array.
+   * @param {[Value, Value]} args The value and the array (expressions evaluating to any type and an array).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {boolean} A boolean indicating whether the value is in the array.
+   */
   $in: Operation<[Value, Value], boolean>;
+
+  /**
+   * Returns the index of the first occurrence of a value in an array.
+   * @param {[Value, Value]} args The value and the array (expressions evaluating to any type and an array).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The index of the first occurrence of the value in the array.
+   */
   $indexOfArray: Operation<[Value, Value], number>;
+
+  /**
+   * Returns a specified number of elements from the end of an array.
+   * @param {{ input: Value; n: Value }} args The array and the number of elements (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The specified number of elements from the end of the array.
+   */
   $lastN: Operation<{ input: Value; n: Value }, Value[]>;
+
+  /**
+   * Applies a specified expression to each element of an array and returns the result.
+   * @param {{ input: Value; as: Value; in: Value }} args The array, the variable name, and the expression (expressions evaluating to an array, a string, and any type).
+   */
   $map: Operation<{ input: Value; as: Value; in: Value }, Value[]>;
+
+  /**
+   * Returns the largest values in an array.
+   * @param {{ input: Value; n: Value }} args The array and the number of values (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The largest values in the array.
+   */
   $maxN: Operation<{ input: Value; n: Value }, Value[]>;
+
+  /**
+   * Returns the smallest values in an array.
+   * @param {{ input: Value; n: Value }} args The array and the number of values (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The smallest values in the array.
+   */
   $minN: Operation<{ input: Value; n: Value }, Value[]>;
+
+  /**
+   * Accumulates the elements of an array using an expression and returns the result.
+   * @param {{ input: Value; initialValue: Value; in: Value }} args The array, the initial value, and the expression (expressions evaluating to an array, any type, and any type).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value} The result of accumulating the elements of the array.
+   */
   $reduce: Operation<{ input: Value; initialValue: Value; in: Value }, Value>;
+
+  /**
+   * Reverses the elements of an array.
+   * @param {Value} args The input array (expression evaluating to an array).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The reversed array.
+   */
   $reverseArray: Operation<Value, Value[]>;
+
+  /**
+   * Returns the number of elements in an array.
+   * @param {Value} args The input array (expression evaluating to an array).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {number} The number of elements in the array.
+   */
   $size: Operation<Value, number>;
+
+  /**
+   * Returns a subset of an array.
+   * @param {[Value, Value, Value]} args The array, the starting index, and the number of elements (expressions evaluating to an array, a number, and a number).
+   */
   $slice: Operation<[Value, Value, Value], Value[]>;
+
+  /**
+   * Sorts the elements of an array.
+   * @param {{ input: Value; sortBy: Value }} args The array and the expression to sort by (expressions evaluating to an array and a number).
+   * @param {Object.<string, Value>} vars The variables.
+   * @returns {Value[]} The sorted array.
+   */
   $sortArray: Operation<{ input: Value; sortBy: Value }, Value[]>;
 };
 
