@@ -218,9 +218,9 @@ export type ArrayOperations = {
    * @param {Value[]} args The input arrays (expressions evaluating to arrays).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {Value[]} The concatenation of the input arrays.
-   * @example $concatArrays([1, 2], [3, 4]) // [1, 2, 3, 4]
-   * @example $concatArrays(['hello', ' '], ['world']) // ['hello', ' ', 'world']
-   * @example $concatArrays(['hello', ' '], [['world']]) // ['hello', ' ', ['world']]
+   * @example $concatArrays([[1, 2], [3, 4]]) // [1, 2, 3, 4]
+   * @example $concatArrays([['hello', ' '], ['world']]) // ['hello', ' ', 'world']
+   * @example $concatArrays([['hello', ' '], [['world']]]) // ['hello', ' ', ['world']]
    */
   $concatArrays: Operation<Value[], Value[]>;
 
@@ -282,7 +282,7 @@ export type ArrayOperations = {
    * @param {Object.<string, Value>} vars The variables.
    * @returns {Value[]} The result of applying the expression to each element of the array.
    * @example $map({ input: [1, 2, 3], as: 'num', in: { $add: ['$$num', 1] } }) // [2, 3, 4]
-   * @example $map({ input: ['a', 'b'], as: 'str', in: { $toUpper: '$$str' } } }) // ['A', 'B']
+   * @example $map({ input: ['a', 'b'], as: 'str', in: { $toUpper: '$$str' } }) // ['A', 'B']
    */
   $map: Operation<{ input: Value; as: Value; in: Value }, Value[]>;
 
