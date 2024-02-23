@@ -4,6 +4,8 @@ import { isString, isObject, isArray, inObject, inArray } from './utils';
 
 import { Operations, Operation, Value } from './types';
 
+export { Value };
+
 /**
  * It evaluates the expression with the given variables.
  * @param expr The expression.
