@@ -38,17 +38,17 @@ function isVariable(expr: string): boolean {
 }
 
 /**
- * It evaluates the variable expression with the given variables.
+ * It evaluates the variable expression with the given variables. If the variable is not found, it returns null.
  * @param expr The variable expression.
  * @param vars The variables to evaluate the expression with.
  * @returns The result of the expression.
  */
 function evaluateVariable(expr: string, vars: { [key: string]: Value }): Value {
   const parts = expr.slice(1).split('.');
-  const value = parts.reduce((acc: Value, key: string, i: number): Value => {
+  const value = parts.reduce((acc: Value, key: string): Value => {
     if (isObject(acc) && inObject(acc, key)) return acc[key];
     if (isArray(acc) && inArray(acc, key)) return acc[Number(key)];
-    throw new Error(`Variable ${parts.slice(0, i + 1).join('.')} not found`);
+    return null;
   }, vars);
   return value;
 }
