@@ -40,8 +40,8 @@ export const string: StringOperations = {
    * @param {[Value, Value]} args A string and a regular expression (expressions evaluating to strings).
    * @param {Object.<string, Value>} vars The variables.
    * @returns {boolean} A boolean indicating if there is a match.
-   * @example $regexMatch(['hello', '/ell/']) // true
-   * @example $regexMatch(['hello', '/bye/']) // false
+   * @example $regexMatch(['hello', 'ell']) // true
+   * @example $regexMatch(['hello', 'bye']) // false
    */
   $regexMatch(args: [Value, Value], vars: { [key: string]: Value }): boolean {
     const string = mongu(args[0], vars);
