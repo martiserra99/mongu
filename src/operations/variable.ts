@@ -20,6 +20,6 @@ export const variable: VariableOperations = {
         mongu(value, vars),
       ])
     );
-    return mongu(args.in, variables);
+    return mongu(args.in, { ...vars, ...variables });
   },
 };
