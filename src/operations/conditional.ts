@@ -2,8 +2,6 @@ import { mongu } from '../index';
 
 import { ConditionalOperations, Value } from '../types';
 
-import { assert } from '../assert';
-
 export const conditional: ConditionalOperations = {
   /**
    * Evaluates a boolean expression to return one of the two specified return expressions.
@@ -17,9 +15,9 @@ export const conditional: ConditionalOperations = {
     args: { if: Value; then: Value; else: Value },
     vars: { [key: string]: Value }
   ): Value {
-    const boolean = mongu(args.if, vars);
-    assert<boolean>(boolean, ['boolean']);
-    return boolean ? mongu(args.then, vars) : mongu(args.else, vars);
+    return mongu(args.if, vars)
+      ? mongu(args.then, vars)
+      : mongu(args.else, vars);
   },
 
   /**
@@ -57,9 +55,7 @@ export const conditional: ConditionalOperations = {
     vars: { [key: string]: Value }
   ): Value {
     for (const branch of args.branches) {
-      const boolean = mongu(branch.case, vars);
-      assert<boolean>(boolean, ['boolean']);
-      if (boolean) {
+      if (mongu(branch.case, vars)) {
         return mongu(branch.then, vars);
       }
     }
