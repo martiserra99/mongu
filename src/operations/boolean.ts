@@ -2,8 +2,6 @@ import { mongu } from '../index';
 
 import { BooleanOperations, Value } from '../types';
 
-import { assert } from '../assert';
-
 export const boolean: BooleanOperations = {
   /**
    * Evaluates one or more expressions and returns true if all of the expressions are true. Otherwise, it returns false.
@@ -14,11 +12,7 @@ export const boolean: BooleanOperations = {
    * @example $and([true, false, true]) // false
    */
   $and(args: Value[], vars: { [key: string]: Value }): boolean {
-    return args.every(expr => {
-      const boolean = mongu(expr, vars);
-      assert<boolean>(boolean, ['boolean']);
-      return boolean;
-    });
+    return args.every(expr => mongu(expr, vars));
   },
 
   /**
@@ -30,9 +24,7 @@ export const boolean: BooleanOperations = {
    * @example $not(false) // true
    */
   $not(args: Value, vars: { [key: string]: Value }): boolean {
-    const boolean = mongu(args, vars);
-    assert<boolean>(boolean, ['boolean']);
-    return !boolean;
+    return !mongu(args, vars);
   },
 
   /**
@@ -44,10 +36,6 @@ export const boolean: BooleanOperations = {
    * @example $or([false, false, false]) // false
    */
   $or(args: Value[], vars: { [key: string]: Value }): boolean {
-    return args.some(expr => {
-      const boolean = mongu(expr, vars);
-      assert<boolean>(boolean, ['boolean']);
-      return boolean;
-    });
+    return args.some(expr => mongu(expr, vars));
   },
 };
