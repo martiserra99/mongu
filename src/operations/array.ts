@@ -17,8 +17,7 @@ export const array: ArrayOperations = {
   $arrayElemAt(args: [Value, Value], vars: { [key: string]: Value }): Value {
     const array = mongu(args[0], vars);
     assert<Value[]>(array, ['array']);
-    const index = mongu(args[1], vars);
-    assert<number>(index, ['number']);
+    const index = Number(mongu(args[1], vars));
     return array[index] ?? null;
   },
 
@@ -74,8 +73,7 @@ export const array: ArrayOperations = {
   ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
-    const n = mongu(args.n, vars);
-    assert<number>(n, ['number']);
+    const n = Number(mongu(args.n, vars));
     return array.slice(0, n);
   },
 
@@ -125,8 +123,7 @@ export const array: ArrayOperations = {
   ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
-    const n = mongu(args.n, vars);
-    assert<number>(n, ['number']);
+    const n = Number(mongu(args.n, vars));
     return array.slice(-n);
   },
 
@@ -166,13 +163,12 @@ export const array: ArrayOperations = {
   ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
-    const n = mongu(args.n, vars);
-    assert<number>(n, ['number']);
+    const n = Number(mongu(args.n, vars));
     return array
       .sort((a, b) => {
-        assert<number>(a, ['number']);
-        assert<number>(b, ['number']);
-        return b - a;
+        assert<number | string>(a, ['number', 'string']);
+        assert<number | string>(b, ['number', 'string']);
+        return b > a ? 1 : -1;
       })
       .slice(0, n);
   },
@@ -192,13 +188,12 @@ export const array: ArrayOperations = {
   ): Value[] {
     const array = mongu(args.input, vars);
     assert<Value[]>(array, ['array']);
-    const n = mongu(args.n, vars);
-    assert<number>(n, ['number']);
+    const n = Number(mongu(args.n, vars));
     return array
       .sort((a, b) => {
-        assert<number>(a, ['number']);
-        assert<number>(b, ['number']);
-        return a - b;
+        assert<number | string>(a, ['number', 'string']);
+        assert<number | string>(b, ['number', 'string']);
+        return a > b ? 1 : -1;
       })
       .slice(0, n);
   },
@@ -265,10 +260,8 @@ export const array: ArrayOperations = {
   $slice(args: [Value, Value, Value], vars: { [key: string]: Value }): Value[] {
     const array = mongu(args[0], vars);
     assert<Value[]>(array, ['array']);
-    const position = mongu(args[1], vars);
-    assert<number>(position, ['number']);
-    const n = mongu(args[2], vars);
-    assert<number>(n, ['number']);
+    const position = Number(mongu(args[1], vars));
+    const n = Number(mongu(args[2], vars));
     return array.slice(position, position + n);
   },
 
